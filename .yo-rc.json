@@ -1,0 +1,17 @@
+{
+  "generator-bbb": {
+    "name": "freshy-mobile",
+    "testFramework": "mocha",
+    "moduleStyle": "amd",
+    "templateEngine": "underscore",
+    "indent": {
+      "char": "space",
+      "size": 2
+    },
+    "paths": {
+      "base": ".",
+      "tests": "test",
+      "modules": "app/modules"
+    }
+  }
+}
