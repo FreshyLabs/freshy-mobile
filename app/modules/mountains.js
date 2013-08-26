@@ -20,7 +20,7 @@ function(app) {
     cache: true,
 
     url: function() {
-      return "http://localhost:3001/mountains";
+      return "http://freshymap.com/mountains";
     },
 
     fetch: function() {
