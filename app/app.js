@@ -1,33 +1,45 @@
-define(function(require, exports, module) {
+define([
+  // Plugins.
+  "backbone.layoutmanager"
+],
 
-  // External dependencies.
-  var _ = require("underscore");
-  var $ = require("jquery");
-  var Backbone = require("backbone");
-  var LayoutManager = require("backbone.layoutmanager");
+function() {
 
-  var app = module.exports = {};
+  // Patch collection fetching to emit a `fetch` event.
+  Backbone.Collection.prototype.fetch = function() {
+    var fetch = Backbone.Collection.prototype.fetch;
 
-  // The root path to run the application through.
-  app.root = "/";
+    return function() {
+      this.trigger("fetch");
+
+      return fetch.apply(this, arguments);
+    };
+  }();
+
+  // Provide a global location to place configuration settings and module
+  // creation.
+  var app = {
+    // The root path to run the application through.
+    root: "/"
+  };
+
+  // Localize or create a new JavaScript Template object.
+  var JST = window.JST = window.JST || {};
 
   // Configure LayoutManager with Backbone Boilerplate defaults.
-  LayoutManager.configure({
+  Backbone.Layout.configure({
     // Allow LayoutManager to augment Backbone.View.prototype.
     manage: true,
 
-    // Indicate where templates are stored.
     prefix: "app/templates/",
 
-    // This custom fetch method will load pre-compiled templates or fetch them
-    // remotely with AJAX.
     fetch: function(path) {
       // Concatenate the file extension.
       path = path + ".html";
 
       // If cached, use the compiled template.
-      if (window.JST && window.JST[path]) {
-        return window.JST[path];
+      if (JST[path]) {
+        return JST[path];
       }
 
       // Put fetch into `async-mode`.
@@ -35,42 +47,42 @@ define(function(require, exports, module) {
 
       // Seek out the template asynchronously.
       $.get(app.root + path, function(contents) {
-        done(_.template(contents));
-      }, "text");
+        done(JST[path] = _.template(contents));
+      });
     }
   });
 
-  // The application user interface handles link hijacking and can be modified
-  // to handle other application global actions as well.
-  app.ui = new Backbone.View({
-    el: "#main",
-
-    events: {
-      "click a[href]:not([data-bypass])": "hijackLinks"
+  // Mix Backbone.Events, modules, and layout management into the app object.
+  return _.extend(app, {
+    // Create a custom object with a nested Views object.
+    module: function(additionalProps) {
+      return _.extend({ Views: {} }, additionalProps);
     },
 
-    hijackLinks: function(ev) {
-      // Get the absolute anchor href.
-      var $link = $(ev.currentTarget);
-      var href = {
-        prop: $link.prop("href"),
-        attr: $link.attr("href")
-      };
-      // Get the absolute root.
-      var root = location.protocol + "//" + location.host + app.root;
-
-      // Ensure the root is part of the anchor href, meaning it's relative.
-      if (href.prop.slice(0, root.length) === root) {
-        // Stop the default event to ensure the link will not cause a page
-        // refresh.
-        ev.preventDefault();
-
-        // `Backbone.history.navigate` is sufficient for all Routers and will
-        // trigger the correct events. The Router's internal `navigate` method
-        // calls this anyways.  The fragment is sliced from the root.
-        Backbone.history.navigate(href.attr, true);
+    // Helper for using layouts.
+    useLayout: function(name, options) {
+      // Enable variable arity by allowing the first argument to be the options
+      // object and omitting the name argument.
+      if (_.isObject(name)) {
+        options = name;
       }
+
+      // Ensure options is an object.
+      options = options || {};
+
+      // If a name property was specified use that as the template.
+      if (_.isString(name)) {
+        options.template = name;
+      }
+
+      // Create a new Layout with options.
+      var layout = new Backbone.Layout(_.extend({
+        el: "#main"
+      }, options));
+
+      // Cache the refererence.
+      return this.layout = layout;
     }
-  });
+  }, Backbone.Events);
 
 });

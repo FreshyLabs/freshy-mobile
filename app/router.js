@@ -1,16 +1,64 @@
-define(function(require, exports, module) {
+define([
+  // Application.
+  "app",
 
-  var Backbone = require("backbone");
+  // Modules.
+  "modules/mountains"
+],
 
-  // Defining the application router.
-  module.exports = Backbone.Router.extend({
+function(app, Mountains) {
+
+  // Defining the application router, you can attach sub routers here.
+  var Router = Backbone.Router.extend({
+    initialize: function() {
+      // TODO Clean this up...
+      var collections = {
+        // Set up the mountains.
+        mountains: new Mountains.Collection([]),
+      };
+
+      collections.mountains.fetch();
+      // Ensure the router has references to the collections.
+      _.extend(this, collections);
+
+      // Use main layout and set Views.
+      app.useLayout("main-layout").setViews({
+        "#mountains": new Mountains.Views.List( collections )
+      }).render();
+    },
+
     routes: {
-      "": "index"
+      "": "index",
     },
 
     index: function() {
-      console.log("Welcome to your / route.");
+      // Reset the state and render.
+      this.reset();
+    },
+
+    org: function(name) {
+      
+    },
+
+    user: function(org, name) {
+      
+    },
+
+    repo: function(org, user, name) {
+      
+    },
+
+    // Shortcut for building a url.
+    go: function() {
+      
+    },
+
+    reset: function() {
+      
     }
   });
+
+  // Required, return the module for AMD compliance.
+  return Router;
 
 });
