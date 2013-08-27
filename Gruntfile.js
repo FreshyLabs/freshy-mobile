@@ -1,299 +1,328 @@
-// Grunt ration updated to latest Grunt.  That means your minimum
-// version necessary to run these tasks is Grunt 0.4.
-module.exports = function(grunt) {
+'use strict';
+var lrSnippet = require('grunt-contrib-livereload/lib/utils').livereloadSnippet;
+var mountFolder = function (connect, dir) {
+    return connect.static(require('path').resolve(dir));
+};
 
-  grunt.initConfig({
-    // Easier location to change the default debug and release folders.
-    dist: {
-      debug: "dist/debug/",
-      release: "dist/release/"
-    },
+// # Globbing
+// for performance reasons we're only matching one level down:
+// 'test/spec/{,*/}*.js'
+// use this if you want to match all subfolders:
+// 'test/spec/**/*.js'
+// templateFramework: 'handlebars'
 
-    // Runs the application JavaScript through JSHint with the defaults.
-    jshint: {
-      files: ["app/**/*.js"]
-    },
+module.exports = function (grunt) {
+    // load all grunt tasks
+    require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
-    // The jst task compiles all application templates into JavaScript
-    // functions with the Lo-Dash template function.
-    jst: {
-      debug: {
-        files: {
-          "<%= dist.debug %>templates.js": ["app/templates/**/*.*"]
+    // configurable paths
+    var yeomanConfig = {
+        app: 'app',
+        dist: 'dist'
+    };
+
+    grunt.initConfig({
+        yeoman: yeomanConfig,
+
+        // watch list
+        watch: {
+            
+            compass: {
+                files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
+                tasks: ['compass']
+            },
+            
+            livereload: {
+                files: [
+                    
+                    '<%= yeoman.app %>/*.html',
+                    '{.tmp,<%= yeoman.app %>}/styles/{,**/}*.css',
+                    '{.tmp,<%= yeoman.app %>}/scripts/{,**/}*.js',
+                    '{.tmp,<%= yeoman.app %>}/templates/{,**/}*.hbs',
+                    '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
+                    
+                    'test/spec/{,**/}*.js'
+                ],
+                tasks: ['exec'],
+                options: {
+                    livereload: true
+                }
+            }
+            /* not used at the moment
+            handlebars: {
+                files: [
+                    '<%= yeoman.app %>/templates/*.hbs'
+                ],
+                tasks: ['handlebars']
+            }*/
+        },
+
+        // testing server
+        connect: {
+            testserver: {
+                options: {
+                    port: 1234,
+                    base: '.'
+                }
+            }
+        },
+
+        // mocha command
+        exec: {
+            mocha: {
+                command: 'mocha-phantomjs http://localhost:<%= connect.testserver.options.port %>/test',
+                stdout: true
+            }
+        },
+
+        
+        // express app
+        express: {
+            options: {
+                // Override defaults here
+                port: '9000'
+            },
+            dev: {
+                options: {
+                    script: 'server/app.js'
+                }
+            },
+            prod: {
+                options: {
+                    script: 'server/app.js'
+                }
+            },
+            test: {
+                options: {
+                    script: 'server/app.js'
+                }
+            }
+        },
+        
+
+        // open app and test page
+        open: {
+            server: {
+                path: 'http://localhost:<%= express.options.port %>'
+            }
+        },
+
+        clean: {
+            dist: ['.tmp', '<%= yeoman.dist %>/*'],
+            server: '.tmp'
+        },
+
+        // linting
+        jshint: {
+            options: {
+                jshintrc: '.jshintrc'
+            },
+            all: [
+                'Gruntfile.js',
+                '<%= yeoman.app %>/scripts/{,*/}*.js',
+                '!<%= yeoman.app %>/scripts/vendor/*',
+                'test/spec/{,*/}*.js'
+            ]
+        },
+
+        
+        // compass
+        compass: {
+            options: {
+                sassDir: '<%= yeoman.app %>/styles',
+                cssDir: '.tmp/styles',
+                imagesDir: '<%= yeoman.app %>/images',
+                javascriptsDir: '<%= yeoman.app %>/scripts',
+                fontsDir: '<%= yeoman.app %>/styles/fonts',
+                importPath: 'app/bower_components',
+                relativeAssets: true
+            },
+            dist: {},
+            server: {
+                options: {
+                    debugInfo: true
+                }
+            }
+        },
+        
+
+        // require
+        requirejs: {
+            dist: {
+                // Options: https://github.com/jrburke/r.js/blob/master/build/example.build.js
+                options: {
+                    // `name` and `out` is set by grunt-usemin
+                    baseUrl: 'app/scripts',
+                    optimize: 'none',
+                    paths: {
+                        'templates': '../../.tmp/scripts/templates'
+                    },
+                    // TODO: Figure out how to make sourcemaps work with grunt-usemin
+                    // https://github.com/yeoman/grunt-usemin/issues/30
+                    //generateSourceMaps: true,
+                    // required to support SourceMaps
+                    // http://requirejs.org/docs/errors.html#sourcemapcomments
+                    preserveLicenseComments: false,
+                    useStrict: true,
+                    wrap: true,
+                    //uglify2: {} // https://github.com/mishoo/UglifyJS2
+                    pragmasOnSave: {
+                        //removes Handlebars.Parser code (used to compile template strings) set
+                        //it to `false` if you need to parse template strings even after build
+                        excludeHbsParser : true,
+                        // kills the entire plugin set once it's built.
+                        excludeHbs: true,
+                        // removes i18n precompiler, handlebars and json2
+                        excludeAfterBuild: true
+                    }
+                }
+            }
+        },
+
+        useminPrepare: {
+            html: '<%= yeoman.app %>/index.html',
+            options: {
+                dest: '<%= yeoman.dist %>'
+            }
+        },
+
+        usemin: {
+            html: ['<%= yeoman.dist %>/{,*/}*.html'],
+            css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
+            options: {
+                dirs: ['<%= yeoman.dist %>']
+            }
+        },
+
+        imagemin: {
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= yeoman.app %>/images',
+                    src: '{,*/}*.{png,jpg,jpeg}',
+                    dest: '<%= yeoman.dist %>/images'
+                }]
+            }
+        },
+
+        cssmin: {
+            dist: {
+                files: {
+                    '<%= yeoman.dist %>/styles/main.css': [
+                        '.tmp/styles/{,*/}*.css',
+                        '<%= yeoman.app %>/styles/{,*/}*.css'
+                    ]
+                }
+            }
+        },
+
+        htmlmin: {
+            dist: {
+                options: {
+                    /*removeCommentsFromCDATA: true,
+                    // https://github.com/yeoman/grunt-usemin/issues/44
+                    //collapseWhitespace: true,
+                    collapseBooleanAttributes: true,
+                    removeAttributeQuotes: true,
+                    removeRedundantAttributes: true,
+                    useShortDoctype: true,
+                    removeEmptyAttributes: true,
+                    removeOptionalTags: true*/
+                },
+                files: [{
+                    expand: true,
+                    cwd: '<%= yeoman.app %>',
+                    src: '*.html',
+                    dest: '<%= yeoman.dist %>'
+                }]
+            }
+        },
+
+        copy: {
+            dist: {
+                files: [{
+                    expand: true,
+                    dot: true,
+                    cwd: '<%= yeoman.app %>',
+                    dest: '<%= yeoman.dist %>',
+                    src: [
+                        '*.{ico,txt}',
+                        '.htaccess',
+                        'images/{,*/}*.{webp,gif}',
+                        'bower_components/requirejs/require.js'
+                    ]
+                }]
+            }
+        },
+
+        bower: {
+            all: {
+                rjsConfig: '<%= yeoman.app %>/scripts/main.js'
+            }
+        },
+
+        // handlebars
+        handlebars: {
+            compile: {
+                options: {
+                    namespace: 'JST',
+                    amd: true
+                },
+                files: {
+                    '.tmp/scripts/templates.js': ['templates/**/*.hbs']
+                }
+            }
         }
-      }
-    },
+    });
 
-    // This task simplifies working with CSS inside Backbone Boilerplate
-    // projects.  Instead of manually specifying your stylesheets inside the
-    // ration, you can use `@imports` and this task will concatenate
-    // only those paths.
-    styles: {
-      // Out the concatenated contents of the following styles into the below
-      // development file path.
-      "<%= dist.debug %>app/styles/index.css": {
-        // Point this to where your `index.css` file is location.
-        src: "app/styles/index.css",
+    grunt.registerTask('createDefaultTemplate', function () {
+        grunt.file.write('.tmp/scripts/templates.js', 'this.JST = this.JST || {};');
+    });
 
-        // The relative path to use for the @imports.
-        paths: ["app/styles"]
-      }
-    },
+    // starts express server with live testing via testserver
+    grunt.registerTask('default', function (target) {
 
-    // This task uses James Burke's excellent r.js AMD builder to take all
-    // modules and concatenate them into a single file.
-    requirejs: {
-      debug: {
-        options: {
-          // Include the main ration file.
-          mainConfigFile: "app/config.js",
-
-          // Output file.
-          out: "<%= dist.debug %>source.js",
-
-          // Root application module.
-          name: "config",
-
-          // Include the main application.
-          insertRequire: ["main"],
-
-          // This will ensure the application runs after being built.
-          include: ["app", "main", "router"],
-
-          // Wrap everything in an IIFE.
-          wrap: true
+        // what is this??
+        if (target === 'dist') {
+            return grunt.task.run(['build', 'open', 'connect:dist:keepalive']);
         }
-      }
-    },
 
-    // Combine the Almond AMD loader and precompiled templates with the
-    // application source code.
-    concat: {
-      dist: {
-        src: [
-          "vendor/bower/almond/almond.js",
-          "<%= dist.debug %>templates.js",
-          "<%= dist.debug %>source.js"
-        ],
+        grunt.option('force', true);
 
-        dest: "<%= dist.debug %>source.js",
+        grunt.task.run([
+            'clean:server',
+            'compass:server',
+            'connect:testserver',
+            'express:dev',
+            'exec',
+            'open',
+            'watch'
+        ]);
+    });
 
-        separator: ";"
-      }
-    },
+    // todo fix these
+    grunt.registerTask('test', [
+        'clean:server',
+        'createDefaultTemplate',
+        'handlebars',
+        'compass',
+        'connect:testserver',
+        'exec:mocha'
+    ]);
 
-    // This task uses the MinCSS Node.js project to take all your CSS files in
-    // order and concatenate them into a single CSS file named index.css.  It
-    // also minifies all the CSS as well.  This is named index.css, because we
-    // only want to load one stylesheet in index.html.
-    cssmin: {
-      release: {
-        files: {
-          "<%= dist.release %>styles.css": ["<%= dist.debug %>styles.css"]
-        }
-      }
-    },
-
-    // Minify the application built source and generate source maps back to
-    // the original debug build.
-    uglify: {
-      options: {
-        sourceMap: "<%= dist.release %>source.js.map",
-        sourceMapRoot: "",
-        sourceMapPrefix: 1,
-        preserveComments: "some"
-      },
-
-      release: {
-        files: {
-          "<%= dist.release %>source.js": ["<%= dist.debug %>source.js"]
-        }
-      }
-    },
-
-    // The clean task ensures all files are removed from the dist/ directory so
-    // that no files linger from previous builds.
-    clean: ["dist/"],
-
-    server: {
-      options: {
-        // Default server settings that are ideal for local development.
-        host: "127.0.0.1",
-        port: 8000,
-
-        // Add any additional directories you want to automatically compile
-        // CommonJS modules in.
-        moduleDirs: [
-          // Source.
-          "app",
-
-          // Testing directories.
-          "test/jasmine/spec",
-          "test/mocha/tests",
-          "test/qunit/tests"
-        ],
-
-        // Root entry point during development is RequireJS, this loads the rest
-        // of the application.
-        map: {
-          "source.js": "vendor/jam/require.js"
-        }
-      },
-
-      development: {
-        options: {}
-      },
-
-      debug: {
-        options: {
-          map: {
-            // Source.
-            "source.js": "<%= dist.debug %>source.js",
-
-            // Styles.
-            "app/styles/index.css": "<%= dist.debug %>styles.css"
-          }
-        }
-      },
-
-      release: {
-        options: {
-          map: {
-            // Debugging.
-            "source.js.map": "<%= dist.release %>source.js.map",
-            "debug/source.js": "<%= dist.release %>debug/source.js",
-
-            // Source.
-            "source.js": "<%= dist.release %>source.js",
-
-            // Styles.
-            "app/styles/index.css": "<%= dist.release %>styles.css"
-          }
-        }
-      },
-
-      // Specifically used for testing the application.
-      test: {
-        options: {
-          forever: false,
-          port: 8001
-        }
-      }
-    },
-
-    // Move vendor and app logic during a build.
-    copy: {
-      debug: {
-        files: [
-          {
-            src: ["app/**"],
-            dest: "<%= dist.debug %>"
-          },
-          {
-            src: "vendor/**",
-            dest: "<%= dist.debug %>"
-          },
-          {
-            src: "index.html",
-            dest: "<%= dist.debug %>index.html"
-          }
-        ]
-      },
-
-      release: {
-        files: [
-          {
-            src: ["app/**"],
-            dest: "<%= dist.release %>"
-          },
-          {
-            src: "vendor/**",
-            dest: "<%= dist.release %>"
-          },
-          {
-            src: "index.html",
-            dest: "<%= dist.release %>index.html"
-          },
-          {
-            src: "<%= dist.debug %>source.js",
-            dest: "<%= dist.release %>debug/source.js"
-          }
-        ]
-      }
-    },
-
-    compress: {
-      release: {
-        files: {
-          "<%= dist.release %>source.js.gz": "<%= dist.release %>source.js",
-          "<%= dist.release %>styles.css.gz": "<%= dist.release %>styles.css"
-        }
-      }
-    },
-
-    karma: {
-      options: {
-        basePath: process.cwd(),
-        runnerPort: 9999,
-        port: 9876,
-        singleRun: true,
-        colors: true,
-        captureTimeout: 7000,
-
-        reporters: ["progress"],
-        browsers: ["PhantomJS"],
-
-        plugins: [
-          "karma-jasmine",
-          "karma-mocha",
-          "karma-qunit",
-          "karma-chrome-launcher",
-          "karma-firefox-launcher",
-          "karma-phantomjs-launcher"
-        ],
-
-        proxies: {
-          "/base": "http://localhost:<%=server.test.options.port%>"
-        }
-      }
-
-    }
-  });
-
-  // Grunt contribution tasks.
-  grunt.loadNpmTasks("grunt-contrib-jshint");
-  grunt.loadNpmTasks("grunt-contrib-jst");
-  grunt.loadNpmTasks("grunt-contrib-concat");
-  grunt.loadNpmTasks("grunt-contrib-uglify");
-  grunt.loadNpmTasks("grunt-contrib-cssmin");
-  grunt.loadNpmTasks("grunt-contrib-clean");
-  grunt.loadNpmTasks("grunt-contrib-copy");
-  grunt.loadNpmTasks("grunt-contrib-compress");
-
-  // Third-party tasks.
-  grunt.loadNpmTasks("grunt-karma-0.9.1");
-
-  // Grunt BBB tasks.
-  grunt.loadNpmTasks("grunt-bbb-server");
-  grunt.loadNpmTasks("grunt-bbb-requirejs");
-  grunt.loadNpmTasks("grunt-bbb-styles");
-
-  // This will reset the build, be the precursor to the production
-  // optimizations, and serve as a good intermediary for debugging.
-  grunt.registerTask("debug", [
-    "clean", "jshint", "jst", "requirejs", "concat", "styles"
-  ]);
-
-  // The release task will first run the debug tasks.  Following that, minify
-  // the built JavaScript and then minify the built CSS.
-  grunt.registerTask("release", [
-    "debug", "copy:release", "uglify", "cssmin", "compress"
-  ]);
-
-  // The test task take care of starting test server and running tests.
-  grunt.registerTask("test", ["jshint", "server:test", "karma"]);
-
-  // When running the default Grunt command, just lint the code.
-  grunt.registerTask("default", ["jshint"]);
+    grunt.registerTask('build', [
+        'createDefaultTemplate',
+        'handlebars',
+        'compass:dist',
+        'useminPrepare',
+        'requirejs',
+        'imagemin',
+        'htmlmin',
+        'concat',
+        'cssmin',
+        'uglify',
+        'copy',
+        'usemin'
+    ]);
 
 };
