@@ -1,4 +1,4 @@
-define(function(require, exports, module) {
+define(["app", "modules/mountains"], function(app, mountains, require, exports, module) {
 
   var Backbone = require("backbone");
 
@@ -10,6 +10,7 @@ define(function(require, exports, module) {
 
     index: function() {
       console.log("Welcome to your / route.");
+      this.mountains.fetch();
     }
   });
 
