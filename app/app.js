@@ -1,3 +1,4 @@
+var app;
 define([
   // Plugins.
   "backbone.layoutmanager"
@@ -18,7 +19,7 @@ function() {
 
   // Provide a global location to place configuration settings and module
   // creation.
-  var app = {
+  app = {
     // The root path to run the application through.
     root: "/"
   };

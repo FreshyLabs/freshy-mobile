@@ -4,18 +4,18 @@ define([
 ],
 
 function(app) {
-  var Mountains = app.module();
+  Mountains = app.module();
 
-  Mountains.Model = Backbone.Model.extend({
+  /*Mountains.Model = Backbone.Model.extend({
     defaults: function() {
       return {
         mountain: {}
       };
     }
-  });
+  });*/
 
   Mountains.Collection = Backbone.Collection.extend({
-    model: Mountains.Model,
+    //model: Mountains.Model,
 
     cache: true,
 
@@ -23,7 +23,7 @@ function(app) {
       return "http://freshymap.com/mountains";
     },
 
-    fetch: function() {
+    /*fetch: function() {
       var self = this;
       $.getJSON(this.url(), function( data ) {
         $.each( data, function( i, mtn ) {
@@ -32,13 +32,13 @@ function(app) {
         });
         
       });
-    },
+    },*/
 
     initialize: function(models, options) {
       //this.collection = new Mountains.Collection();
 
       //var mtns = this.fetch();
-      console.log('mudf')
+      //console.log('mudf')
       //if (options) {
       //  console.log('options', options)
       //}
@@ -49,27 +49,46 @@ function(app) {
     initialize: function() {
       this.render();
     },
-    template: "mountains/list",
+    serialize: function() {
+      return { model: this.model };
+    },
+    template: "mountains/item",
 
-    tagName: "tr"
+    tagName: "li"
 
   });
 
   Mountains.Views.List = Backbone.View.extend({
-    tagName: "table",
+    template: "mountains/list",
+
     beforeRender: function() {
       var self = this;
+      console.log('before RENDER');
       
-      setTimeout( function() {
-        self.options.mountains.each(function( mountain  ) {
-          console.log('mountain', mountain)
-          self.insertView(new Mountains.Views.Item({
-            collection: mountain
-          }));
-        }, self);
-      },50);
+      setTimeout(function(){
+      self.options.mountains.each(function( mtn ) {
+        //console.log('mountain', mtn);
+        self.insertView('ul.nav', new Mountains.Views.Item({
+          model: mtn
+        }));
+      }, self);
+      console.log('wtf', self.options.mountains);
+      }, 2000);
+    },
+
+    serialize: function() {
+      return {
+        count: this.options.mountains.length
+      };
     },
     initialize: function() {
+       this.listenTo(this.options.mountains, {
+        "reset": this.render,
+
+        "fetch": function() {
+          //this.$("ul").parent().html("<img src='/app/img/spinner.gif'>");
+        }
+      });
 
     }
   });
