@@ -1,8 +1,6 @@
 define([
 	'backbone',
 	'communicator',
-	'views/item/mountains',
-  'collections/mountains'
 ],
 
 function( Backbone, Communicator, MountainsView, Mountains ) {
@@ -17,7 +15,6 @@ function( Backbone, Communicator, MountainsView, Mountains ) {
 
 	/* Add initializers here */
 	App.addInitializer( function () {
-		App.mainRegion.show( new MountainsView({ collection: new Mountains  }) );
 		Communicator.mediator.trigger("APP:START");
 	});
 

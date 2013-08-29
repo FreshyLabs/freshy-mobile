@@ -1,8 +1,8 @@
 define([
 	'backbone',
-	'hbs!tmpl/item/mountains_tmpl'
+	'hbs!tmpl/item/mountain_tmpl'
 ],
-function( Backbone, MountainsTmpl  ) {
+function( Backbone, MountainTmpl  ) {
     'use strict';
 
 	/* Return a ItemView class definition */
@@ -12,7 +12,7 @@ function( Backbone, MountainsTmpl  ) {
 			console.log("initialize a Mountain ItemView");
 		},
 		
-    	template: MountainsTmpl,
+    	template: MountainTmpl,
         
 
     	/* ui selector cache */

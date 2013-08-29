@@ -23,7 +23,7 @@ function( Backbone, MountainsModel ) {
         $.each( data, function( i, mtn ) {
           var model = new MountainsModel( mtn );
           self.add( model );
-          console.log('add mountain to collection: ', model);
+          //console.log('add mountain to collection: ', model);
         });
 
       });
