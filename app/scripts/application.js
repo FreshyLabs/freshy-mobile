@@ -1,22 +1,23 @@
 define([
 	'backbone',
 	'communicator',
-	'hbs!tmpl/welcome'
+	'views/item/mountains',
+  'models/mountains'
 ],
 
-function( Backbone, Communicator, Welcome_tmpl ) {
+function( Backbone, Communicator, MountainsView, Mountains ) {
     'use strict';
-
-	var welcomeTmpl = Welcome_tmpl;
 
 	var App = new Backbone.Marionette.Application();
 
 	/* Add application regions here */
-	App.addRegions({});
+	App.addRegions({
+    mainRegion: "#main"
+  });
 
 	/* Add initializers here */
 	App.addInitializer( function () {
-		document.body.innerHTML = welcomeTmpl({ success: "CONGRATS!" });
+		App.mainRegion.show( new MountainsView({ model: new Mountains }) );
 		Communicator.mediator.trigger("APP:START");
 	});
 
