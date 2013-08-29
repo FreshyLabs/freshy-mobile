@@ -1,10 +1,15 @@
 require([
 	'backbone',
 	'application',
+  'routers/router',
 	'regionManager'
 ],
-function ( Backbone, App ) {
+function ( Backbone, App, Router ) {
     'use strict';
 
-	App.start();
+    App.router = new Router();
+
+    Backbone.history.start({ pushState: true });
+
+	  App.start();
 });
