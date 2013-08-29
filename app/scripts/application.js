@@ -16,7 +16,7 @@ function( Backbone, Communicator, Welcome_tmpl ) {
 
 	/* Add initializers here */
 	App.addInitializer( function () {
-		document.body.innerHTML = welcomeTmpl({ success: "CONGRATS!" });
+		document.body.innerHTML = welcomeTmpl({ success: "Freshy Map!" });
 		Communicator.mediator.trigger("APP:START");
 	});
 
