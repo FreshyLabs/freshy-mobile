@@ -9,12 +9,15 @@ function( Backbone, Mountain  ) {
 	return Backbone.Marionette.CollectionView.extend({
 
 		initialize: function() {
-			console.log("initialize a Mountains CollectionView");
+      var self = this;
+			console.log("initialize a Mountains CollectionView", this);
+      //this.collection.on('sort', function() {
+      //  self.render();
+      //});
 		},
 		
     itemView: Mountain,
     	
-    
     /* ui selector cache */
     ui: {},
 
