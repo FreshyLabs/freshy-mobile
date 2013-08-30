@@ -1,25 +1,31 @@
 define([
   'backbone',
   'communicator',
-  'controllers/mountains'
+  'controllers/mountains',
+  'controllers/mtn'
 ],
-function( Backbone, Communicator, MountainsController ) {
+function( Backbone, Communicator, MountainsController, MtnController ) {
     'use strict';
 
   return Backbone.Router.extend({
     /* Backbone routes hash */
     initialize: function() {
       console.log('router initialized');
-      this.controller = new MountainsController();
     },
 
     routes: {
-      "/": "show"
+      "": "show",
+      "mountains": "renderMountain"
     },
 
     show: function() {
       console.log('route: "" get all mountains: ');
-      this.controller.initialize();
+      this.controller = new MountainsController();
+    },
+
+    renderMountain: function() {
+      console.log('route: "/#mountains/mtn" ');
+      this.mtnController = new MtnController();
     }
 
 

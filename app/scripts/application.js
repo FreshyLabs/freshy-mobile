@@ -6,11 +6,12 @@ define([
 function( Backbone, Communicator, MountainsView, Mountains ) {
     'use strict';
 
-	var App = new Backbone.Marionette.Application();
+  var App = new Backbone.Marionette.Application();
 
 	/* Add application regions here */
 	App.addRegions({
-    mainRegion: "#main"
+    mainRegion: "#main",
+    mountainRegion: "#main" //TODO make unique
   });
 
 	/* Add initializers here */
@@ -18,5 +19,5 @@ function( Backbone, Communicator, MountainsView, Mountains ) {
 		Communicator.mediator.trigger("APP:START");
 	});
 
-	return App;
+  return App;
 });
