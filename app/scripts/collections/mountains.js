@@ -22,8 +22,8 @@ function( Backbone, MountainsModel ) {
       $.getJSON(this.url(), function( data ) {
         $.each( data, function( i, mtn ) {
           var model = new MountainsModel( mtn );
+          //console.log('model', model)
           self.add( model );
-          //console.log('add mountain to collection: ', model);
         });
 
       });
