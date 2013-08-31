@@ -15,7 +15,7 @@ function( Backbone, Communicator, MountainsController, MtnController ) {
 
     routes: {
       "": "show",
-      "mountains": "renderMountain"
+      "mountains/:id": "renderMountain"
     },
 
     show: function() {
@@ -23,8 +23,8 @@ function( Backbone, Communicator, MountainsController, MtnController ) {
       this.controller = new MountainsController();
     },
 
-    renderMountain: function() {
-      console.log('route: "/#mountains/mtn" ');
+    renderMountain: function( id ) {
+      console.log('route: "/#mountains/:id" ', id);
       this.mtnController = new MtnController();
     }
 

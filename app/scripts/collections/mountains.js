@@ -20,10 +20,16 @@ function( Backbone, MountainsModel ) {
     fetch: function() {
       var self = this;
       $.getJSON(this.url(), function( data ) {
+        //TODO for not limit to 9
+        var i = 0;
         $.each( data, function( i, mtn ) {
+          i++;
           var model = new MountainsModel( mtn );
           //console.log('model', model)
           self.add( model );
+
+          if ( i === 9 ) { return false; }
+          
         });
       });
       
