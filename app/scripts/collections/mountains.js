@@ -25,7 +25,6 @@ function( Backbone, MountainsModel ) {
           self.add( model );
           //console.log('add mountain to collection: ', model);
         });
-
       });
     }
 

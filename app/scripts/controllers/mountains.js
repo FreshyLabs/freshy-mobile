@@ -13,11 +13,13 @@ function( App, Backbone, MountainsView, MountainsCollection ) {
 			console.log("initialize a Mountains Controller");
 
       //populate the mountains controller
-      var mountains = new MountainsCollection([]);
-      mountains.fetch(); 
+      this.collection = new MountainsCollection([]);
+      this.collection.fetch(); 
 
       //show the MountainsView
-      App.mainRegion.show( new MountainsView({ collection: mountains  }) );
+      App.mainRegion.show( new MountainsView({ collection: this.collection  }) );
+
+      console.log(this.collection);
 		}
 	});
 
