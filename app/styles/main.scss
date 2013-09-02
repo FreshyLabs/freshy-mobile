@@ -6,22 +6,28 @@
 }
 
 .mountains {
-  border:1px solid #666;
   background:#3498db;
   padding:4px;
-  border:2px solid #ecf0f1;
   color:#2c3e50;
-  width:30%;
+  width:30.31%;
+  border:1px solid #fff;
   float:left;
   padding-top:15px;
   padding-bottom:15px;
+  height:80px;
+  overflow:hidden;
+  margin:auto;
+  text-align:center;
   &:hover {
     cursor:pointer;
     background:#2980b9;
     color:#0E1F30;
   }
   .mountain-name {
-    font-size:14pt;
+    font-size:1em;
     font-weight:bold;
+  }
+  .mountain-info {
+    font-size:0.7em;
   }
 }

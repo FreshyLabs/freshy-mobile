@@ -1,6 +1,6 @@
 define([
 	'backbone',
-	'views/item/mountain'
+	'views/item/closest-item-view'
 ],
 function( Backbone, Mountain  ) {
     'use strict';

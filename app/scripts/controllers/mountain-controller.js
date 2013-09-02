@@ -1,7 +1,7 @@
 define([
   'application',
 	'backbone',
-  'views/item/mtn',
+  'views/item/mountain-item-view',
 ],
 function( App, Backbone, MtnView ) {
     'use strict';

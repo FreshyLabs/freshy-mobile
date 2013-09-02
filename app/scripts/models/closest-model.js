@@ -7,7 +7,7 @@ function( Backbone ) {
 	/* Return a model class definition */
 	return Backbone.Model.extend({
 		initialize: function() {
-			//console.log("initialize a Mountain model");
+			console.log("initialize a Closest model");
 		},
 
 		defaults: {},
