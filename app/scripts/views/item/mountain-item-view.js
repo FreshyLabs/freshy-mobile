@@ -16,7 +16,14 @@ function( App, Backbone, MtnTmpl  ) {
     template: MtnTmpl,
     
     /* Ui events hash */
-		events: {},
+    events: {
+      "click #back" : "back"
+    },
+
+
+    back: function() {
+      App.router.navigate("#", { trigger: true });
+    },
 
    	/* on render callback */
 		onRender: function() {}

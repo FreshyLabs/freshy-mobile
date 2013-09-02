@@ -32,8 +32,27 @@
   }
 }
 
-#selecte-mountain {
+#selected-mountain {
   width:100%;
   height:100%;
-  
+  #mountain {
+    overflow: hidden;
+    margin-top:52px;
+  }
+  #nav-small {
+    height:auto;
+    overflow:hidden;
+    position:absolute;
+    top:0px;
+    width:100%;
+  }
+  .nav-small {
+    background:#34495e;
+    border:1px solid #fff;
+    color:#ecf0f1;
+    width:30.31%;
+    float:left;
+    height:50px;
+    text-align:center;
+  }
 }
