@@ -26,8 +26,9 @@ function( Backbone, Communicator, MtnController, ClosestController ) {
     },
 
     renderMountain: function( id ) {
-      console.log('route: "/#mountains/:id" ', id);
-      this.mtnController = new MtnController();
+      var options = {};
+      options.id = id;
+      this.mtnController = new MtnController( options );
     }
 
 
