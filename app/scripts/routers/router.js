@@ -14,11 +14,11 @@ function( Backbone, Communicator, MountainsController, MtnController ) {
     },
 
     routes: {
-      "": "show",
+      "": "renderAll",
       "mountains/:id": "renderMountain"
     },
 
-    show: function() {
+    renderAll: function() {
       console.log('route: "" get all mountains: ');
       this.controller = new MountainsController();
     },
