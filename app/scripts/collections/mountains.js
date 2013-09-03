@@ -8,7 +8,7 @@ function( Backbone, MountainsModel ) {
   /* Return a collection class definition */
   return Backbone.Collection.extend({
     initialize: function() {
-      console.log("initialize a Mountains collection");
+      console.log("initialize a Mountains collection", this);
     },
 
     model: MountainsModel,
@@ -20,12 +20,22 @@ function( Backbone, MountainsModel ) {
     fetch: function() {
       var self = this;
       $.getJSON(this.url(), function( data ) {
+        //TODO for not limit to 9
+        var i = 0;
         $.each( data, function( i, mtn ) {
+          i++;
           var model = new MountainsModel( mtn );
+          //console.log('model', model)
           self.add( model );
-          //console.log('add mountain to collection: ', model);
+          if ( i === 9 ) { return false; }
         });
       });
+      
+      //self.sort();
+    },
+
+    comparator: function( model ) {
+      return model.get( 'feature' ).properties.Name.toLowerCase();
     }
 
   });
