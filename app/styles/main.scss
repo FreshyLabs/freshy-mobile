@@ -1,3 +1,4 @@
+
 @import 'sass-bootstrap/lib/bootstrap';
 
 .hero-unit {
@@ -5,19 +6,24 @@
     width: 400px;
 }
 
+body { 
+  
+}
+
 .mountains {
   background:#3498db;
-  padding:4px;
   color:#2c3e50;
-  width:30.31%;
-  border:1px solid #fff;
+  width:32.81%;
   float:left;
-  padding-top:15px;
-  padding-bottom:15px;
-  height:80px;
+  height:100px;
   overflow:hidden;
   margin:auto;
+  border:1px solid #FEFEFE;
   text-align:center;
+  .mountains-inner {
+    height:100%;
+    margin-top:10px;
+  }
   &:hover {
     cursor:pointer;
     background:#2980b9;
@@ -38,7 +44,7 @@
   #mountain {
     overflow: hidden;
     margin:5px;
-    margin-top:65px;
+    margin-top:105px;
   }
   #nav-small {
     height:auto;
@@ -48,13 +54,17 @@
     width:100%;
   }
   .nav-small {
-    padding:4px;
-    background:#34495e;
-    border:1px solid #fff;
-    color:#ecf0f1;
-    width:30.31%;
+    background:#3498db;
+    color:#2c3e50;
+    width:32.81%;
     float:left;
-    height:50px;
+    height:100px;
+    overflow:hidden;
+    margin:auto;
+    border:1px solid #FEFEFE;
     text-align:center;
+  }
+  .nav-small-inner {
+    margin-top:10px;
   }
 }
