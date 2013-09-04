@@ -1,1 +1,17 @@
-HELLO MOUNTAIN
+<div id="selected-mountain">
+  {{#if feature.properties }}
+    <div id="mountain">
+      <div>Mountain:  {{ feature.properties.Name }} </div>
+      <div>State:  {{ feature.properties.State }} </div> 
+      <div>New Snow:  {{ feature.properties.current_new }} </div>
+      <div>Base:  {{ feature.properties.current_base }} </div> 
+      <div>Conditions:  {{ feature.properties.current_conditions }} </div> 
+    </div>
+  {{else }}
+    <div id="nav-small">
+      <div class="nav-small" id="back">{{ back }}</div>
+      <div class="nav-small mtn-nav-small">Mtn 1</div>
+      <div class="nav-small mtn-nav-small">Mtn 2</div>
+    </div>
+  {{/if }}
+</div>

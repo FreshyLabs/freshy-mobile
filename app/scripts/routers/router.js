@@ -1,10 +1,10 @@
 define([
   'backbone',
   'communicator',
-  'controllers/mountains',
-  'controllers/mtn'
+  'controllers/mountain-controller',
+  'controllers/closest-controller'
 ],
-function( Backbone, Communicator, MountainsController, MtnController ) {
+function( Backbone, Communicator, MtnController, ClosestController ) {
     'use strict';
 
   return Backbone.Router.extend({
@@ -14,18 +14,21 @@ function( Backbone, Communicator, MountainsController, MtnController ) {
     },
 
     routes: {
-      "": "show",
+      "": "renderClosest",
       "mountains/:id": "renderMountain"
     },
 
-    show: function() {
-      console.log('route: "" get all mountains: ');
-      this.controller = new MountainsController();
+    renderClosest: function() {
+      console.log('route: "" ');
+
+      //closest mountains 
+      this.closestController = new ClosestController();
     },
 
     renderMountain: function( id ) {
-      console.log('route: "/#mountains/:id" ', id);
-      this.mtnController = new MtnController();
+      var options = {};
+      options.id = id;
+      this.mtnController = new MtnController( options );
     }
 
 

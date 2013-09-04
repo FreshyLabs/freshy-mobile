@@ -1,19 +1,19 @@
 define([
 	'backbone',
-	'hbs!tmpl/item/mtn_tmpl'
+	'views/item/mountain-item-view'
 ],
-function( Backbone, MtnTmpl  ) {
+function( Backbone, MountainItemView  ) {
     'use strict';
 
 	/* Return a ItemView class definition */
-	return Backbone.Marionette.ItemView.extend({
+	return Backbone.Marionette.CollectionView.extend({
 
 		initialize: function() {
-			console.log("initialize a Mtn ItemView");
+			console.log("initialize a MountainCollectionView CollectionView");
 		},
 		
-    	template: MtnTmpl,
-        
+    	itemView: MountainItemView,
+    	
 
     	/* ui selector cache */
     	ui: {},
