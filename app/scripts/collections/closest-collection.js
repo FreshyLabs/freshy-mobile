@@ -18,10 +18,11 @@ function( App, Backbone, ClosestModel ) {
       var self = this;
 
       //TODO use real 'closest' mountain
+      console.log(' APP MOUNTAINS ALL COLLECTION ', App )
       var res = App.mountains[ 80 ].feature.properties;
-      _.each(res.closest, function( mtn, i ) {
+      _.each(res.closest, function( name, i ) {
         var model = new ClosestModel();
-        model.set('mountain', mtn);
+        model.set('mountain', name);
         self.add( model );
       });
     

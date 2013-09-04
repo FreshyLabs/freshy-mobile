@@ -1,16 +1,20 @@
 define([
   'backbone',
   'communicator',
+  'controllers/mountains-all-controller',
   'controllers/mountain-controller',
   'controllers/closest-controller'
 ],
-function( Backbone, Communicator, MtnController, ClosestController ) {
+function( Backbone, Communicator, MountainsAllController, MtnController, ClosestController ) {
     'use strict';
 
   return Backbone.Router.extend({
     /* Backbone routes hash */
     initialize: function() {
       console.log('router initialized');
+
+      //setup all mountains collection
+      this.mtsall = new MountainsAllController();
     },
 
     routes: {
