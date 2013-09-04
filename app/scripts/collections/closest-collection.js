@@ -17,11 +17,13 @@ function( App, Backbone, ClosestModel ) {
     getClosest: function() {
       var self = this;
 
-      //TODO use real 'closest' mountain
+      //TODO create lookup on "mountains_all" for mountain model, not just NAME!
+      console.log(' APP MOUNTAINS ALL COLLECTION ', App.mountains_all );
+
       var res = App.mountains[ 80 ].feature.properties;
-      _.each(res.closest, function( mtn, i ) {
+      _.each(res.closest, function( name, i ) {
         var model = new ClosestModel();
-        model.set('mountain', mtn);
+        model.set('mountain', name);
         self.add( model );
       });
     
