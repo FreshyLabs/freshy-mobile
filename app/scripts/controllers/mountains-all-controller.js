@@ -12,7 +12,7 @@ function( App, Backbone, MountainsAllCollection ) {
 			console.log("initialize a MountainsAllController Controller");
 
       App.mountains_all = new MountainsAllCollection([]);
-      App.mountains_all.getMountains(); 
+      App.mountains_all.add( App.mountains );
 
 		}
 	});
