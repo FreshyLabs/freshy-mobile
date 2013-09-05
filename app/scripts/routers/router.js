@@ -13,8 +13,8 @@ function( Backbone, Communicator, MountainsAllController, MtnController, Closest
     initialize: function() {
       console.log('router initialized');
 
-      //setup all mountains collection
-      this.mtsall = new MountainsAllController();
+      //setup all mountains collection used globally across app
+      this.mtnsall = new MountainsAllController();
     },
 
     routes: {
@@ -31,7 +31,7 @@ function( Backbone, Communicator, MountainsAllController, MtnController, Closest
 
     renderMountain: function( id ) {
       var options = {};
-      options.id = id;
+      options.id = id; //mountain name 
       this.mtnController = new MtnController( options );
     }
 

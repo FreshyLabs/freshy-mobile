@@ -1,30 +1,32 @@
 define([
   'application',
-	'backbone',
-	'models/closest-model'
+	'backbone'
 ],
-function( App, Backbone, ClosestModel ) {
+function( App, Backbone ) {
     'use strict';
 
 	/* Return a collection class definition */
 	return Backbone.Collection.extend({
 		initialize: function() {
 			console.log("initialize a Closest collection");
-		},
+      var self = this;
 
-		model: ClosestModel,
+      App.commands.setHandler('data:loaded', function() {
+        self.getClosest();
+      });
+
+		},
 
     getClosest: function() {
       var self = this;
-
-      //TODO create lookup on "mountains_all" for mountain model, not just NAME!
-      console.log(' APP MOUNTAINS ALL COLLECTION ', App.mountains_all );
-
-      var res = App.mountains[ 80 ].feature.properties;
-      _.each(res.closest, function( name, i ) {
-        var model = new ClosestModel();
-        model.set('mountain', name);
-        self.add( model );
+      
+      //TODO replace res with actual keyed mountain from user location
+      var res = App.mountains_all.models[ 90 ];
+      var closest = res.get( 'feature' ).properties.closest;
+      
+      _.each( closest, function( name, i ) {
+        var m = App.mountains_all.findWhere( { name: name.replace(/\s+/g, '') } );
+        self.add( m );
       });
     
     }

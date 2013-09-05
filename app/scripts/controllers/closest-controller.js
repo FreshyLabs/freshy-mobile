@@ -13,11 +13,12 @@ function( App, Backbone, MountainsView, ClosestCollection ) {
 			console.log("initialize a Closest Controller");
 
        //populate the mountains controller
-      var closest = new ClosestCollection([]);
-      closest.getClosest(); 
+      if ( !App.closest ) {
+        App.closest = new ClosestCollection([]);
+      }
 
       //show the MountainsView
-      App.mainRegion.show( new MountainsView({ collection: closest  }) );
+      App.mainRegion.show( new MountainsView({ collection: App.closest  }) );
 		}
 	});
 
