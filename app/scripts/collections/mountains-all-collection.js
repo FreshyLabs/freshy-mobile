@@ -17,6 +17,9 @@ function( App, Backbone, MountainsAllModel ) {
     getMountains: function() {
       var self = this;
 
+      //if local storage and not expired
+        //load it
+      //else 
       $.getJSON( "http://freshymap.com/mountains", function( data ) {
         
         _.each( data, function( mtn, i ) {
@@ -27,6 +30,8 @@ function( App, Backbone, MountainsAllModel ) {
 
         //tell the rest of the app the data has loaded
         App.execute( 'data:loaded' );
+
+        //set local storage set timer for expired
         
       });
     }

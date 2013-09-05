@@ -11,13 +11,10 @@ function( App, Backbone ) {
 			console.log("initialize a Closest collection");
       var self = this;
 
-      App.commands.setHandler('data:loaded', function() {
-        self.getClosest();
-      });
-
 		},
 
     getClosest: function() {
+      
       var self = this;
       
       //TODO replace res with actual keyed mountain from user location
@@ -28,7 +25,7 @@ function( App, Backbone ) {
         var m = App.mountains_all.findWhere( { name: name.replace(/\s+/g, '') } );
         self.add( m );
       });
-    
+
     }
 		
 	});

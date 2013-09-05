@@ -19,12 +19,11 @@ function( Backbone, Communicator, MountainsAllController, MtnController, Closest
 
     routes: {
       "": "renderClosest",
-      "mountains/:id": "renderMountain"
+      ":id": "renderMountain"
     },
 
     renderClosest: function() {
       console.log('route: "" ');
-
       //closest mountains 
       this.closestController = new ClosestController();
     },
