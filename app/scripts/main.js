@@ -7,11 +7,6 @@ require([
 function ( Backbone, App, Router ) {
     'use strict';
 
-    $.getJSON( "http://freshymap.com/mountains", function( data ) {
-      
-      //store all mountains once
-      App.mountains = data;
-      
       App.router = new Router();
 
       Backbone.history.start();
@@ -40,5 +35,5 @@ function ( Backbone, App, Router ) {
       });
 
   	  App.start();
-  });
+      
 });

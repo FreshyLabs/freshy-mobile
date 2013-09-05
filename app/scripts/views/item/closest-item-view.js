@@ -25,7 +25,7 @@ function( App, Backbone, MountainTmpl  ) {
     },
 
     mountainSelected: function() {
-      var name = this.model.get( 'mountain' );
+      var name = this.model.get( 'feature' ).properties.Name;
       name = name.replace(/\s+/g, '');
       App.router.navigate("#mountains/"+name, { trigger: true });
     },

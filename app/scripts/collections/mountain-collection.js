@@ -14,16 +14,11 @@ function( App, Backbone, MountainModel ) {
 
 		model: MountainModel,
 
-     getMountain: function( options ) {
+    getMountain: function( options ) {
       var self = this;
       
-      //TODO lookup without loop!
-      _.each( App.mountains, function( mtn, i ) {
-        if ( mtn.feature.properties.Name.replace(/\s+/g, '') === options.id ) {
-          var model = new MountainModel( mtn );
-          self.add( model );
-        }  
-      });
+      var model = App.mountains_all.findWhere( { name: options.id } );
+      this.add( model );
     }
 		
 	});
