@@ -17,12 +17,6 @@ function( App, Backbone, MtnCollectionView, MountainCollection ) {
       this.mountain = new MountainCollection([]);
       this.mountain.getMountain( options ); 
 
-      var mountainItems = { 
-        "back" : "back"
-      }
-
-      this.mountain.push( mountainItems );
-
       this.show();
 		},
 

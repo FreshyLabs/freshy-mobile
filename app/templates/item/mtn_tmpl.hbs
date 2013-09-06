@@ -1,17 +1,22 @@
-<div id="selected-mountain">
-  {{#if feature.properties }}
-    <div id="mountain">
-      <div>Mountain:  {{ feature.properties.Name }} </div>
-      <div>State:  {{ feature.properties.State }} </div> 
-      <div>New Snow:  {{ feature.properties.current_new }} </div>
-      <div>Base:  {{ feature.properties.current_base }} </div> 
-      <div>Conditions:  {{ feature.properties.current_conditions }} </div> 
+<div id="mountain">
+    <div id="mountain-header">
+      <div class="mountain-header-item">
+        <div class="mountain-title">New Snow</div>
+        <div id="new-snow"> {{ feature.properties.current_new }}"</div>
+      </div>
+      <div class="mountain-header-item" id="selected-mountain">
+        <div class="mountain-title"> {{ feature.properties.Name }} </div>
+        <div id="state-name"> {{ feature.properties.State }} </div> 
+      </div>
+      <div class="mountain-header-item">
+        <div class="mountain-title">Currently</div>
+        <div id="temperature">
+          {{ feature.properties.hourly_forecast.0.temp }}&deg;
+        </div>
+        <div id="snowing">Not Snowing</div>
+      </div>
     </div>
-  {{else }}
-    <div id="nav-small">
-      <div class="nav-small" id="back"><div class="nav-small-inner"> {{ back }}</div></div>
-      <div class="nav-small mtn-nav-small"><div class="nav-small-inner">Mtn 1</div></div>
-      <div class="nav-small mtn-nav-small"><div class="nav-small-inner">Mtn 2</div></div>
+    <div id="mountain-body">
+      More Here...
     </div>
-  {{/if }}
 </div>

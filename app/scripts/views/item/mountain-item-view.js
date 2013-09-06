@@ -17,11 +17,11 @@ function( App, Backbone, MtnTmpl  ) {
     
     /* Ui events hash */
     events: {
-      "click #back" : "back"
+      "click #selected-mountain" : "home"
     },
 
 
-    back: function() {
+    home: function() {
       App.router.navigate("#", { trigger: true });
     },
 

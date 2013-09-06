@@ -21,6 +21,7 @@ function( App, Backbone, MountainModel ) {
         $.getJSON( "http://freshymap.com/mountains/"+options.id, function( data ) {
           var model = new MountainModel( data[0] );
           model.set( 'name',  data[0].feature.properties.Name.replace(/\s+/g, '') );
+          console.log('model', model)
           self.add( model );
         });
       } else {
