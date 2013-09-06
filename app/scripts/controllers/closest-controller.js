@@ -11,15 +11,25 @@ function( App, Backbone, MountainsView, ClosestCollection ) {
 
 		initialize: function( options ) {
 			console.log("initialize a Closest Controller");
+      var self = this;
 
-       //populate the mountains controller
-      if ( !App.closest ) {
-        App.closest = new ClosestCollection([]);
+      this.closest = new ClosestCollection([]);
+      
+      if ( App.mountains_all.models.length === 0 ) {
+        App.commands.setHandler('data:loaded', function() {
+          self.closest.getClosest();
+        });
+      } else {
+        this.closest.getClosest();
       }
 
-      //show the MountainsView
-      App.mainRegion.show( new MountainsView({ collection: App.closest  }) );
-		}
+      this.show();
+      
+    },
+
+    show: function() {
+      App.mainRegion.show( new MountainsView({ collection: this.closest  }) );
+    }
 	});
 
 });

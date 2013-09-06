@@ -17,8 +17,17 @@ function( App, Backbone, MountainModel ) {
     getMountain: function( options ) {
       var self = this;
       
-      var model = App.mountains_all.findWhere( { name: options.id } );
-      this.add( model );
+      if ( App.mountains_all.models.length === 0 ) {
+        $.getJSON( "http://freshymap.com/mountains/"+options.id, function( data ) {
+          var model = new MountainModel( data[0] );
+          model.set( 'name',  data[0].feature.properties.Name.replace(/\s+/g, '') );
+          console.log('model', model)
+          self.add( model );
+        });
+      } else {
+        var model = App.mountains_all.findWhere( { name: options.id } );
+        this.add( model );
+      }
     }
 		
 	});

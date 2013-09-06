@@ -11,20 +11,19 @@ function( App, Backbone, MtnCollectionView, MountainCollection ) {
 
 		initialize: function( options ) {
 			console.log("initialize a Mtn Controller");
+      var self = this;
 
       //get mountain 
-      var mountain = new MountainCollection([]);
-      mountain.getMountain( options ); 
+      this.mountain = new MountainCollection([]);
+      this.mountain.getMountain( options ); 
 
-      var mountainItems = { 
-        "back" : "back"
-      }
-
-      mountain.push( mountainItems );
-
-      //show the MtnView
-      App.mountainRegion.show( new MtnCollectionView( { collection : mountain } ) );
+      this.show();
 		},
+
+    show: function() {
+      App.mountainRegion.show( new MtnCollectionView( { collection : this.mountain } ) );
+    }
+
 	});
 
 });
