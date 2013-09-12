@@ -7,6 +7,10 @@ require.config({
 
 
     shim: {
+        fastclick: {
+          exports: 'fastclick'
+        },
+
         handlebars: {
             exports: 'Handlebars'
         },
@@ -25,6 +29,7 @@ require.config({
     },
 
     paths: {
+        fastclick: '../bower_components/fastclick/lib/fastclick',
         jquery: '../bower_components/jquery/jquery',
         backbone: '../bower_components/backbone-amd/backbone',
         underscore: '../bower_components/underscore-amd/underscore',
