@@ -1,10 +1,15 @@
 define([
+  'fastclick',
 	'backbone',
 	'communicator',
 ],
 
-function( Backbone, Communicator, MountainsView, Mountains ) {
-    'use strict';
+function( FastClick, Backbone, Communicator, MountainsView, Mountains ) {
+  'use strict';
+
+  window.addEventListener('load', function() {
+    FastClick.attach(document.body);
+  }, false);
 
   var App = new Backbone.Marionette.Application();
 
