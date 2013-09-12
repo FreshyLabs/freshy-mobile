@@ -17,11 +17,17 @@ function( App, Backbone, MountainsAllModel ) {
     getMountains: function() {
       var self = this;
 
-      //if local storage and not expired
-        //load it
-      //else 
-      $.getJSON( "http://freshymap.com/mountains", function( data ) {
+      var now = new Date().getTime();
+      var expire = parseFloat( localStorage.getItem( 'expire' ) );
+      
+      if ( now > expire ) {
+        localStorage.clear();
+      }
+
+      if ( localStorage.mountains )  {
+        console.log('LOAD MOUNTAINS from LOCALSTORAGE');
         
+        var data = JSON.parse( localStorage.getItem('mountains') );
         _.each( data, function( mtn, i ) {
           var model = new MountainsAllModel( mtn );
           model.set( 'name',  mtn.feature.properties.Name.replace(/\s+/g, '') );
@@ -31,9 +37,28 @@ function( App, Backbone, MountainsAllModel ) {
         //tell the rest of the app the data has loaded
         App.execute( 'data:loaded' );
 
-        //set local storage set timer for expired
-        
-      });
+      } else {
+        console.log('FETCH MOUNTAINS from SERVER');
+
+        $.getJSON( "http://freshymap.com/mountains", function( data ) {
+          
+          _.each( data, function( mtn, i ) {
+            var model = new MountainsAllModel( mtn );
+            model.set( 'name',  mtn.feature.properties.Name.replace(/\s+/g, '') );
+            self.add( model );
+          });
+
+          //tell the rest of the app the data has loaded
+          App.execute( 'data:loaded' );
+
+          //expire localStorage after 45 minutes
+          var expire = new Date().getTime() + 2700000;
+          
+          localStorage.setItem( 'expire', expire );
+          localStorage.setItem( 'mountains', JSON.stringify( data ) );
+          
+        });
+      }
     }
 
 	});
