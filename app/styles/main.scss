@@ -7,7 +7,8 @@
 }
 
 body { 
-  background: #212c36; 
+  background: #212c36;
+  /*background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNSIgaGVpZ2h0PSIxNSI+CjxyZWN0IHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgZmlsbD0iIzI4MjgyOCI+PC9yZWN0Pgo8Y2lyY2xlIGN4PSIzIiBjeT0iNC4zIiByPSIxLjgiIGZpbGw9IiMzOTM5MzkiPjwvY2lyY2xlPgo8Y2lyY2xlIGN4PSIzIiBjeT0iMyIgcj0iMS44IiBmaWxsPSJibGFjayI+PC9jaXJjbGU+CjxjaXJjbGUgY3g9IjEwLjUiIGN5PSIxMi41IiByPSIxLjgiIGZpbGw9IiMzOTM5MzkiPjwvY2lyY2xlPgo8Y2lyY2xlIGN4PSIxMC41IiBjeT0iMTEuMyIgcj0iMS44IiBmaWxsPSJibGFjayI+PC9jaXJjbGU+Cjwvc3ZnPg==");*/
   font-family: Lato, 'Helvetica Neue';
   -webkit-font-smoothing: antialiased;
   -webkit-backface-visibility: hidden;
@@ -28,17 +29,53 @@ body {
     margin: auto;
     width: 95%;
     margin-top: 3px;
-    padding-top:3px;
+    padding-top: 3px;
+    background: #28343F;
+    opacity: 0.9;
+    box-shadow: 0px 0px 35px -12px #444;
+    &[data-index="4"] { border:1px solid #fff }
   }
   .mountain-name {
     font-size:1em;
+    color:#85858D;
     font-weight:bold;
+    &[data-index="4"] { color: #FFF }
   }
   .mountain-info {
     font-size:0.7em;
     color:#A8A8A8;
+    &.info-selected {
+      font-size:0.8em;
+      color:#fff;
+    }
   }
 }
+
+/*
+@-webkit-keyframes closest-intro {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-moz-keyframes closest-intro {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-o-keyframes closest-intro {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes closest-intro {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.mountains {
+  -webkit-animation: closest-intro 0.8s;
+  -moz-animation:    closest-intro 0.8s;
+  -o-animation:      closest-intro 0.8s;
+  animation:         closest-intro 0.8s;
+}
+*/
 
 #mountain {
   width:100%;
