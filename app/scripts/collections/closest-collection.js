@@ -39,6 +39,18 @@ function( App, Backbone ) {
 
       };
 
+      //TODO FIX
+      //ANIMATION HACK 
+      setTimeout(function() {
+      //css update for focus container 
+        $('.mountains-new-snow[data-index="4"]').css({
+          'margin-top':'-10px',
+          'height':'70px', 
+          'width': '70px', 
+          'font-size':'1em'
+        });
+      },100);
+      
     }
 		
 	});
