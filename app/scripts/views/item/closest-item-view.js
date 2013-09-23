@@ -25,7 +25,7 @@ function( App, Backbone, MountainTmpl  ) {
       "click .mountains[data-index='4']": "mountainSelected"
     },
 
-    updateFocusMountain: function() {
+    updateFocusMountain: function( e ) {
       App.vent.trigger('update:focus:mountain', this.model);
     },
 
