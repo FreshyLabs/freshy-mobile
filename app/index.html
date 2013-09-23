@@ -17,10 +17,17 @@
         
         <link rel="stylesheet" href="styles/main.css">
         
+        <script src="bower_components/fastclick/lib/fastclick.js"></script>
+        <script>
+          window.addEventListener('load', function() {
+            FastClick.attach(document.body);
+          }, false);
+        </script>
+
         <!-- build:js scripts/vendor/modernizr.js -->
         <script src="bower_components/modernizr/modernizr.js"></script>
         <!-- endbuild -->
-
+        
     </head>
 
     <body>

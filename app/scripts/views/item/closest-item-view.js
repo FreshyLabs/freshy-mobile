@@ -21,7 +21,12 @@ function( App, Backbone, MountainTmpl  ) {
 
 		/* Ui events hash */
 		events: {
-      "click .mountains" : "mountainSelected"
+      "click .mountains[data-index!='4']": "updateFocusMountain",
+      "click .mountains[data-index='4']": "mountainSelected"
+    },
+
+    updateFocusMountain: function() {
+      App.vent.trigger('update:focus:mountain', this.model);
     },
 
     mountainSelected: function() {
