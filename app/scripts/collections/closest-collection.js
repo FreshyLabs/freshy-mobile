@@ -19,7 +19,7 @@ function( App, Backbone ) {
 
       var res, closest;
       if ( !mountain ) {
-        res = App.mountains_all.models[ 80 ];
+        res = App.mountains_all.models[ 34 ];
         res.set('index', 4);
         closest = res.get( 'feature' ).properties.closest;
       } else {

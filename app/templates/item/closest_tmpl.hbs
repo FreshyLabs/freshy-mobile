@@ -1,15 +1,8 @@
-{{#if index}}
-  <div data-index="{{ index }}" class="mountains">
-    <div class="mountains-inner" data-index="{{ index }}">
-      <span class="mountain-name" data-index="{{ index }}"> {{ feature.properties.Name }} </span><br />
-      <span class="mountain-info info-selected">{{ feature.properties.State}} </span>
-      <div class="mountain-info info-selected"> New Snow <b>{{ feature.properties.current_new }}"</b></div>
+<div data-index="{{ index }}" class="mountains">
+  <div class="mountains-inner" data-index="{{ index }}">
+    <div class="mountains-new-snow" data-index="{{ index }}" >
+      <div data-index="{{ index }}" class="mountain-info info-selected new-snow"><b>{{ feature.properties.current_new }}"</b></div>
     </div>
+    <span class="mountain-name" data-index="{{ index }}"> {{ feature.properties.Name }} </span><br />
   </div>
-{{else}}
-  <div data-index="{{ index }}" class="mountains">
-    <div class="mountains-inner">
-      <span class="mountain-name" data-index="{{ index }}"> {{ feature.properties.Name }} </span><br />
-    </div>
-  </div>
-{{/if}}
+</div>
