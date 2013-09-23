@@ -19,7 +19,7 @@ function( App, Backbone ) {
 
       var res, closest;
       if ( !mountain ) {
-        res = App.mountains_all.models[ 80 ];
+        res = App.mountains_all.models[ 34 ];
         res.set('index', 4);
         closest = res.get( 'feature' ).properties.closest;
       } else {
@@ -39,6 +39,18 @@ function( App, Backbone ) {
 
       };
 
+      //TODO FIX
+      //ANIMATION HACK 
+      setTimeout(function() {
+      //css update for focus container 
+        $('.mountains-new-snow[data-index="4"]').css({
+          'margin-top':'-10px',
+          'height':'70px', 
+          'width': '70px', 
+          'font-size':'1em'
+        });
+      },100);
+      
     }
 		
 	});
