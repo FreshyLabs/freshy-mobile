@@ -20,7 +20,7 @@ function( App, Backbone, MountainsView, ClosestCollection ) {
           self.closest.getClosest();
         });
       } else {
-        this.closest.getClosest();
+        this.closest.getClosest( App.activeMountain );
       }
 
       this.show();

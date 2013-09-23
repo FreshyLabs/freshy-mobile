@@ -25,7 +25,6 @@ function( App, Backbone, MountainsAllModel ) {
       }
 
       if ( localStorage.mountains )  {
-        console.log('LOAD MOUNTAINS from LOCALSTORAGE');
         
         var data = JSON.parse( localStorage.getItem('mountains') );
         _.each( data, function( mtn, i ) {
@@ -38,8 +37,7 @@ function( App, Backbone, MountainsAllModel ) {
         App.execute( 'data:loaded' );
 
       } else {
-        console.log('FETCH MOUNTAINS from SERVER');
-
+        
         $.getJSON( "http://freshymap.com/mountains", function( data ) {
           
           _.each( data, function( mtn, i ) {
