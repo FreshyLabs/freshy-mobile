@@ -14,15 +14,91 @@ body {
   -webkit-backface-visibility: hidden;
 }
 
+.scrollable {
+    overflow-y: auto;
+    height: 100%;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+}
+
+.scrollable .wrap {
+    min-height: 100%;
+    padding-bottom: 1px;
+    -webkit-transform: translateZ(0);
+}
+
+.pull-to-refresh {
+    line-height: 40px;
+    height: 40px;
+    width: 100%; 
+    
+    position: absolute; 
+    left: 0; 
+    top: -40px;
+
+    font-size: 0.85em;
+
+    z-index: -1;
+}
+
+.pull-to-refresh >.message {
+    height: 40px;
+    width: 100%;
+    overflow-y: auto;
+    position: relative;
+}
+
+.pull-to-refresh >.message >i.arrow, 
+.pull-to-refresh >.message >i.spinner { 
+    -webkit-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    background-size: 100% 100%;
+    display: inline-block;
+    margin-left: 10px;
+    color:#FFF;
+    background-position: center center;
+    
+}
+
+.pull-to-refresh >.message >i.arrow {
+    width: 38px;
+    color:#FFF;
+    height: 38px;
+    background-image: url('/images/ski-loader.png');
+}
+
+.pull-to-refresh >.message >i.spinner { 
+    width: 38px;
+    height: 38px;
+    color:#FFF;
+    background-image: url('/images/ski-loader.png');
+}
+
+.pull-to-refresh >.message >span.pull,
+.pull-to-refresh >.message >span.release, 
+.pull-to-refresh >.message >span.loading {
+  text-align: center;
+
+  display: block;
+  height: 40px;
+  width: 100%;
+  color:#FFF;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+
 #title {
   color:#fff;
   font-size:2em;
-  margin-top:4px;
   margin-bottom:8px;
-  padding-left:2px;
+  padding:4px;
   width:100%;
   border-bottom:1px solid #fff;
-  padding-bottom: 6px;
+  padding-bottom: 8px;
+  padding-top:6px;
+  background:#34495e;
 }
 
 .mountains {
@@ -130,7 +206,6 @@ body {
   #mountain-header {
     height:auto;
     overflow:hidden;
-    position:absolute;
     top:35px;
     width:100%;
     .mountain-header-item {
@@ -169,6 +244,27 @@ body {
         font-size: 0.7em;
         color: #A8A8A8;
       }
+    }
+  }
+  #forecast {
+    overflow: hidden;
+    top: 35px;
+    width: 98.3%;
+    border: 1px dotted #434652;
+    margin: 1px;
+    height: 100px;
+    .forecast-day {
+      color:#FCFCFF;
+      width:33.33%;
+      float:left;
+      height:103px;
+      overflow:hidden;
+      margin:auto;
+      text-align:center;
+    }
+    .forecast-number {
+      font-size:3em;
+      margin-top:16px;
     }
   }
   .mountain-title {

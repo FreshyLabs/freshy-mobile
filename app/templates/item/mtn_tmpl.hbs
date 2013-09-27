@@ -22,7 +22,18 @@
         </div>
       </div>
     </div>
-    <div id="mountain-body">
-      <h3 id="mountain-name-large"> {{ feature.properties.Name }} </h3>
+    <div id="forecast">
+      <div class="forecast-day">
+        <span>{{ feature.properties.snow_forecast.0.time }} </span>
+        <div class="forecast-number">{{ feature.properties.snow_forecast.0.snow_amount }}&quot; </div>
+      </div>
+      <div class="forecast-day">
+        <span>{{ feature.properties.snow_forecast.1.time }} </span>
+        <div class="forecast-number">{{ feature.properties.snow_forecast.1.snow_amount }}&quot; </div>
+      </div>
+      <div class="forecast-day">
+        <span>{{ feature.properties.snow_forecast.2.time }} </span>
+        <div class="forecast-number">{{ feature.properties.snow_forecast.2.snow_amount }}&quot; </div>
+      </div>
     </div>
 </div>

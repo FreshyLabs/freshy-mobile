@@ -31,10 +31,17 @@
     </head>
 
     <body>
-        <div id="title"> FreshyMap</div>
-        <div id="main"></div>
-        <div id="mountain"></div>
+      <div class="main-container">
+         
+        <div class="scrollable">
+            <div class="wrap">
+                <div id="title"> FreshyMap</div>
+                <div id="main"></div>
+                <div id="mountain"></div>
+            </div>
+        </div>
 
+      </div>
         <!-- build:js scripts/main.js -->
         <script data-main="scripts/init" src="bower_components/requirejs/require.js"></script>
         <!-- endbuild -->
@@ -42,6 +49,23 @@
         <script>document.write('<script src="http://'
             + (location.host || 'localhost').split(':')[0]
             + ':35729/livereload.js?snipver=1"><\/script>');
+        </script>
+
+        <script src="bower_components/jquery/jquery.min.js"></script>
+        <script src="scripts/lib/jquery.plugin.pullToRefresh.js"></script>
+
+        <script>
+          $('.scrollable').pullToRefresh({
+              callback: function() {
+                  var def = $.Deferred();
+                  
+                  setTimeout(function() {
+                      def.resolve();      
+                  }, 3000); 
+
+                  return def.promise();
+              }
+          }); 
         </script>
     </body>
 </html>

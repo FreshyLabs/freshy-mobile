@@ -37,6 +37,7 @@ function( App, Backbone ) {
         m.set('index', null);
         self.add( m );
 
+        $('#title').html('FreshyMap');
       };
 
       //TODO FIX

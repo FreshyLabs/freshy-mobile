@@ -30,6 +30,7 @@ function( App, Backbone, MountainsView, ClosestCollection ) {
     show: function() {
       App.mainRegion.show( new MountainsView({ collection: this.closest  }) );
     }
+
 	});
 
 });
