@@ -10,7 +10,7 @@ function( App, Backbone, MountainsAllModel ) {
 	return Backbone.Collection.extend({
 		initialize: function() {
 			console.log("initialize a MountainsAllCollection collection");
-		},
+    },
 
     model: MountainsAllModel,
 

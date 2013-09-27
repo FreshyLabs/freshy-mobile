@@ -37,9 +37,10 @@ function( App, Backbone, MountainModel ) {
           total.snow_amount = Math.round( total.snow_amount);
         });
 
+        console.log('mountain model', model );
         this.add( model );
 
-        $('#title').html(model.get('feature').properties.Name);
+        $('#title-inner').html(model.get('feature').properties.Name);
       }
     }
 		

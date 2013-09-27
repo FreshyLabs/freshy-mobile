@@ -24,7 +24,7 @@ function( App, Backbone, MountainsView, ClosestCollection ) {
       }
 
       this.show();
-      
+
     },
 
     show: function() {

@@ -35,7 +35,7 @@
          
         <div class="scrollable">
             <div class="wrap">
-                <div id="title"> FreshyMap</div>
+                <div id="title"><div id="title-inner">FreshyMap</div></div>
                 <div id="main"></div>
                 <div id="mountain"></div>
             </div>
@@ -55,17 +55,20 @@
         <script src="scripts/lib/jquery.plugin.pullToRefresh.js"></script>
 
         <script>
+          console.log('init scrollable')
           $('.scrollable').pullToRefresh({
-              callback: function() {
-                  var def = $.Deferred();
-                  
-                  setTimeout(function() {
-                      def.resolve();      
-                  }, 3000); 
+            callback: function() {
+              var def = $.Deferred();
+              
+              setTimeout(function() {
+                  def.resolve();      
+              }, 3000); 
 
-                  return def.promise();
-              }
+              return def.promise();
+            }
           }); 
-        </script>
+        </script
+        >
+
     </body>
 </html>

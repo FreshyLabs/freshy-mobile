@@ -2,8 +2,9 @@
     <div id="mountain-header">
       <div class="mountain-header-item">
         <div class="mountain-header-item-inner">
-          <div class="mountain-title">New Snow</div>
+          <div class="mountain-title">Freshies</div>
           <div id="new-snow"> {{ feature.properties.current_new }}"</div>
+          <div id="twenty-four-hour">24 Hour</div>
         </div>
       </div>
       <div class="mountain-header-item" id="selected-mountain">
@@ -23,6 +24,7 @@
       </div>
     </div>
     <div id="forecast">
+      <div class="sub-title">FreshyCast</div>
       <div class="forecast-day">
         <span>{{ feature.properties.snow_forecast.0.time }} </span>
         <div class="forecast-number">{{ feature.properties.snow_forecast.0.snow_amount }}&quot; </div>

@@ -35,9 +35,10 @@ function( App, Backbone ) {
         if ( i === 4 ) self.add( res ); // stuff the selected mountain in the middle of array
         var m = App.mountains_all.findWhere( { name: closest[ i ].replace(/\s+/g, '') } );
         m.set('index', null);
+        if ( m.get('feature').properties.current_new == null ) m.get('feature').properties.current_new = 0;
         self.add( m );
 
-        $('#title').html('FreshyMap');
+        $('#title-inner').html('FreshyMap');
       };
 
       //TODO FIX
@@ -45,7 +46,7 @@ function( App, Backbone ) {
       setTimeout(function() {
       //css update for focus container 
         $('.mountains-new-snow[data-index="4"]').css({
-          'margin-top':'-10px',
+          'margin-top':'-5px',
           'height':'70px', 
           'width': '70px', 
           'font-size':'1em'
