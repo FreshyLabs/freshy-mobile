@@ -11,7 +11,7 @@
         <title></title>
 
         <meta name="description" content="">
-        <meta name="viewport" content="initial-scale=1.0,width=device-width,user-scalable=yes" />
+        <meta name="viewport" content="width=device-width">
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         
@@ -55,7 +55,6 @@
         <script src="scripts/lib/jquery.plugin.pullToRefresh.js"></script>
 
         <script>
-          console.log('init scrollable')
           $('.scrollable').pullToRefresh({
             callback: function() {
               var def = $.Deferred();
