@@ -24,12 +24,13 @@ function( App, Backbone, MountainsView, ClosestCollection ) {
       }
 
       this.show();
-      
+
     },
 
     show: function() {
       App.mainRegion.show( new MountainsView({ collection: this.closest  }) );
     }
+
 	});
 
 });
