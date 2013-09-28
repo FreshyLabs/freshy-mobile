@@ -56,6 +56,8 @@
         <script src="scripts/lib/jquery.plugin.pullToRefresh.js"></script>
 
         <script>
+
+          window.App = null;
           //refresh doodad with native scroll and fun ski icon man
           $('.scrollable').pullToRefresh({
             callback: function() {
@@ -78,9 +80,13 @@
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function( geo ){
               console.log('NAVIGATE', geo.coords);
-              if (App) {
-                App.trigger('locate', geo);
-              }
+              setTimeout(function () {
+                if (!App){
+                  setTimeout(arguments.callee, 25);
+                  return;
+              	}
+              	App.trigger('locate', geo);
+              },0);
             });
           } else {
             // try to geocode the IP
