@@ -35,9 +35,13 @@ app.get('/', function(req, res){
   res.sendfile( path.join( __dirname, '../app/index.html' ) );
 });
 
+app.get('/*', function(req, res){
+  res.sendfile( path.join( __dirname, '../app/index.html' ) );
+});
+
 // start server
 http.createServer(app).listen(app.get('port'), function(){
-    console.log('Express App started!', app.get('port'));
+    console.log('Express App started on '+ app.get('port'));
 });
 
 
