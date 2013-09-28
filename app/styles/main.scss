@@ -92,6 +92,7 @@ body {
 
 #title {
   color: #fff;
+  text-align: right;
   font-size: 2em;
   margin-bottom: 8px;
   width: 100%;
@@ -137,7 +138,7 @@ body {
     &[data-index="4"] {
       width:5px;
       height:5px;
-      border: 1px solid #FFF;
+      border: 1px solid #1abc9c;
       margin-top:20px;
       font-size: 0em;
       -webkit-transition:width 300ms ease-in-out, height 300ms ease-in-out, margin-top 300ms ease-in-out, font-size 300ms ease-in-out;
