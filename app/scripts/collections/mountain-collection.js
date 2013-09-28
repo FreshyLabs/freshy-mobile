@@ -21,12 +21,26 @@ function( App, Backbone, MountainModel ) {
         $.getJSON( "http://freshymap.com/mountains/"+options.id, function( data ) {
           var model = new MountainModel( data[0] );
           model.set( 'name',  data[0].feature.properties.Name.replace(/\s+/g, '') );
-          console.log('model', model)
+
+          //round forecast totals for UI display
+          _.each(model.get('feature').properties.snow_forecast, function(total, i) {
+            total.snow_amount = Math.round( total.snow_amount);
+          });
+          
           self.add( model );
         });
       } else {
         var model = App.mountains_all.findWhere( { name: options.id } );
+        
+        //round forecast totals for UI display
+        _.each(model.get('feature').properties.snow_forecast, function(total, i) {
+          total.snow_amount = Math.round( total.snow_amount);
+        });
+
+        console.log('mountain model', model );
         this.add( model );
+
+        $('#title-inner').html(model.get('feature').properties.Name);
       }
     }
 		
