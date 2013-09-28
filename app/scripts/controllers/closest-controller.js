@@ -16,15 +16,7 @@ function( App, Backbone, MountainsView, ClosestCollection ) {
       App.on('locate', this.setLocation, this);
 
       this.closest = new ClosestCollection([]);
-      
-      if ( App.mountains_all.models.length === 0 ) {
-        App.commands.setHandler('data:loaded', function() {
-          self.closest.getClosest();
-        });
-      } else {
-        //this.closest.getClosest( App.activeMountain );
-      }
-
+      this.closest.getClosest( App.activeMountain );
       this.show();
 
     },
@@ -33,12 +25,19 @@ function( App, Backbone, MountainsView, ClosestCollection ) {
       App.mainRegion.show( new MountainsView({ collection: this.closest  }) );
     },
 
-     setLocation: function( geo ){
+    setLocation: function( geo ){
+
       if ( geo ){
         var coords = geo.coords;
         this.closest.getClosest( this._findNearest( coords.latitude, coords.longitude ) );
       } else {
-        this.closest.getClosest( App.activeMountain );
+        if ( App.mountains_all.models.length === 0 ) {
+          App.commands.setHandler('data:loaded', function() {
+            self.closest.getClosest();
+          });
+        } else {
+          this.closest.getClosest( App.activeMountain );
+        }
       }
     },
 
