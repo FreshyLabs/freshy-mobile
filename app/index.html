@@ -74,6 +74,19 @@
             history.back();
           });
 
+          // try to init user location 
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function( geo ){
+              console.log('NAVIGATE', geo.coords);
+              if (App) {
+                App.trigger('locate', geo);
+              }
+            });
+          } else {
+            // try to geocode the IP
+          }
+
+
         </script>
 
     </body>

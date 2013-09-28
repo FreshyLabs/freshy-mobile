@@ -19,6 +19,7 @@ function( App, Backbone ) {
 
       var res, closest;
       if ( !mountain ) {
+        // default to a mountain (34 == mt spokane)
         res = App.mountains_all.models[ 34 ];
         res.set('index', 4);
         closest = res.get( 'feature' ).properties.closest;
@@ -54,6 +55,5 @@ function( App, Backbone ) {
       },100);
       
     }
-		
 	});
 });

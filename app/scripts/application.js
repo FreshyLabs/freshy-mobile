@@ -1,3 +1,5 @@
+var App;
+
 define([
   'backbone',
 	'communicator'
@@ -6,7 +8,7 @@ define([
 function( Backbone, Communicator, MountainsView, Mountains ) {
   'use strict';
 
-  var App = new Backbone.Marionette.Application();
+  App = new Backbone.Marionette.Application();
 
 	/* Add application regions here */
 	App.addRegions({
