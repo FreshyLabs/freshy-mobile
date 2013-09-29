@@ -16,7 +16,13 @@ function( App, Backbone, MountainsView, ClosestCollection ) {
       App.on('locate', this.setLocation, this);
 
       this.closest = new ClosestCollection([]);
-      this.closest.getClosest( App.activeMountain );
+      if ( App.mountains_all.models.length === 0 ) {
+          App.commands.setHandler('data:loaded', function() {
+            self.closest.getClosest();
+          });
+      } else {
+          this.closest.getClosest( App.activeMountain );
+      }
       this.show();
 
     },

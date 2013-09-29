@@ -13,6 +13,7 @@ function( Backbone, Communicator, MountainsView, Mountains ) {
 	/* Add application regions here */
 	App.addRegions({
     mainRegion: "#main",
+    headerRegion: "#header",
     mountainRegion: "#main" //TODO make unique
   });
 

@@ -13,7 +13,7 @@ body {
   font-family: Lato, 'Helvetica Neue';
   -webkit-font-smoothing: antialiased;
   -webkit-backface-visibility: hidden;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .scrollable {
@@ -93,14 +93,16 @@ body {
 
 #title {
   color: #fff;
-  text-align: right;
+  text-align: center;
   font-size: 2em;
-  margin-bottom: 8px;
+  font-weight: bold;
+  margin-bottom: 5px;
   width: 100%;
-  border: 1px solid #302F2F;
-  box-shadow: inset -2px -2px 2px -1px #0C0C0C;
+  border-bottom: 1px solid #ff0;//#302F2F;
+  //box-shadow: inset -2px -2px 2px -1px #0C0C0C;
   background: #302F2F;
-  height: 33px;
+  height: 42px;
+  line-height:38px;
   #title-inner {
     margin:4px;
     margin-top:5px;
@@ -113,17 +115,16 @@ body {
   color:#FCFCFF;
   width:33.33%;
   float:left;
-  height:125px;
+  height:115px;
   margin:auto;
   text-align:center;
   &[data-index="4"] {
     margin-top:-10px;
   }
   .mountains-inner {
-    height: 94px;
     margin: auto;
     width: 95%;
-    margin-top: 3px;
+    margin-top: 0px;
     padding-top: 3px;
     opacity: 0.9;
   }
@@ -150,9 +151,9 @@ body {
   }
   .mountain-name {
     font-size:0.8em;
-    color:#85858D;
+    color:#ddd; //#85858D;
     display:block;
-    margin-top:22px;
+    margin-top:10px;
     font-weight:bold;
     &[data-index="4"] { 
       color: #FFF;

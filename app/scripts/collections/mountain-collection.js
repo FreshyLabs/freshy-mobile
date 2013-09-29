@@ -38,9 +38,10 @@ function( App, Backbone, MountainModel ) {
         });
 
         console.log('mountain model', model );
+        this.remove(this.models);
         this.add( model );
 
-        $('#title-inner').html(model.get('feature').properties.Name);
+        //$('#title-inner').html(model.get('feature').properties.Name);
       }
     }
 		

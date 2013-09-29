@@ -15,23 +15,27 @@ function( Backbone, Communicator, MountainsAllController, MtnController, Closest
 
       //setup all mountains collection used globally across app
       this.mtnsall = new MountainsAllController();
+      this.closestController = new ClosestController();
+      this.mtnController = new MtnController( );
     },
 
     routes: {
       "": "renderClosest",
+      "/#": "renderClosest",
       ":id": "renderMountain"
     },
 
     renderClosest: function() {
-      console.log('route: "" ');
+      console.log('route: "Closest" ');
       //closest mountains 
-      this.closestController = new ClosestController();
+      this.closestController.show();
     },
 
     renderMountain: function( id ) {
       var options = {};
       options.id = id; //mountain name 
-      this.mtnController = new MtnController( options );
+      this.mtnController.mountain.getMountain( options ); 
+      this.mtnController.show();
     }
 
 

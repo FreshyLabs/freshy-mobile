@@ -9,18 +9,16 @@ function( App, Backbone, MtnCollectionView, MountainCollection ) {
 
 	return Backbone.Marionette.Controller.extend({
 
-		initialize: function( options ) {
+		initialize: function( ) {
 			console.log("initialize a Mtn Controller");
       var self = this;
 
       //get mountain 
       this.mountain = new MountainCollection([]);
-      this.mountain.getMountain( options ); 
-
-      this.show();
+      //this.show();
 		},
 
-    show: function() {
+    show: function( options ) {
       App.mountainRegion.show( new MtnCollectionView( { collection : this.mountain } ) );
     }
 
