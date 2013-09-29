@@ -13,7 +13,15 @@ function( App, Backbone, MountainsView, ClosestCollection ) {
 			console.log("initialize a Closest Controller");
       var self = this;
 
-      App.on('locate', this.setLocation, this);
+      App.on('locate', function(geo){
+        setTimeout(function () {
+          if (!App.mountains_all){
+            setTimeout(arguments.callee, 25);
+            return;
+          }
+          self.setLocation(geo);
+        },0);
+      }, this);
 
       this.closest = new ClosestCollection([]);
       if ( App.mountains_all.models.length === 0 ) {
