@@ -85,7 +85,7 @@
             navigator.geolocation.getCurrentPosition(function( geo ){
               console.log('NAVIGATE', geo.coords);
               setTimeout(function () {
-                if (!App && !App.mountains_all){
+                if (!App){
                   setTimeout(arguments.callee, 25);
                   return;
               	}
