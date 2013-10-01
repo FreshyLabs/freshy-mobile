@@ -37,6 +37,17 @@ function( App, Backbone, MountainsView, ClosestCollection ) {
 
     show: function() {
       App.mainRegion.show( new MountainsView({ collection: this.closest  }) );
+
+      setTimeout(function() {
+      //css update for focus container 
+        $('.mountains-new-snow[data-index="4"]').css({
+          'margin-top':'-5px',
+          'height':'70px', 
+          'width': '70px', 
+          'font-size':'1em'
+        });
+      },100);
+      
     },
 
     setLocation: function( geo ){
