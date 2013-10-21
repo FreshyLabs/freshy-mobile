@@ -4,9 +4,9 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
-
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
         <title></title>
 
@@ -15,11 +15,14 @@
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         
+        <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css">
         <link rel="stylesheet" href="styles/main.css">
         
         <script src="bower_components/jquery/jquery.min.js"></script>
         <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
         <script src="bower_components/fastclick/lib/fastclick.js"></script>
+        <script src="bower_components/typeahead.js/dist/typeahead.js"></script>
+        <script src="bower_components/leaflet/dist/leaflet.js"></script>
         <script>
           window.addEventListener('load', function() {
             FastClick.attach(document.body);
@@ -33,6 +36,12 @@
     </head>
 
     <body>
+      <div id="header">
+        <div id="title">
+          <div id="title-inner">FreshyMap</div>
+        </div>
+      </div>
+      <div id="map"></div>
       <div class="main-container">
          
         <div class="scrollable">
@@ -42,6 +51,7 @@
                     <div id="title-inner">FreshyMap</div>
                   </div>
                 </div>
+                <!--input class="typeahead search" type="text" placeholder="Search Mountains / Regions" spellcheck="false" style="position: relative; vertical-align: top; width: 100%;"-->
                 <div id="main"></div>
                 <div id="mountain"></div>
             </div>
@@ -83,7 +93,6 @@
           // try to init user location 
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function( geo ){
-              console.log('NAVIGATE', geo.coords);
               setTimeout(function () {
                 if (!App){
                   setTimeout(arguments.callee, 25);

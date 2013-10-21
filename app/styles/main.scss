@@ -6,6 +6,14 @@
     width: 400px;
 }
 
+html, body, #map {
+    height: 100%;
+}
+
+#map {
+  height: 500px;
+}
+
 body { 
   /*background: #212c36; BLUE */
   background:#212121;
@@ -14,6 +22,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -webkit-backface-visibility: hidden;
   overflow: hidden;
+  padding: 0;
+  margin: 0;
 }
 
 .scrollable {
@@ -98,7 +108,7 @@ body {
   font-weight: bold;
   margin-bottom: 5px;
   width: 100%;
-  border-bottom: 1px solid #ff0;//#302F2F;
+  //border-bottom: 1px solid #ff0;//#302F2F;
   //box-shadow: inset -2px -2px 2px -1px #0C0C0C;
   background: #302F2F;
   height: 42px;
@@ -118,9 +128,9 @@ body {
   height:115px;
   margin:auto;
   text-align:center;
-  &[data-index="4"] {
-    margin-top:-10px;
-  }
+  //&[data-index="4"] {
+  //  margin-top:-10px;
+  //}
   .mountains-inner {
     margin: auto;
     width: 95%;
@@ -133,21 +143,21 @@ body {
     border: 1px solid #302F2F;
     width: 45px;
     margin: auto;
-    border-radius: 100px;
+    //border-radius: 100px;
     height: 45px;
-    background: #2B2A2A;
-    box-shadow: inset 0px 0px 2px 1px #0C0C0C;
-    &[data-index="4"] {
-      width:5px;
-      height:5px;
-      border: 1px solid #1abc9c;
-      margin-top:20px;
-      font-size: 0em;
-      -webkit-transition:width 300ms ease-in-out, height 300ms ease-in-out, margin-top 300ms ease-in-out, font-size 300ms ease-in-out;
-      -moz-transition:width 300ms ease-in-out, height 300ms ease-in-out, margin-top 300ms ease-in-out, font-size 300ms ease-in-out;
-      -o-transition:width 300ms ease-in-out, height 300ms ease-in-out, margin-top 300ms ease-in-out, font-size 300ms ease-in-out;
-      transition:width 300ms ease-in-out, height 300ms ease-in-out, margin-top 300ms ease-in-out, font-size 300ms ease-in-out;
-    }
+    //background: #2B2A2A;
+    //box-shadow: inset 0px 0px 2px 1px #0C0C0C;
+    //&[data-index="4"] {
+    //  width:5px;
+    //  height:5px;
+    //  border: 1px solid #1abc9c;
+    //  margin-top:20px;
+    //  font-size: 0em;
+    //  -webkit-transition:width 300ms ease-in-out, height 300ms ease-in-out, margin-top 300ms ease-in-out, font-size 300ms ease-in-out;
+    //  -moz-transition:width 300ms ease-in-out, height 300ms ease-in-out, margin-top 300ms ease-in-out, font-size 300ms ease-in-out;
+    //  -o-transition:width 300ms ease-in-out, height 300ms ease-in-out, margin-top 300ms ease-in-out, font-size 300ms ease-in-out;
+    //  transition:width 300ms ease-in-out, height 300ms ease-in-out, margin-top 300ms ease-in-out, font-size 300ms ease-in-out;
+    //}
   }
   .mountain-name {
     font-size:0.8em;
@@ -155,11 +165,11 @@ body {
     display:block;
     margin-top:10px;
     font-weight:bold;
-    &[data-index="4"] { 
-      color: #FFF;
-      font-size:1em;
-      margin-top: 11px;
-    }
+    //&[data-index="4"] { 
+    //  color: #FFF;
+    //  font-size:1em;
+    //  margin-top: 11px;
+    //}
 
   }
   .mountain-info {
@@ -170,10 +180,10 @@ body {
     &.new-snow {
       font-size:1.3em;
       margin-top:27%;
-       &[data-index="4"] {
-        font-size:2.3em;
-        margin-top:33%;
-      }
+      //&[data-index="4"] {
+      //  font-size:2.3em;
+      //  margin-top:33%;
+      //}
     }
   }
 }
@@ -292,3 +302,4 @@ body {
     font-size: 1em;
   }
 }
+

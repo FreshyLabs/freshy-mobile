@@ -1,11 +1,10 @@
 define([
   'backbone',
   'communicator',
-  'controllers/mountains-all-controller',
-  'controllers/mountain-controller',
-  'controllers/closest-controller'
+  'controllers/mountains',
+  'controllers/mountain',
 ],
-function( Backbone, Communicator, MountainsAllController, MtnController, ClosestController ) {
+function( Backbone, Communicator, MountainsController, MtnController ) {
     'use strict';
 
   return Backbone.Router.extend({
@@ -14,28 +13,25 @@ function( Backbone, Communicator, MountainsAllController, MtnController, Closest
       console.log('router initialized');
 
       //setup all mountains collection used globally across app
-      this.mtnsall = new MountainsAllController();
-      this.closestController = new ClosestController();
-      this.mtnController = new MtnController( );
+      this.mountainsController = new MountainsController();
+      this.mountainController = new MtnController( );
+      console.log('MOUNTAIN', this.mountainController);
     },
 
     routes: {
-      "": "renderClosest",
-      "/#": "renderClosest",
+      "": "renderAll",
+      "/#": "renderAll",
       ":id": "renderMountain"
     },
 
-    renderClosest: function() {
-      console.log('route: "Closest" ');
-      //closest mountains 
-      this.closestController.show();
+    renderAll: function() {
+      this.mountainsController.show();
     },
 
     renderMountain: function( id ) {
       var options = {};
       options.id = id; //mountain name 
-      this.mtnController.mountain.getMountain( options ); 
-      this.mtnController.show();
+      this.mountainController.show( options );
     }
 
 
