@@ -24,10 +24,12 @@ function( App, Backbone, MountainsAllModel ) {
           fillOpacity: 0.8
         };
 
-        App.layer = L.d3( {type:'FeatureCollection', features: points} , {pathClass:'mtn'});
-        //  pointToLayer: function (feature, latlng) {
-        //    return L.circleMarker(latlng, style);
-        //  }
+        //App.layer = L.d3( {type:'FeatureCollection', features: points} , {pathClass:'mtn'});
+        App.layer = L.geoJson( points, {
+          pointToLayer: function (feature, latlng) {
+            return L.circleMarker(latlng, style);
+          }
+        });
         App.layer.addTo(App.map);
 
         App.layer.on('click', function(e) {
