@@ -19,7 +19,7 @@
     "sinon": "~1.7.3",
     "fastclick": "0.6.10",
     "typeahead.js": "~0.9.3",
-    "leaflet": "*"
+    "leaflet": "~0.6.4"
   },
   "devDependencies": {},
   "directory": "bower_components"
