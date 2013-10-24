@@ -24,11 +24,11 @@ function( App, Backbone, MountainsAllModel ) {
           fillOpacity: 0.8
         };
 
-        App.layer = L.geoJson(points, {
-          pointToLayer: function (feature, latlng) {
-            return L.circleMarker(latlng, style);
-          }
-        }).addTo(App.map);
+        App.layer = L.d3( {type:'FeatureCollection', features: points} , {pathClass:'mtn'});
+        //  pointToLayer: function (feature, latlng) {
+        //    return L.circleMarker(latlng, style);
+        //  }
+        App.layer.addTo(App.map);
 
         App.layer.on('click', function(e) {
           App.router.navigate("#"+e.layer.feature.properties.Name, { trigger: true });
@@ -72,7 +72,7 @@ function( App, Backbone, MountainsAllModel ) {
 
         self.addLayer( points );
 
-        //tell the rest of the app the data has loaded
+        //tell the resqt of the app the data has loaded
         App.states = Object.keys(states).sort();
         App.execute( 'data:loaded' );
 
