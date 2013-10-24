@@ -103,20 +103,24 @@ body {
 
 #title {
   color: #fff;
-  text-align: center;
-  font-size: 2em;
+  text-align: left;
+  font-size: 16pt;
   font-weight: bold;
-  margin-bottom: 5px;
-  width: 100%;
+  margin-bottom: 2px;
   //border-bottom: 1px solid #ff0;//#302F2F;
   //box-shadow: inset -2px -2px 2px -1px #0C0C0C;
   background: #302F2F;
   height: 42px;
-  line-height:38px;
+  line-height:42px;
+  
   #title-inner {
-    margin:4px;
-    margin-top:5px;
-    margin-bottom:5px;
+    //margin:4px;
+    //margin-top:5px;
+    //margin-bottom:5px;
+    padding: 0px 5px;
+  }
+  .blue {
+    color:#08c;
   }
 }
 
@@ -303,3 +307,19 @@ body {
   }
 }
 
+
+.main-container {
+  display:none;
+  position: absolute;
+  top:0px;
+  left:95%; 
+  width:95%;
+  height:100%;
+  background:#444; 
+  transition:.5s;
+  margin-top:44px;
+}
+
+.leaflet-control-container {
+  display:none;
+}

@@ -28,5 +28,10 @@ function( Backbone, Communicator, MountainsView, Mountains ) {
 
   App.map.locate({setView: true, maxZoom: 4});
 
+  App.map.on('click', function(){
+    App.router.navigate("#", { trigger: false });
+    $('.main-container').css('left', '95%');  
+  });
+
   return App;
 });

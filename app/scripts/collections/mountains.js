@@ -14,6 +14,31 @@ function( App, Backbone, MountainsAllModel ) {
 
     model: MountainsAllModel,
 
+    addLayer: function( points ){
+        var style = {
+          radius: 4,
+          fillColor: "#333",
+          color: "#ddd",
+          weight: 2,
+          opacity: .7,
+          fillOpacity: 0.8
+        };
+
+        App.layer = L.geoJson(points, {
+          pointToLayer: function (feature, latlng) {
+            return L.circleMarker(latlng, style);
+          }
+        }).addTo(App.map);
+
+        App.layer.on('click', function(e) {
+          App.router.navigate("#"+e.layer.feature.properties.Name, { trigger: true });
+          var el = $('.main-container');
+          el.show(function(){
+            el.css('left', '5%');
+          });
+        });
+    },
+
     getMountains: function() {
       var self = this;
 
@@ -24,11 +49,12 @@ function( App, Backbone, MountainsAllModel ) {
       if ( now > expire ) {
         localStorage.clear();
       }
+       
+      var points = [];
 
       if ( localStorage.mountains )  {
         
         var data = JSON.parse( localStorage.getItem('mountains') );
-        var points = [];
         _.each( data, function( mtn, i ) {
           states[mtn.feature.properties.State] = states[mtn.feature.properties.State]+1 || 1;
           var model = new MountainsAllModel( mtn );
@@ -44,25 +70,7 @@ function( App, Backbone, MountainsAllModel ) {
           }
         });
 
-        var style = {
-          radius: 6,
-          fillColor: "#777",
-          color: "#fff",
-          weight: 3,
-          opacity: .2,
-          fillOpacity: 0.8
-        };
-
-        App.layer = L.geoJson(points, {
-          pointToLayer: function (feature, latlng) {
-            return L.circleMarker(latlng, style);
-          }
-        }).addTo(App.map);
-
-        //App.layer.on('click', function(e) {
-          //alert(e.latlng);
-        //});
-
+        self.addLayer( points );
 
         //tell the rest of the app the data has loaded
         App.states = Object.keys(states).sort();
@@ -78,7 +86,16 @@ function( App, Backbone, MountainsAllModel ) {
             model.set( 'name',  mtn.feature.properties.Name.replace(/\s+/g, '') );
             model.set( 'index', i);
             self.add( model );
+
+            // add to map
+            if (mtn.feature.geometry.coordinates[0] && mtn.feature.geometry.coordinates[1]){
+              var geojson = {type:'Feature', geometry: {type:'Point', coordinates: mtn.feature.geometry.coordinates}, properties:mtn.feature.properties};
+              //App.mntLayer.addData( geojson );
+              points.push( geojson );
+            }
           });
+
+          self.addLayer( points );
 
           //tell the rest of the app the data has loaded
           App.states = Object.keys(states).sort();

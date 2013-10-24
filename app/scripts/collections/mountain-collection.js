@@ -30,7 +30,7 @@ function( App, Backbone, MountainModel ) {
           self.add( model );
         });
       } else {
-        var model = App.mountains_all.findWhere( { name: options.id } );
+        var model = App.mountains_all.findWhere( { name: options.id.replace(/ /g, '') } );
         
         //round forecast totals for UI display
         _.each(model.get('feature').properties.snow_forecast, function(total, i) {
@@ -40,7 +40,6 @@ function( App, Backbone, MountainModel ) {
         console.log('mountain model', model );
         this.remove(this.models);
         this.add( model );
-
         //$('#title-inner').html(model.get('feature').properties.Name);
       }
     }
