@@ -360,3 +360,25 @@ body {
   background: #00ff45;
   margin:auto;
 }
+
+.pin {
+  width: 30px;
+  height: 30px;
+  border-radius: 50% 50% 50% 0;
+  background: #89849b;
+  position: absolute;
+  transform: rotate(-45deg);
+  left: 50%;
+  top: 50%;
+  margin: -20px 0 0 -20px;
+  &:after {
+    content: '';
+    width: 14px;
+    height: 14px;
+    margin: 8px 0 0 8px;
+    background: #2e353f;
+    position: absolute;
+    border-radius: 50%;
+    box-shadow: inset 0px 2px 0px #252A32;
+  }
+}
