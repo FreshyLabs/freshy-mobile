@@ -27,7 +27,7 @@ function( App, Backbone, MountainsAllModel ) {
           d3.event.stopPropagation();
           App.router.navigate("#" + e.properties.Name, { trigger: true });
           var el = $('.main-container');
-          el.css('left', '5%');
+          el.css('transform', 'translate3d(5%,0,0)');
         });
 
     },

@@ -23,9 +23,7 @@ function( App, Backbone, MtnTmpl  ) {
 
     expand: function(){
       var el = $('.main-container');
-      //el.show(function(){
-      //});
-      el.css('left', '3%');
+      $('.main-container').css('transform', 'translate3d(5%,0,0)');
     },
 
     home: function() {
