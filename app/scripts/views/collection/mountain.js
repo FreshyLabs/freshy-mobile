@@ -9,7 +9,8 @@ function( Backbone, MountainItemView  ) {
   return Backbone.Marionette.CollectionView.extend({
 
     initialize: function() {
-      console.log("initialize a MountainCollectionView CollectionView");
+      var el = $('.main-container');
+      el.css('left', '3%');
     },
 
     itemView: MountainItemView,
@@ -20,8 +21,25 @@ function( Backbone, MountainItemView  ) {
     /* Ui events hash */
     events: {},
 
-    /* on render callback */
-    onRender: function() {}
+    onRender: function(){
+      var self = this;
+      setTimeout(function(){
+        self._attachCams(self.collection.models[0].get('feature').properties.webcams);
+      },750);
+    },
+
+    _attachCams: function( cams ){
+      var el = $('.webcam-container .swiper-wrapper');
+      _.each(cams, function(cam){
+        console.log(cam)
+        el.append("<img class='swiper-slide' src='"+cam+"'/>");
+      });
+      window.mySwiper = new Swiper('.swiper-container',{
+          mode:'horizontal',
+          loop: true
+      });  
+    }
+
   });
 
 });
