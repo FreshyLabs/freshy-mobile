@@ -22,12 +22,12 @@ function( App, Backbone, MountainsAllModel ) {
         }
 
         var layer = new d3Layer.addLayer( collection );
-        d3.selectAll('.mtn').on('mousedown', function(e){
+        d3.selectAll('.mtn').on('click', function(e){
           //console.log(d3.event);
-          d3.event.stopPropagation();
           App.router.navigate("#" + e.properties.Name, { trigger: true });
           var el = $('.main-container');
           el.css('transform', 'translate3d(5%,0,0)');
+          d3.event.stopPropagation();
         });
 
     },
