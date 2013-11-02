@@ -340,6 +340,9 @@ body {
   stroke:#FFF;
   stroke-width:.8px;
   fill: #2B2A2A;
+  &:hover {
+    cursor:pointer;
+  }
 }
 
 .webcam-container {
