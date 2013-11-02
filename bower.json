@@ -20,7 +20,8 @@
     "fastclick": "0.6.10",
     "typeahead.js": "~0.9.3",
     "leaflet": "*",
-    "d3": "~3.3.8"
+    "d3": "~3.3.8",
+    "swiper": "*"
   },
   "devDependencies": {},
   "directory": "bower_components"

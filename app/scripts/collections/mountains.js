@@ -36,7 +36,7 @@ function( App, Backbone, MountainsAllModel ) {
           App.router.navigate("#"+e.layer.feature.properties.Name, { trigger: true });
           var el = $('.main-container');
           el.show(function(){
-            el.css('left', '5%');
+            el.css('left', '3%');
           });
         });
     },
