@@ -284,6 +284,9 @@ body {
     width: 100%;
     padding: 10px;
     color: #fff;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    overflow:hidden;
   }
 }
 
@@ -359,7 +362,6 @@ body {
   //background-color:#2980b9;
   font-size: 14px;
   padding:5px 0px;
-  width:235px;
   text-align: right;
   color:#777;
 }
@@ -459,7 +461,7 @@ body {
     width:125px;
     height:60px;
     background-color: #222;
-    border-bottom:1px solid #555;
+    //border-bottom:1px solid #555;
     margin:3px;
     text-align: center;
     line-height:27px;
@@ -483,5 +485,7 @@ body {
 .report-time {
   font-size:7pt;
   color:#777;
-  
+  position:relative;
+  top:-7px;
+  left:5px;
 } 

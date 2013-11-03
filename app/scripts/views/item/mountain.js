@@ -11,6 +11,8 @@ function( App, Backbone, MtnTmpl  ) {
 
 		initialize: function( options ) {
 			//console.log("initialize a Mtn ItemView");
+      this.model.set('updated', dateFormat( this.model.get( 'feature' ).properties.report_time, "h:MM:ss TT"));
+      console.log(this.model.get('updated'));
   	},
 		
     template: MtnTmpl,
@@ -18,13 +20,10 @@ function( App, Backbone, MtnTmpl  ) {
     /* Ui events hash */
     events: {
       "click": "expand",
-      "click .close": "close"
-      //"click #selected-mountain" : "home"
+      "click .close": "home"
     },
 
     hide: function(){
-      var el = $('.main-container');
-      el.hide();
     },
 
     expand: function(){
@@ -34,13 +33,10 @@ function( App, Backbone, MtnTmpl  ) {
     },
 
     home: function() {
+      $('.main-container').hide();
       App.router.navigate("#", { trigger: true });
-    },
-
-   	/* on render callback */
-		onRender: function() {
-      //$('#header').hide();
     }
+
 	});
 
 });

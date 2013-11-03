@@ -28,6 +28,7 @@
         <script src="scripts/lib/leaflet.d3.js"></script>
         <script src="bower_components/modernizr/modernizr.js"></script>
         <script src="scripts/lib/d3Layer.js"></script>
+        <script src="scripts/lib/date.format.js"></script>
     </head>
 
     <body>
@@ -39,13 +40,10 @@
       <div id="map"></div>
       <div class="main-container">
         <div id="mtn-bg"></div>
-        <div class="scrollable">
-            <div class="wrap">
-                <div id="main">
-                </div>
-            </div>
+        <div id="scrollable"></div>
+        <div id="wrapper">
+          <div id="mountain"></div>
         </div>
-
       </div>
         <!-- build:js scripts/main.js -->
         <script data-main="scripts/init" src="bower_components/requirejs/require.js"></script>
