@@ -311,6 +311,9 @@ body {
     color:#999;
     z-index:1;
   }
+  //.swiper-wrapper {
+  //  width:100% !important;
+  //}
 }
 
 #mtn-bg {
@@ -488,4 +491,9 @@ body {
   position:relative;
   top:-7px;
   left:5px;
+}
+
+.slide {
+  width:100%;
+  height:100%;
 } 

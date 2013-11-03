@@ -10,16 +10,17 @@ function( App, Backbone, MtnTmpl  ) {
 	return Backbone.Marionette.ItemView.extend({
 
 		initialize: function( options ) {
-			//console.log("initialize a Mtn ItemView");
-      this.model.set('updated', dateFormat( this.model.get( 'feature' ).properties.report_time, "h:MM:ss TT"));
-      console.log(this.model.get('updated'));
+      this.model.set(
+        'updated', 
+        dateFormat( this.model.get( 'feature' ).properties.report_time, "h:MM:ss TT")
+      );
   	},
 		
     template: MtnTmpl,
     
     /* Ui events hash */
     events: {
-      "click": "expand",
+      //"click": "expand",
       "click .close": "home"
     },
 
@@ -28,8 +29,7 @@ function( App, Backbone, MtnTmpl  ) {
 
     expand: function(){
       var el = $('.main-container');
-      //el.show();
-      //$('.main-container').css('transform', 'translate3d(5%,0,0)');
+      $('.main-container').css('transform', 'translate3d(5%,0,0)');
     },
 
     home: function() {

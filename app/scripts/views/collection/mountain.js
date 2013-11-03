@@ -33,10 +33,9 @@ function( Backbone, MountainItemView  ) {
     _attachCams: function( cams ){
       var el = $('.webcam-container .swiper-wrapper');
       _.each(cams, function(cam){
-        console.log(cam)
         el.append("<img class='swiper-slide' src='"+cam+"'/>");
       });
-      window.mySwiper = new Swiper('.swiper-container',{
+      App.camSwiper = new Swiper('.swiper-container',{
           mode:'horizontal',
           loop: true
       });  

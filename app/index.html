@@ -24,7 +24,6 @@
         <script src="bower_components/fastclick/lib/fastclick.js"></script>
         <script src="bower_components/typeahead.js/dist/typeahead.js"></script>
         <script src="bower_components/leaflet/dist/leaflet.js"></script>
-        <script src="bower_components/swiper/dist/idangerous.swiper-2.2.min.js"></script>
         <script src="scripts/lib/leaflet.d3.js"></script>
         <script src="bower_components/modernizr/modernizr.js"></script>
         <script src="scripts/lib/d3Layer.js"></script>
@@ -39,12 +38,16 @@
       </div>
       <div id="map"></div>
       <div class="main-container">
-        <div id="mtn-bg"></div>
-        <div id="scrollable"></div>
-        <div id="wrapper">
-          <div id="mountain"></div>
-        </div>
+            <div id="mtn-bg"></div>
+            <div class="scrollable">
+              <div class="wrap">
+                <div id="main"></div>
+              </div>
+            </div>
+          <!--div class="slide"><div id="mtn-bg"></div></div-->
       </div>
+        
+        <script src="bower_components/swiper/dist/idangerous.swiper-2.2.min.js"></script>
         <!-- build:js scripts/main.js -->
         <script data-main="scripts/init" src="bower_components/requirejs/require.js"></script>
         <!-- endbuild -->
@@ -60,6 +63,13 @@
           }, false);
 
           window.App = null;
+         
+          /*setTimeout(function(){ 
+            mainSwiper = new Swiper('.main-container',{
+              mode:'horizontal',
+              loop: true
+            });
+          },1000);*/
 
           // try to init user location 
           if (navigator.geolocation) {
