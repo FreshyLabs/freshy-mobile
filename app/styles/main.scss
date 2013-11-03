@@ -323,6 +323,19 @@ body {
   }
 }
 
+.mtn-closed {
+  stroke:#FFF;
+  stroke-width:.3px;
+  fill: #666;
+  &:hover {
+    cursor:pointer;
+  }
+}
+
+.mtn-label {
+  color:#FFF;
+  font-size:3pt;
+}
 
 .webcam-banner {
   //background-color:#2980b9;
