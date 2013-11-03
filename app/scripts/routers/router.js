@@ -21,7 +21,6 @@ function( Backbone, Communicator, MountainsAllController, MtnController, Closest
 
     routes: {
       "": "renderClosest",
-      "/#": "renderClosest",
       ":id": "renderMountain"
     },
 
