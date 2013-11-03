@@ -333,8 +333,16 @@ body {
 }
 
 .mtn-label {
-  color:#FFF;
-  font-size:3pt;
+  stroke:#FFF;
+  fill:#FFF;
+}
+
+.radial-donut {
+  fill:#ff0;
+}
+
+.mtn-label-closed {
+  display:none;
 }
 
 .webcam-banner {
