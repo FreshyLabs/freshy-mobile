@@ -17,8 +17,14 @@ function( App, Backbone, MtnTmpl  ) {
     
     /* Ui events hash */
     events: {
-      "click": "expand"
+      "click": "expand",
+      "click .close": "close"
       //"click #selected-mountain" : "home"
+    },
+
+    hide: function(){
+      var el = $('.main-container');
+      el.hide();
     },
 
     expand: function(){
