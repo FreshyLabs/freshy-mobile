@@ -13,7 +13,7 @@ function( App, Backbone, MountainsView, ClosestCollection ) {
 			console.log("initialize a Closest Controller");
       var self = this;
 
-      App.on('locate', function(geo){
+      /*App.on('locate', function(geo){
         setTimeout(function () {
           if (!App.mountains_all){
             setTimeout(arguments.callee, 25);
@@ -21,7 +21,7 @@ function( App, Backbone, MountainsView, ClosestCollection ) {
           }
           self.setLocation(geo);
         },0);
-      }, this);
+      }, this);*/
 
       this.closest = new ClosestCollection([]);
       if ( App.mountains_all.models.length === 0 ) {
@@ -37,6 +37,17 @@ function( App, Backbone, MountainsView, ClosestCollection ) {
 
     show: function() {
       App.mainRegion.show( new MountainsView({ collection: this.closest  }) );
+
+      setTimeout(function() {
+      //css update for focus container 
+        $('.mountains-new-snow[data-index="4"]').css({
+          'margin-top':'-5px',
+          'height':'70px', 
+          'width': '70px', 
+          'font-size':'1em'
+        });
+      },100);
+      
     },
 
     setLocation: function( geo ){

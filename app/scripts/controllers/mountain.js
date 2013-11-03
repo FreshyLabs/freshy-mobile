@@ -1,10 +1,10 @@
 define([
   'application',
 	'backbone',
-  'views/collection/mountain-collection-view',
+  'views/collection/mountain',
   'collections/mountain-collection'
 ],
-function( App, Backbone, MtnCollectionView, MountainCollection ) {
+function( App, Backbone, MtnView, MountainCollection ) {
     'use strict';
 
 	return Backbone.Marionette.Controller.extend({
@@ -14,12 +14,12 @@ function( App, Backbone, MtnCollectionView, MountainCollection ) {
       var self = this;
 
       //get mountain 
-      this.mountain = new MountainCollection([]);
-      //this.show();
+      this.collection = new MountainCollection([]);
 		},
 
     show: function( options ) {
-      App.mountainRegion.show( new MtnCollectionView( { collection : this.mountain } ) );
+      this.collection.getMountain( options ); 
+      App.mountainRegion.show( new MtnView( { collection : this.collection } ) );
     }
 
 	});
