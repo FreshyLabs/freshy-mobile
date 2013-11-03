@@ -5,7 +5,7 @@ if(typeof(d3Layer)=='undefined'){
 (function () {
   
   d3Layer = {
-    addLayer: function( collection ) {
+    Layer: function( collection ) {
       
       //create new svg container
       //append graphic

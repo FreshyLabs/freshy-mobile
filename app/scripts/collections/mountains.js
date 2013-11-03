@@ -21,7 +21,7 @@ function( App, Backbone, MountainsAllModel ) {
           "features": points
         }
 
-        var layer = new d3Layer.addLayer( collection );
+        var layer = new d3Layer.Layer( collection );
         d3.selectAll('.mtn').on('click', function(e){
           //console.log(d3.event);
           App.router.navigate("#" + e.properties.Name, { trigger: true });
