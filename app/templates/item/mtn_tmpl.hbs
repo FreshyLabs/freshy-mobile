@@ -23,7 +23,7 @@
         </div>
       </div>
     </div>
-    <div id="forecast">
+    <!--div id="forecast">
       <div class="sub-title">FreshyCast</div>
       <div class="forecast-day">
         <span>{{ feature.properties.snow_forecast.0.time }} </span>
@@ -38,8 +38,29 @@
         <div class="forecast-number">{{ feature.properties.snow_forecast.2.snow_amount }}&quot; </div>
       </div>
     </div-->
-    <div class="mountain-title"> {{ feature.properties.Name }} </div>
+    <div class="header mountain-title"> {{ feature.properties.Name }} </div>
+
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat" d="snow"> {{feature.properties.current_new}}<span class="sym">&#8221;</span></div>
+        <div class="info">24 Hour</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat" id="base"> {{feature.properties.current_new}}<span class="sym">&#8221;</span></div>
+        <div class="info">Base depth</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat" id="forecast"> {{feature.properties.current_new}}<span class="sym">&#8221;</span></div>
+        <div class="info">Forecast</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat" id="temp"> {{feature.properties.current_new}}<span class="sym">&#176;</span></div>
+        <div class="info">Temp.</div>
+      </div>
+    <div class="report-time">{{ feature.properties.report_time }}</div>
+    </div>
     <div class="webcam-container swiper-container">
+      <div class="webcam-banner">{{feature.properties.webcams.length}} Webcams </div> 
       <div class="swiper-wrapper">
       </div>
     </div>
