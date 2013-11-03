@@ -15,30 +15,22 @@ function( App, Backbone, MountainsAllModel ) {
     model: MountainsAllModel,
 
     addLayer: function( points ){
-        var style = {
-          radius: 4,
-          fillColor: "#333",
-          color: "#ddd",
-          weight: 2,
-          opacity: .7,
-          fillOpacity: 0.8
-        };
 
-        //App.layer = L.d3( {type:'FeatureCollection', features: points} , {pathClass:'mtn'});
-        App.layer = L.geoJson( points, {
-          pointToLayer: function (feature, latlng) {
-            return L.circleMarker(latlng, style);
-          }
-        });
-        App.layer.addTo(App.map);
+        var collection = {
+          "type": "FeatureCollection",
+          "features": points
+        }
 
-        App.layer.on('click', function(e) {
-          App.router.navigate("#"+e.layer.feature.properties.Name, { trigger: true });
+        var layer = new d3Layer.addLayer( collection );
+        d3.selectAll('.mtn').on('click', function(e){
+          //console.log(d3.event);
+          App.router.navigate("#" + e.properties.Name, { trigger: true });
           var el = $('.main-container');
-          el.show(function(){
-            el.css('transform', 'translate3d(5%,0,0)');
-          });
+          el.show();
+          //el.css('transform', 'translate3d(5%,0,0)');
+          d3.event.stopPropagation();
         });
+
     },
 
     getMountains: function() {

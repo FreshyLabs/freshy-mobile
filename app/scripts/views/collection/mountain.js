@@ -10,7 +10,8 @@ function( Backbone, MountainItemView  ) {
 
     initialize: function() {
       var el = $('.main-container');
-      el.css('transform', 'translate3d(5%,0,0)');
+      el.show();
+      //el.css('transform', 'translate3d(5%,0,0)');
       //$('#slides').css('transform', 'translate3d(' + pixelOffset + 'px,0,0)').removeClass();
     },
 

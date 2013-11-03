@@ -30,7 +30,12 @@ function( Backbone, Communicator, MountainsView, Mountains ) {
 
   App.map.on('click', function(){
     App.router.navigate("#", { trigger: false });
-    $('.main-container').css('transform', 'translate3d(100%,0,0)');
+    $('.main-container').hide();
+    //$('.main-container').css('transform', 'translate3d(100%,0,0)');
+  });
+
+  $('#title').on('click', function(){
+    $('.main-container').hide();
   });
 
   return App;
