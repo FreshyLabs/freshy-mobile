@@ -332,6 +332,28 @@ body {
   }
 }
 
+.mtn-closed {
+  stroke:#FFF;
+  stroke-width:.3px;
+  fill: #666;
+  &:hover {
+    cursor:pointer;
+  }
+}
+
+.mtn-label {
+  stroke:#FFF;
+  fill:#FFF;
+  pointer-events:none;
+}
+
+.radial-donut {
+  fill:#ff0;
+}
+
+.mtn-label-closed {
+  display:none;
+}
 
 .webcam-banner {
   //background-color:#2980b9;
