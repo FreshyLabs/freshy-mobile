@@ -10,34 +10,31 @@ if(typeof(d3Layer)=='undefined'){
       //create new svg container
       //append graphic
       var svg = d3.select(App.map.getPanes().overlayPane).append("svg"),
-        g = svg.append("g")//.attr("class", "leaflet-zoom-hide");
+        g = svg.append("g");
 
       //calculate bounds for outer extent of points
-      var bounds = d3.geo.bounds(collection),
-          path = d3.geo.path().projection(project).pointRadius(function (d) { 
-            var radus = getRadius( d.properties.current_new );
-            if ( d.properties.current_status === "closed" ) radius = 4;
-            return radius;
-          });
+      var bounds = d3.geo.bounds(collection);
         
       //mountains
+      //create circle elements for mountains, calculate radius
       var circle = g.selectAll('circle')
         .data( collection.features )
-          .enter().append('circle')
-            .attr('class', function(d) {
-              if (d.properties.current_status === "closed" ) {
-                return "mtn-closed";
-              } else {
-                return 'mtn';
-              }
-            })
-            .attr("r", function(d) {
-              var radus = getRadius( d.properties.current_new );
-              if ( d.properties.current_status === "closed" ) radius = 4;
-              return radius;
-            });
+      .enter().append('circle')
+        .attr('class', function(d) {
+          if (d.properties.current_status === "closed" ) {
+            return "mtn-closed";
+          } else {
+            return 'mtn';
+          }
+        })
+        .attr("r", function(d) {
+          var radus = getRadius( d.properties.current_new );
+          if ( d.properties.current_status === "closed" ) radius = 4;
+          return radius;
+        });
 
       //marker labels 
+      //TODO append these to circles somehow
       var text = g.selectAll('text')
           .data( collection.features )
         .enter().append('text')
@@ -88,7 +85,8 @@ if(typeof(d3Layer)=='undefined'){
           })
           .attr("cy", function(d) {
             return project([d.geometry.coordinates[0], d.geometry.coordinates[1]])[1];
-          })
+          });
+          //TODO radial
           //.attr('d', function(d) {
           //  calculateRadial(d);
           //});
@@ -110,10 +108,6 @@ if(typeof(d3Layer)=='undefined'){
       function project(x) {
         var point = App.map.latLngToLayerPoint(new L.LatLng(x[1], x[0]));
         return [point.x, point.y];
-      }
-
-      function addText() {
-        
       }
 
       /*
@@ -175,6 +169,7 @@ if(typeof(d3Layer)=='undefined'){
       }
 
       //radial chart
+      //;laksdjfa
       function calculateRadial( f ) {
 
         var ff = ( f.properties.freshy_factor > 10 ) ? f.properties.freshy_factor : 0;
