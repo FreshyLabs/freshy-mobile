@@ -14,6 +14,12 @@ function( App, Backbone, MtnTmpl  ) {
         'updated', 
         dateFormat( this.model.get( 'feature' ).properties.report_time, "h:MM:ss TT")
       );
+      var total = 0;
+      _.each(this.model.get( 'feature' ).properties.snow_forecast, function(f){
+        total += f.snow_amount;
+      });
+      console.log(total); 
+      this.model.set( 'forecast', total );
   	},
 		
     template: MtnTmpl,

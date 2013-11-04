@@ -47,15 +47,15 @@
         <div class="info">24 Hour</div>
       </div>
       <div class="stat-card">
-        <div class="stat" id="base"> {{feature.properties.current_new}}<span class="sym">&#8221;</span></div>
+        <div class="stat" id="base"> {{feature.properties.current_base}}<span class="sym">&#8221;</span></div>
         <div class="info">Base depth</div>
       </div>
       <div class="stat-card">
-        <div class="stat" id="forecast"> {{feature.properties.current_new}}<span class="sym">&#8221;</span></div>
-        <div class="info">Forecast</div>
+        <div class="stat" id="forecast"> {{forecast}}<span class="sym">&#8221;</span></div>
+        <div class="info"> 3 day forecast</div>
       </div>
       <div class="stat-card">
-        <div class="stat" id="temp"> {{feature.properties.current_new}}<span class="sym">&#176;</span></div>
+        <div class="stat" id="temp"> {{feature.properties.current_weather.temp}}<span class="sym">&#176;</span></div>
         <div class="info">Temp.</div>
       </div>
     <div class="report-time">Updated at: {{ updated }}</div>
