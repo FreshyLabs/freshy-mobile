@@ -72,7 +72,7 @@ function( App, Backbone, MountainsAllModel ) {
 
       } else {
         
-        $.getJSON( "http://freshymap.com/mountains", function( data ) {
+        $.getJSON( "http://freshymap.com/data/mountains", function( data ) {
           
           _.each( data, function( mtn, i ) {
             states[mtn.feature.properties.State] = states[mtn.feature.properties.State]+1 || 1;
