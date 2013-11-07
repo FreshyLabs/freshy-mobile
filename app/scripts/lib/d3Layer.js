@@ -5,119 +5,94 @@ if(typeof(d3Layer)=='undefined'){
 (function () {
   
   d3Layer = {
-    Layer: function( collection ) {
+    Marker: function( f ) {
       
-      //create new svg container
-      //append graphic
-      var svg = d3.select(App.map.getPanes().overlayPane).append("svg"),
-        g = svg.append("g");
-
-      //calculate bounds for outer extent of points
-      var bounds = d3.geo.bounds(collection);
+        var attr = "current_new"; //TODO dynamic
+        var open = ( f.properties.current_status === "open" ) ? true : false;
         
-      //mountains
-      //create circle elements for mountains, calculate radius
-      var circle = g.selectAll('circle')
-        .data( collection.features )
-      .enter().append('circle')
-        .attr('class', function(d) {
-          if (d.properties.current_status === "closed" ) {
-            return "mtn-closed";
-          } else {
-            return 'mtn';
-          }
-        })
-        .attr("r", function(d) {
-          var radus = getRadius( d.properties.current_new );
-          if ( d.properties.current_status === "closed" ) radius = 4;
-          return radius;
-        });
+        var style = new d3Layer.customMarker(attr, f),
+          radius = ( open ) ? style.radius : 4,
+          marker = document.createElement("div");
 
-      //marker labels 
-      //TODO append these to circles somehow
-      var text = g.selectAll('text')
-          .data( collection.features )
-        .enter().append('text')
-          .attr('class', function(d) {
-            if ( d.properties.current_status === "closed") {
-              return 'mtn-label-closed';
-            } else {
-              return "mtn-label"
-            }
-          })
-          .style('font-size', function(d) {
-            var text = getTextSize( d.properties.current_new );
-            if ( d.properties.current_status === "closed" ) text = 4;
-            return text;
-          })
-          .text(function(d) {
-            return d.properties.current_new;
-          });
+        //Make an SVG Container
+        var svg = d3.select(marker).append("svg")
+          .attr("width", radius+(radius + 7))
+          .attr("height", radius+(radius + 7))
+          .attr('id', 'svg');
 
-      //bind to reset event for zooming
-      App.map.on("viewreset", reset);
-      
-      //on initial load, reset
-      reset();
-     
-      //position SVG on map
-      function reset() {
+        //create circle
+        var circle = svg.append("g")
+          .selectAll("circle")
+            .data([{properties:f.properties, radius:radius}])
+          .enter().append("circle")
+            .attr("stroke", "#FFF" )
+            .attr("class", function(d) {
+              if ( open ) {
+                return "mtn";
+              } else {
+                return "mtn-closed"
+              }
+            })
+            .attr('cx', radius + 3.5)
+            .attr('cy', radius + 3.5)
+            .attr('r', radius);
+          
+
+        if ( open ) {
+          //this._calculateRadial( f, svg, radius );
+        }
+
+        var val = (this.metric) ? (f.properties[ attr ] * 2.54) : f.properties[ attr ];
         
-        var bottomLeft = project(bounds[0]),
-            topRight = project(bounds[1]),
-            padding = 30; //add some extra padding! Fixes cut off points
+        //hack to center marker font; resize if too small/too big
+        var width, height, font_size;
+        if ( !val || !open ) val = 0;
+        val = parseFloat(val);
+        switch ( true ) {
+          case ( val === 0 ): 
+            height = radius + 6;
+            width = radius + 1.5;
+            font_size = "5pt";
+            break;
+          case ( val <= 9 ):
+            height = radius + 8;
+            width = radius;
+            font_size = '10pt';
+            break;
+          case ( val > 9 ):
+            height = radius + 8;
+            width = radius - 4;
+            font_size = '10pt';
+            break;
+        }
 
-        //apply that padding... 
-        bottomLeft = [ bottomLeft[0] - padding, bottomLeft[1]+padding ];
-        topRight = [ topRight[0]+padding, topRight[1]-padding ];
+        //add the text!
+        var text = svg.append("g")
+          .attr("class", "mtn-label")
+        .selectAll("text")
+          .data([{properties:f.properties, radius:radius}])
+        .enter().append("text")
+          .attr("dx", width)
+          .attr("dy", height)
+          .style('font-size', font_size)
+          .text( (open) ? Math.ceil( val )+'' : '');
+          
+        marker.setAttribute('class', "mountain " + f.properties.Name.replace(/ /g,''));
+         $(marker).data({properties:f.properties, radius:radius})
+        
+        return marker;
       
-        svg.attr("width", topRight[0] - bottomLeft[0])
-          .attr("height", bottomLeft[1] - topRight[1])
-          .style("margin-left", bottomLeft[0] + "px")
-          .style("margin-top", topRight[1] + "px").attr("transform", "translate(" + -bottomLeft[0] + "," + -topRight[1] + ")");
-     
-        g.attr("transform", "translate(" + -bottomLeft[0] + "," + -topRight[1] + ")");
-      
-        //reposition mountains 
-        d3.selectAll("circle")
-          .attr("cx", function(d) {
-            return project([d.geometry.coordinates[0], d.geometry.coordinates[1]])[0];
-          })
-          .attr("cy", function(d) {
-            return project([d.geometry.coordinates[0], d.geometry.coordinates[1]])[1];
-          });
-          //TODO radial
-          //.attr('d', function(d) {
-          //  calculateRadial(d);
-          //});
+    },
 
-        //reposition text labels
-        d3.selectAll('.mtn-label')
-          .attr("dx", function(d) {
-            var offset = (d.properties.current_new > 1) ? 3 : 2;
-            return project([d.geometry.coordinates[0], d.geometry.coordinates[1]])[0] - offset;
-          })
-          .attr("dy", function(d) {
-            var offset = (d.properties.current_new > 1) ? 3 : 2;
-            return project([d.geometry.coordinates[0], d.geometry.coordinates[1]])[1] + offset;
-          });
-
-      } 
-     
-      // Use Leaflet to implement a D3 geographic projection.
-      function project(x) {
-        var point = App.map.latLngToLayerPoint(new L.LatLng(x[1], x[0]));
-        return [point.x, point.y];
-      }
-
-      /*
-      * Calculate radius for new snow markers
-      */
-      function getRadius(snow) {
+    customMarker: function(type, data){
+      var radius = 8, text = 12;
+      if (type == 'current_new'){
+        var snow = data.properties.current_new;
         if ( !snow ) snow = 0;
         switch (true) {
           case (snow == 0):  
             radius = 6;
+            text = 10;
             break;
           case (snow == 1):  
             radius = 10;
@@ -127,81 +102,106 @@ if(typeof(d3Layer)=='undefined'){
             break;
           case (snow <= 5):
             radius = 14;
+            text = 13;
             break;
           case (snow <= 10):
             radius = 16;
+            text = 14;
             break;
           case (snow > 10 && snow < 15):
             radius = 19;
+            text = 15;
             break;
           case (snow >= 15 && snow < 20):
             radius = 23;
+            text = 16;
             break;
           case (snow >= 20):
             radius = 28;
+            text = 18;
             break;
           default:
             radius = 7;
         }
-        return radius;
-      }
-
-       /*
-      * Calculate text sizes
-      */
-      function getTextSize(val) {
-        if ( !val ) val = 0;
-        val = parseFloat(val);
-        var text;
-
-        switch ( true ) {
-          case ( val === 0 ): 
-            text = "5pt";
+      } else if (type == 'current_base'){
+        var base = data.properties.current_base;
+        switch( true ){
+          case (base == 0):
+            radius = 10;
             break;
-          case ( val <= 9 ):
-            text = '10pt';
+          case (base <= 10):
+            radius = 12;
             break;
-          case ( val > 9 ):
-            text = '10pt';
+          case (base <= 30):
+            radius = 14;
+            text = 13;
             break;
+          case (base <= 50):
+            radius = 16;
+            text = 14;
+            break;
+          case (base > 50 && base < 75):
+            radius = 18;
+            text = 15;
+            break;
+          case (base >= 75 && base < 100):
+            radius = 20;
+            text = 16;
+            break;
+          case (base >= 100):
+            radius = 25;
+            text = 18;
+            break;
+          default:
+            radius = 10;
         }
-        return text;
-      }
-
-      //radial chart
-      //;laksdjfa
-      function calculateRadial( f ) {
-
-        var ff = ( f.properties.freshy_factor > 10 ) ? f.properties.freshy_factor : 0;
-        var pi = Math.PI;
-        var τ = 2 * pi;
-
-        var arc = d3.svg.arc()
-          .innerRadius(radius + 2)
-          .outerRadius(radius + 3.5)
-          .startAngle(0 * (pi/180));
-        
-        var arcPath = svg.append("path")
-          .datum({endAngle: 0})
-          .attr('class', "radial-donut")
-          .attr("transform", "translate("+project([f.geometry.coordinates[0], f.geometry.coordinates[1]])+")")
-          .attr("d", arc);
-
-        arcPath.transition()
-            .duration(4000)
-            .call(arcTween, (ff / 16 ));
-
-        function arcTween(transition, newAngle) {
-          transition.attrTween("d", function(d) {
-            var interpolate = d3.interpolate(d.endAngle, newAngle);
-            return function(t) {
-              d.endAngle = interpolate(t);
-              return arc(d);
-            };
-          });
+      } else if (type == 'current_forecast'){
+        var forecast = data.properties.current_forecast;
+        switch( true ){
+          case (forecast == 0):
+            radius = 6;
+            break;
+          case (forecast <= 2):
+            radius = 10;
+            break;
+          case (forecast <= 3):
+            radius = 13;
+            text = 13;
+            break;
+          case (forecast <= 5):
+            radius = 16;
+            text = 14;
+            break;
+          case (forecast > 5 && forecast < 10):
+            radius = 18;
+            text = 14;
+            break;
+          case (forecast >= 10 && forecast < 15):
+            radius = 20;
+            text = 16;
+            break;
+          case (forecast >= 15):
+            radius = 25;
+            text = 18;
+            break;
+          default:
+            radius = 6;
         }
-
+      } else if (type == 'freshy_factor'){
+        radius = 14;
+        text = 13;
       }
+      
+      var marker = {
+          radius: radius,
+          text:text,
+          fillColor: "#FFF",
+          color: "#000",
+          weight: 4,
+          opacity: .45,
+          fillOpacity: .9
+      };
+      return marker;
     }
   }
 

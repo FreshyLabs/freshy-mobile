@@ -361,6 +361,13 @@ body {
   display:none;
 }
 
+.leaflet-div-icon {
+  background:none;
+  border:none;
+  width:15px !important;
+  height:15px !important;
+}
+
 .webcam-banner {
   //background-color:#2980b9;
   font-size: 14px;

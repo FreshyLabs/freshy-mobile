@@ -21,10 +21,22 @@ function( App, Backbone, MountainsAllModel ) {
           "features": points
         }
 
-        var layer = new d3Layer.Layer( collection );
-        d3.selectAll('.mtn').on('click', function(e){
-          //console.log(d3.event);
-          App.router.navigate("#" + e.properties.Name, { trigger: true });
+        $.each(points, function(i,point) {
+          var marker = new d3Layer.Marker( point );
+          
+          var icon = L.divIcon({ 
+              iconSize: new L.Point(10, 10), 
+              html: $(marker).context.outerHTML
+          });
+          
+          L.marker([point.properties.latitude, point.properties.longitude], { icon: icon }).addTo(App.map);
+
+        });
+
+        d3.selectAll('.mountain').on('click', function(e,i){
+          var mtn = d3.select(this)[ 0 ][ 0 ].className.replace(/mountain /, ''); //hacky!
+          
+          App.router.navigate("#" + mtn, { trigger: true });
           var el = $('.main-container');
           el.show();
           //el.css('transform', 'translate3d(5%,0,0)');
