@@ -91,7 +91,7 @@ if(typeof(d3Layer)=='undefined'){
         if ( !snow ) snow = 0;
         switch (true) {
           case (snow == 0):  
-            radius = 6;
+            radius = 7;
             text = 10;
             break;
           case (snow == 1):  

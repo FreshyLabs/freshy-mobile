@@ -24,6 +24,10 @@ function( Backbone, Communicator, MountainsView, Mountains ) {
 
   $('#map').css('height', document.height);
   App.map = L.map('map').setView([40, -105], 4);
+  
+  App.map.options.maxZoom = 8;
+  App.map.options.minZoom = 3;
+
   L.tileLayer('http://freshymap.com/tiles/{y}/{x}/{z}.png', {}).addTo(App.map);
 
   App.map.locate({setView: true, maxZoom: 4});
