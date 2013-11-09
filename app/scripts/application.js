@@ -23,7 +23,7 @@ function( Backbone, Communicator, MountainsView, Mountains ) {
 	});
 
   $('#map').css('height', document.height);
-  App.map = L.map('map').setView([-105, 45], 10);
+  App.map = L.map('map').setView([40, -105], 4);
   L.tileLayer('http://freshymap.com/tiles/{y}/{x}/{z}.png', {}).addTo(App.map);
 
   App.map.locate({setView: true, maxZoom: 4});

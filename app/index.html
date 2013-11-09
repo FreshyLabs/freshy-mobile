@@ -8,7 +8,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-        <title>Freshymap</title>
+        <title>FreshyMap Mobile | Real-time snow report map for skiers and snowboarders</title>
 
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
@@ -24,7 +24,6 @@
         <script src="bower_components/fastclick/lib/fastclick.js"></script>
         <script src="bower_components/typeahead.js/dist/typeahead.js"></script>
         <script src="scripts/lib/leaflet.js"></script>
-        <script src="scripts/lib/leaflet.d3.js"></script>
         <script src="bower_components/modernizr/modernizr.js"></script>
         <script src="scripts/lib/d3Layer.js"></script>
         <script src="scripts/lib/date.format.js"></script>
@@ -47,7 +46,6 @@
           <!--div class="slide"><div id="mtn-bg"></div></div-->
       </div>
         
-        <script src="bower_components/swiper/dist/idangerous.swiper-2.2.min.js"></script>
         <!-- build:js scripts/main.js -->
         <script data-main="scripts/init" src="bower_components/requirejs/require.js"></script>
         <!-- endbuild -->
@@ -79,7 +77,7 @@
                   setTimeout(arguments.callee, 25);
                   return;
               	}
-              	App.trigger('locate', geo);
+                App.trigger('locate', geo);
               },0);
             });
           } else {
