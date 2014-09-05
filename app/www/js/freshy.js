@@ -1,6 +1,6 @@
 // Initialize your app
 var myApp = new Framework7({
-    modalTitle: 'weather7'
+    modalTitle: 'freshymap'
 });
 
 // Export selectors engine
