@@ -57,7 +57,7 @@ html.ios .page-content {
 ==============================*/
 .navbar {
   border-bottom: none;
-  background: #1c1d21;
+  background: #333333;
   color: #fff;
 }
 span.navbar-logo {
@@ -274,7 +274,7 @@ i.icon-plus {
     Styles for case with statusbar overlay
 ==============================*/
 html.with-statusbar-overlay .statusbar-overlay {
-  background: #1c1d21;
+  background: #333333;
 }
 html.with-statusbar-overlay .statusbar-overlay.with-popup-opened {
   z-index: 11000;
