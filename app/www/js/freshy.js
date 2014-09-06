@@ -26,7 +26,7 @@ App.searchLocation = function (search) {
         $$.get(q, function (results) {
             var html = '';
             results = JSON.parse(results);
-            console.log('RESULTS', results)
+            //console.log('RESULTS', results)
             $$('.popup .preloader').hide();
             if (results.length > 0) {
                 for (var i = 0; i < results.length; i++) {
@@ -34,7 +34,7 @@ App.searchLocation = function (search) {
                     var adminArea = mtn.properties && mtn.properties.State ? mtn.properties.State : '';
                     html += App.searchItemTemplate
                         .replace(/{{woeid}}/g, mtn.geometry.coordinates.join(':'))
-                        .replace(/{{city}}/g, mtn.properties.Name)
+                        .replace(/{{name}}/g, mtn.properties.Name)
                         .replace(/{{country}}/g, mtn.properties.Country)
                         .replace(/{{province}}/g, adminArea);
                 }
@@ -55,6 +55,7 @@ App.updateWeatherData = function (callback) {
     if (!navigator.onLine) {
         App.alert('You need internet connection to update the freshy data');
     }
+    console.log('PLACES', places);
     for (var i = 0; i < places.length; i++) {
         names.push(places[i].name);
     }
@@ -98,14 +99,14 @@ App.buildWeatherHTML = function () {
     var html = '';
     for (var i = 0; i < weatherData.length; i++) {
         var item = weatherData[i];
-        var temperature = item.condition.temp;
+        var new_snow = item.snow +" / "+ (item.base || 0);
         var date = new Date(item.condition.date);
         var time = date.getHours(date) + ':' + date.getMinutes(date);
         html += App.weatherItemTemplate
                 .replace(/{{woeid}}/g, item.woeid)
-                .replace(/{{city}}/g, item.city)
+                .replace(/{{name}}/g, item.name)
                 .replace(/{{country}}/g, item.country)
-                .replace(/{{temp}}/g, temperature + '&deg;');
+                .replace(/{{new_snow}}/g, new_snow);
     }
     $$('.places-list ul').html(html);
 };
@@ -114,19 +115,19 @@ App.buildWeatherHTML = function () {
 $$('.places-list').on('delete', '.swipeout', function () {
     var woeid = $$(this).attr('data-woeid');
     // Update Places
-    if (!localStorage.w7Places) return;
-    var places = JSON.parse(localStorage.w7Places);
+    if (!localStorage.freshyMtns) return;
+    var places = JSON.parse(localStorage.freshyMtns);
     for (var i = 0; i < places.length; i++) {
         if (places[i].woeid === woeid) places.splice(i, 1);
     }
-    localStorage.w7Places = JSON.stringify(places);
+    localStorage.freshyMtns = JSON.stringify(places);
     // Update places data
-    if (!localStorage.w7Data) return;
-    var data = JSON.parse(localStorage.w7Data);
+    if (!localStorage.freshyData) return;
+    var data = JSON.parse(localStorage.freshyData);
     for (i = 0; i < data.length; i++) {
         if (data[i].woeid === woeid) data.splice(i, 1);
     }
-    localStorage.w7Data = JSON.stringify(data);
+    localStorage.freshyData = JSON.stringify(data);
 });
 
 // Handle search results
@@ -153,14 +154,14 @@ $$('.popup').on('close', function () {
 $$('.popup .search-results').on('click', 'li', function () {
     var li = $$(this);
     var woeid = li.attr('data-woeid');
-    var city = li.attr('data-city');
+    var name = li.attr('data-name');
     var country = li.attr('data-country');
     var places;
     if (localStorage.freshyMtns) places = JSON.parse(localStorage.freshyMtns);
     else places = [];
     places.push({
         woeid: li.attr('data-woeid'),
-        city: li.attr('data-city'),
+        name: li.attr('data-name'),
         country: li.attr('data-country')
     });
     localStorage.freshyMtns = JSON.stringify(places);
@@ -198,8 +199,8 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
                 '</li>';
     }
     var pageContent = App.detailsTemplate
-                    .replace(/{{city}}/g, item.city)
-                    .replace(/{{temp}}/g, item.condition.temp + '&deg;')
+                    .replace(/{{name}}/g, item.name)
+                    .replace(/{{new_snow}}/g, item.snow +' / '+ (item.base || 0) )
                     .replace(/{{condition}}/g, item.condition.text)
                     .replace(/{{forecast}}/g, forecastHTML);
     mainView.loadContent(pageContent);
