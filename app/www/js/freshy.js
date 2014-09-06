@@ -1,5 +1,5 @@
 // Initialize your app
-var myApp = new Framework7({
+var App = new Framework7({
     modalTitle: 'freshymap'
 });
 
@@ -7,37 +7,35 @@ var myApp = new Framework7({
 var $$ = Dom7;
 
 // Templates
-myApp.searchItemTemplate = $$('#search-item-template').html();
-myApp.weatherItemTemplate = $$('#weather-item-template').html();
-myApp.detailsTemplate = $$('#details-template').html();
+App.searchItemTemplate = $$('#search-item-template').html();
+App.weatherItemTemplate = $$('#weather-item-template').html();
+App.detailsTemplate = $$('#details-template').html();
 
 // Add view
-var mainView = myApp.addView('.view-main', {
+var mainView = App.addView('.view-main', {
     dynamicNavbar: true,
 });
 
 // Search Locations
 var searchTimeout;
-myApp.searchLocation = function (search) {
-    var query = encodeURIComponent('select * from geo.places where text="' + search + '"');
-    var q = 'http://query.yahooapis.com/v1/public/yql?q=' + query + '&format=json';
+App.searchLocation = function (search) {
+    var q = 'http://freshymap.com/data/mountains?q=' + search;
     if (searchTimeout) clearTimeout(searchTimeout);
     $$('.popup .preloader').show();
     searchTimeout = setTimeout(function () {
         $$.get(q, function (results) {
             var html = '';
             results = JSON.parse(results);
+            console.log('RESULTS', results)
             $$('.popup .preloader').hide();
-            if (results.query.count > 0) {
-                var places = results.query.results.place;
-                for (var i = 0; i < places.length; i++) {
-                    var place = places[i];
-                    if (place.placeTypeName.code === '12') break;
-                    var adminArea = place.admin1 && place.admin1.content ? place.admin1.content : '';
-                    html += myApp.searchItemTemplate
-                        .replace(/{{woeid}}/g, place.woeid)
-                        .replace(/{{city}}/g, place.name)
-                        .replace(/{{country}}/g, place.country.content)
+            if (results.length > 0) {
+                for (var i = 0; i < results.length; i++) {
+                    var mtn = results[i].feature;
+                    var adminArea = mtn.properties && mtn.properties.State ? mtn.properties.State : '';
+                    html += App.searchItemTemplate
+                        .replace(/{{woeid}}/g, mtn.geometry.coordinates.join(':'))
+                        .replace(/{{city}}/g, mtn.properties.Name)
+                        .replace(/{{country}}/g, mtn.properties.Country)
                         .replace(/{{province}}/g, adminArea);
                 }
             }
@@ -46,75 +44,54 @@ myApp.searchLocation = function (search) {
     }, 300);
 };
 // Get locations weather data
-myApp.updateWeatherData = function (callback) {
-    var woeids = [];
-    if (!localStorage.w7Places) return;
-    var places = JSON.parse(localStorage.w7Places);
+App.updateWeatherData = function (callback) {
+    var names = [];
+    if (!localStorage.freshyMtns) return;
+    var places = JSON.parse(localStorage.freshyMtns);
     if (places.length === 0) {
-        localStorage.w7Data = JSON.stringify([]);
+        localStorage.freshyData = JSON.stringify([]);
         return;
     }
     if (!navigator.onLine) {
-        myApp.alert('You need internet connection to update weather data');
+        App.alert('You need internet connection to update the freshy data');
     }
     for (var i = 0; i < places.length; i++) {
-        woeids.push(places[i].woeid);
+        names.push(places[i].name);
     }
-    var query = encodeURIComponent('select * from weather.forecast where woeid in (' + JSON.stringify(woeids).replace('[', '').replace(']', '') + ') and u="c"');
-    var q = 'http://query.yahooapis.com/v1/public/yql?q=' + query + '&format=json';
-    myApp.showIndicator();
+    var query = names.join('|');
+    var q = 'http://freshymap.com/data/mountains?q=' + query;
+    App.showIndicator();
     $$.get(q, function (data) {
-        var weatherData = [];
-        myApp.hideIndicator();
+        var freshyData = [];
+        App.hideIndicator();
         data = JSON.parse(data);
-        if (!data.query || !data.query.results) return;
-        var places = data.query.results.channel;
+        console.log('Data', data);
         var place;
-        if ($$.isArray(places)) {
-            for (var i = 0; i < places.length; i++) {
-                place = places[i];
-                weatherData.push({
-                    city: place.location.city,
-                    country: place.location.country,
-                    region: place.location.region,
-                    humidity: place.atmosphere.humidity,
-                    pressure: place.atmosphere.pressure,
-                    sunrise: place.astronomy.sunrise,
-                    sunset: place.astronomy.sunset,
-                    wind: place.wind,
-                    condition: place.item.condition,
-                    forecast: place.item.forecast,
-                    lat: place.item.lat,
-                    long: place.item.long,
-                    woeid: woeids[i]
+        if ($$.isArray(data)) {
+            for (var i = 0; i < data.length; i++) {
+                place = data[i].feature.properties;
+                freshyData.push({
+                    name: place.Name,
+                    country: place.Country,
+                    region: place.State,
+                    snow: place.current_new,
+                    base: place.current_base,
+                    wind: place.current_weather.wind_speed,
+                    condition: place.current_weather.weather,
+                    forecast: place.snow_forecast,
+                    lat: place.Lat,
+                    long: place.Long,
+                    woeid: ''
                 });
             }
         }
-        else {
-            place = places;
-            weatherData.push({
-                city: place.location.city,
-                country: place.location.country,
-                region: place.location.region,
-                humidity: place.atmosphere.humidity,
-                pressure: place.atmosphere.pressure,
-                sunrise: place.astronomy.sunrise,
-                sunset: place.astronomy.sunset,
-                wind: place.wind,
-                condition: place.item.condition,
-                forecast: place.item.forecast,
-                lat: place.item.lat,
-                long: place.item.long,
-                woeid: woeids[0]
-            });
-        }
-        localStorage.w7Data = JSON.stringify(weatherData);
+        localStorage.freshyData = JSON.stringify(freshyData);
         if (callback) callback();
     });
 };
 // Build list of places on home page
-myApp.buildWeatherHTML = function () {
-    var weatherData = localStorage.w7Data;
+App.buildWeatherHTML = function () {
+    var weatherData = localStorage.freshyData;
     if (!weatherData) return;
     $$('.places-list ul').html('');
     weatherData = JSON.parse(weatherData);
@@ -124,7 +101,7 @@ myApp.buildWeatherHTML = function () {
         var temperature = item.condition.temp;
         var date = new Date(item.condition.date);
         var time = date.getHours(date) + ':' + date.getMinutes(date);
-        html += myApp.weatherItemTemplate
+        html += App.weatherItemTemplate
                 .replace(/{{woeid}}/g, item.woeid)
                 .replace(/{{city}}/g, item.city)
                 .replace(/{{country}}/g, item.country)
@@ -154,7 +131,7 @@ $$('.places-list').on('delete', '.swipeout', function () {
 
 // Handle search results
 $$('.popup input[type="text"]').on('change keyup keydown', function () {
-    myApp.searchLocation(this.value);
+    App.searchLocation(this.value);
 });
 $$('.popup').on('closed', function () {
     $$('.popup input[type="text"]').val('');
@@ -179,30 +156,30 @@ $$('.popup .search-results').on('click', 'li', function () {
     var city = li.attr('data-city');
     var country = li.attr('data-country');
     var places;
-    if (localStorage.w7Places) places = JSON.parse(localStorage.w7Places);
+    if (localStorage.freshyMtns) places = JSON.parse(localStorage.freshyMtns);
     else places = [];
     places.push({
         woeid: li.attr('data-woeid'),
         city: li.attr('data-city'),
         country: li.attr('data-country')
     });
-    localStorage.w7Places = JSON.stringify(places);
-    myApp.updateWeatherData(function () {
-        myApp.buildWeatherHTML();
+    localStorage.freshyMtns = JSON.stringify(places);
+    App.updateWeatherData(function () {
+        App.buildWeatherHTML();
     });
 });
 
 // Update html and weather data on app load
-myApp.buildWeatherHTML();
-myApp.updateWeatherData(function () {
-    myApp.buildWeatherHTML();
+App.buildWeatherHTML();
+App.updateWeatherData(function () {
+    App.buildWeatherHTML();
 });
 
 // Build details page
 $$('.places-list').on('click', 'a.item-link', function (e) {
     var woeid = $$(this).attr('data-woeid');
     var item;
-    var weatherData = JSON.parse(localStorage.w7Data);
+    var weatherData = JSON.parse(localStorage.freshyData);
     for (var i = 0; i < weatherData.length; i++) {
         if (weatherData[i].woeid === woeid) item = weatherData[i];
     }
@@ -220,7 +197,7 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
                   '</div>' +
                 '</li>';
     }
-    var pageContent = myApp.detailsTemplate
+    var pageContent = App.detailsTemplate
                     .replace(/{{city}}/g, item.city)
                     .replace(/{{temp}}/g, item.condition.temp + '&deg;')
                     .replace(/{{condition}}/g, item.condition.text)
@@ -235,7 +212,7 @@ window.addEventListener('load', function (e) {
     window.applicationCache.addEventListener('updateready', function (e) {
         if (window.applicationCache.status === window.applicationCache.UPDATEREADY) {
             // Browser downloaded a new app cache.
-            myApp.confirm('A new version of weather7 is available. Do you want to load it right now?', function () {
+            App.confirm('A new version of weather7 is available. Do you want to load it right now?', function () {
                 window.location.reload();
             });
         } else {
