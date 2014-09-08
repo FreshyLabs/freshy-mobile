@@ -71,9 +71,11 @@
       </div>
     </div>
     <!-- Templates-->
+
     <script id="search-item-template" type="template">  
-      <li data-woeid="{{woeid}}" data-name="{{name}}" data-country="{{country}}" class="close-popup">{{name}} <span>{{province}}</span></li>
+      <li data-woeid="{{woeid}}" data-name="{{name}}" data-province="{{province}}" class="close-popup">{{name}} <span>{{province}}</span></li>
     </script>
+
     <script id="weather-item-template" type="template">      
       <li data-woeid="{{woeid}}" class="swipeout">
         <div class="swipeout-content"><a href="#" data-woeid="{{woeid}}" class="item-content item-link">
@@ -98,11 +100,13 @@
       <div class="pages navbar-through">
         <div data-page="detail" class="page">
           <div class="page-content">
-            <div class="detail-name">{{name}}</div>
-            <div class="detail-condition">{{condition}}</div>
-            <div class="detail-temp">{{temp}}</div>
+            <div class="detail-condition">{{name}}</div>
+            <div class="detail-temp">{{new_snow}}</div>
             <div class="list-block forecast-list">
               <ul>{{forecast}}</ul>
+            </div>
+            <div class="list-block forecast-list">
+              <ul>{{webcams}}</ul>
             </div>
           </div>
         </div>

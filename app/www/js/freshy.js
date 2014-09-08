@@ -99,13 +99,14 @@ App.buildWeatherHTML = function () {
     var html = '';
     for (var i = 0; i < weatherData.length; i++) {
         var item = weatherData[i];
-        var new_snow = item.snow +" / "+ (item.base || 0);
+        console.log(item);
+        var new_snow = ( item.snow || 0 ) +"&quot; / "+ (item.base || 0) + '&quot;';
         var date = new Date(item.condition.date);
         var time = date.getHours(date) + ':' + date.getMinutes(date);
         html += App.weatherItemTemplate
                 .replace(/{{woeid}}/g, item.woeid)
                 .replace(/{{name}}/g, item.name)
-                .replace(/{{country}}/g, item.country)
+                .replace(/{{province}}/g, item.region)
                 .replace(/{{new_snow}}/g, new_snow);
     }
     $$('.places-list ul').html(html);
@@ -155,14 +156,14 @@ $$('.popup .search-results').on('click', 'li', function () {
     var li = $$(this);
     var woeid = li.attr('data-woeid');
     var name = li.attr('data-name');
-    var country = li.attr('data-country');
+    var province = li.attr('data-province');
     var places;
     if (localStorage.freshyMtns) places = JSON.parse(localStorage.freshyMtns);
     else places = [];
     places.push({
         woeid: li.attr('data-woeid'),
         name: li.attr('data-name'),
-        country: li.attr('data-country')
+        province: li.attr('data-province')
     });
     localStorage.freshyMtns = JSON.stringify(places);
     App.updateWeatherData(function () {
@@ -188,19 +189,19 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
     var forecastHTML = '';
     for (i = 0; i < item.forecast.length; i++) {
         var forecastItem = item.forecast[i];
-        var date = new Date(forecastItem.date);
+        var date = new Date(forecastItem.time);
         var formatDate  = days[date.getDay()];
         forecastHTML +=
                 '<li class="item-content">' +
                   '<div class="item-inner">' +
                     '<div class="item-title">' + formatDate + '</div>' +
-                    '<div class="item-after"><span class="state">' + forecastItem.text + '</span><span class="temps"><span class="high">' + forecastItem.high + '&deg;</span><span class="low">' + forecastItem.low + '&deg;</span></span></div>' +
+                    '<div class="item-after"><span class="state">' + forecastItem.weather[0].value + '</span><span class="temps"><span class="high">' + forecastItem.snow_amount + '&quot;</span></span></div>' +
                   '</div>' +
                 '</li>';
     }
     var pageContent = App.detailsTemplate
                     .replace(/{{name}}/g, item.name)
-                    .replace(/{{new_snow}}/g, item.snow +' / '+ (item.base || 0) )
+                    .replace(/{{new_snow}}/g, (item.snow || 0) +'&quot; / '+ (item.base || 0) + '&quot;' )
                     .replace(/{{condition}}/g, item.condition.text)
                     .replace(/{{forecast}}/g, forecastHTML);
     mainView.loadContent(pageContent);
