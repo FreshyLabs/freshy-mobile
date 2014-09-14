@@ -55,7 +55,7 @@
         <div class="navbar">
           <div class="navbar-inner">
             <div class="left">
-              <input type="text" placeholder="Search city...">
+              <input type="text" placeholder="Search FreshyMap...">
               <div class="preloader preloader-white"></div>
             </div>
             <div class="right"><a href="#" class="link close-popup">Cancel</a></div>
@@ -71,18 +71,20 @@
       </div>
     </div>
     <!-- Templates-->
+
     <script id="search-item-template" type="template">  
-      <li data-woeid="{{woeid}}" data-city="{{city}}" data-country="{{country}}" class="close-popup">{{city}} <span>{{province}}, {{country}}</span></li>
+      <li data-woeid="{{woeid}}" data-name="{{name}}" data-province="{{province}}" class="close-popup">{{name}} <span>{{province}}</span></li>
     </script>
+
     <script id="weather-item-template" type="template">      
       <li data-woeid="{{woeid}}" class="swipeout">
         <div class="swipeout-content"><a href="#" data-woeid="{{woeid}}" class="item-content item-link">
             <div class="item-inner">
               <div class="item-title">
-                <div class="city">{{city}}</div>
-                <div class="country">{{country}}</div>
+                <div class="name">{{name}}</div>
+                <div class="country">{{province}}</div>
               </div>
-              <div class="item-after">{{temp}}</div>
+              <div class="item-after">{{new_snow}}</div>
             </div></a></div>
         <div class="swipeout-actions">
           <div class="swipeout-actions-inner"><a href="#" class="swipeout-delete">Delete</a></div>
@@ -98,11 +100,16 @@
       <div class="pages navbar-through">
         <div data-page="detail" class="page">
           <div class="page-content">
-            <div class="detail-city">{{city}}</div>
-            <div class="detail-condition">{{condition}}</div>
-            <div class="detail-temp">{{temp}}</div>
+            <div class="detail-name">{{name}}</div>
+            <div class="detail-temp">{{new_snow}}</div>
+            <div class="list-block forecast-list">
+              <ul>{{freshy-factor}}</ul>
+            </div>
             <div class="list-block forecast-list">
               <ul>{{forecast}}</ul>
+            </div>
+            <div class="list-block forecast-list">
+              <ul>{{webcams}}</ul>
             </div>
           </div>
         </div>

@@ -40,10 +40,11 @@ body {
 .page[data-page="index"],
 .page[data-page="detail"] {
   background: none;
-  background: #000000 url(../img/bg2.jpg) no-repeat center;
+  background: #000000 url(../img/bg3.png) no-repeat center;
   -webkit-background-size: cover;
   background-size: cover;
 }
+
 /* iOS over scrolling fix */
 html.ios .page {
   overflow: auto;
@@ -223,13 +224,22 @@ i.icon-plus {
   font-weight: 300;
 }
 .detail-condition {
-  text-align: center;
+  text-align: left;
+  font-size: 41px;
+}
+.detail-name {
+  text-align: left;
+  font-size: 36px;
+  margin-left: 10px
 }
 .detail-temp {
   font-size: 81px;
   line-height: 81px;
   font-weight: 100;
   text-align: center;
+}
+.item-cam {
+  margin:auto;
 }
 .list-block.forecast-list {
   font-weight: 300;
@@ -257,6 +267,10 @@ i.icon-plus {
 .list-block.forecast-list span.state {
   color: #fff;
   font-size: 14px;
+}
+.list-block.forecast-list span.freshyfactor {
+  color: #fff;
+  font-size: 20px;
 }
 .list-block.forecast-list span.temps {
   width: 70px;

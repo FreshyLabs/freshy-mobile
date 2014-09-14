@@ -33,7 +33,7 @@ App.searchLocation = function (search) {
                     var mtn = results[i].feature;
                     var adminArea = mtn.properties && mtn.properties.State ? mtn.properties.State : '';
                     html += App.searchItemTemplate
-                        .replace(/{{woeid}}/g, mtn.geometry.coordinates.join(':'))
+                        .replace(/{{woeid}}/g, mtn.properties.Name)
                         .replace(/{{name}}/g, mtn.properties.Name)
                         .replace(/{{country}}/g, mtn.properties.Country)
                         .replace(/{{province}}/g, adminArea);
@@ -80,9 +80,11 @@ App.updateWeatherData = function (callback) {
                     wind: place.current_weather.wind_speed,
                     condition: place.current_weather.weather,
                     forecast: place.snow_forecast,
+                    webcams: place.webcams,
+                    freshyfactor: place.freshy_factor,
                     lat: place.Lat,
                     long: place.Long,
-                    woeid: ''
+                    woeid: place.Name 
                 });
             }
         }
@@ -195,15 +197,36 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
                 '<li class="item-content">' +
                   '<div class="item-inner">' +
                     '<div class="item-title">' + formatDate + '</div>' +
-                    '<div class="item-after"><span class="state">' + forecastItem.weather[0].value + '</span><span class="temps"><span class="high">' + forecastItem.snow_amount + '&quot;</span></span></div>' +
+                    '<div class="item-after"><span class="state">' + forecastItem.weather[0].value.split(' ')[0] + '</span><span class="temps"><span class="high">' + forecastItem.snow_amount + '&quot;</span></span></div>' +
                   '</div>' +
                 '</li>';
     }
+
+    var webCamHTML = '';
+    for (i = 0; i < item.webcams.length; i++) {
+        var camUrl = item.webcams[i];
+        webCamHTML +=
+                '<li class="item-content">' +
+                  '<div class="item-inner">' +
+                    '<div class="item-cam"><img width=250 src="'+camUrl+'"></div>' + 
+                  '</div>' +
+                '</li>';
+    }
+
+    var ffHTML = '<li class="item-content">' +
+                  '<div class="item-inner">' +
+                    '<div class="item-title">Freshy Factor</div>' +
+                    '<div class="item-after"><span class="freshyfactor">' + item.freshyfactor + '%</span><span class="temps"></span></div>' +
+                  '</div>' +
+                '</li>';
+
     var pageContent = App.detailsTemplate
                     .replace(/{{name}}/g, item.name)
                     .replace(/{{new_snow}}/g, (item.snow || 0) +'&quot; / '+ (item.base || 0) + '&quot;' )
                     .replace(/{{condition}}/g, item.condition.text)
-                    .replace(/{{forecast}}/g, forecastHTML);
+                    .replace(/{{forecast}}/g, forecastHTML)
+                    .replace(/{{freshy-factor}}/g, ffHTML)
+                    .replace(/{{webcams}}/g, webCamHTML);
     mainView.loadContent(pageContent);
 });
 
