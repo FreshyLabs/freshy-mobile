@@ -253,3 +253,38 @@ You could find it at the following address https://developer.apple.com/icloud/do
 
 2014-09-13 22:01:01.982 FreshyMap[20099:70b] Resetting plugins due to page load.
 2014-09-13 22:01:02.049 FreshyMap[20099:70b] Finished load of: file:///Users/chelm/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/DA28A1E0-C994-4B82-A567-54F4D3199F9E/FreshyMap.app/www/index.html
+2014-09-17 18:57:20.075 FreshyMap[40945:18e03] Multi-tasking -> Device: YES, App: YES
+2014-09-17 18:57:20.097 FreshyMap[40945:18e03] Unlimited access to network resources
+2014-09-17 18:57:20.104 FreshyMap[40945:18e03] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-09-17 18:57:20.339 FreshyMap[40945:18e03] Resetting plugins due to page load.
+2014-09-17 18:57:20.530 FreshyMap[40945:18e03] Finished load of: file:///Users/bheberto/Library/Application%20Support/iPhone%20Simulator/6.1/Applications/0F0A327E-8312-497B-8A36-89A4F0A23647/FreshyMap.app/www/index.html
+2014-09-17 19:01:30.541 FreshyMap[41127:18e03] Multi-tasking -> Device: YES, App: YES
+2014-09-17 19:01:30.548 FreshyMap[41127:18e03] Unlimited access to network resources
+2014-09-17 19:01:30.552 FreshyMap[41127:18e03] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-09-17 19:01:30.586 FreshyMap[41127:18e03] Resetting plugins due to page load.
+2014-09-17 19:01:30.682 FreshyMap[41127:18e03] Finished load of: file:///Users/bheberto/Library/Application%20Support/iPhone%20Simulator/6.1/Applications/0F0A327E-8312-497B-8A36-89A4F0A23647/FreshyMap.app/www/index.html
+Terminating in response to SpringBoard's termination.
+2014-09-17 19:05:40.042 FreshyMap[41265:18e03] Multi-tasking -> Device: YES, App: YES
+2014-09-17 19:05:40.049 FreshyMap[41265:18e03] Unlimited access to network resources
+2014-09-17 19:05:40.051 FreshyMap[41265:18e03] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-09-17 19:05:40.074 FreshyMap[41265:18e03] Resetting plugins due to page load.
+2014-09-17 19:05:40.166 FreshyMap[41265:18e03] Finished load of: file:///Users/bheberto/Library/Application%20Support/iPhone%20Simulator/6.1/Applications/0F0A327E-8312-497B-8A36-89A4F0A23647/FreshyMap.app/www/index.html
+Terminating in response to SpringBoard's termination.

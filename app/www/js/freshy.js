@@ -181,6 +181,39 @@ App.updateWeatherData(function () {
 
 // Build details page
 $$('.places-list').on('click', 'a.item-link', function (e) {
+    var icons = {
+      "Sunny": "wi-day-sunny",
+      "Clear": "wi-night-clear",
+      "Overcast" : "wi-cloudy",
+      "Cloudy": "wi-cloudy",
+      "Partly Cloudy": "wi-day-cloudy",
+      "Snow": "wi-snow",
+      "Heavy snow": "wi-snow",
+      "Blowing snow": "wi-snow",
+      "Moderate snow": "wi-snow",
+      "Patchy moderate snow": "wi-snow",
+      "Light drizzle": "wi-day-hail",
+      "Light sleet": "wi-day-hail",
+      "Moderate or heavy snow in area with thunder": "wi-snow",
+      "Patchy light snow in area with thunder": "wi-snow",
+      "Light snow": "wi-snow",
+      "Patchy light snow": "wi-day-snow",
+      "Patchy snow nearby": "wi-day-snow",
+      "Light snow showers": "wi-day-snow",
+      "Patchy heavy snow": "wi-snow",
+      "Blowing snow": "wi-snow",
+      "Blizzard": "wi-snow",
+      "Rain": "wi-rain",
+      "Light rain shower": "wi-day-showers",
+      "Light rain": "wi-day-showers",
+      "Light freezing rain": "wi-rain",
+      "Moderate rain": "wi-rain",
+      "Moderate rain at times": "wi-rain",
+      "Heavy freezing drizzle": "wi-rain",
+      "Fog": "wi-fog",
+      "Freezing fog": "wi-fog",
+      "Mist": "wi-fog"
+    }
     var woeid = $$(this).attr('data-woeid');
     var item;
     var weatherData = JSON.parse(localStorage.freshyData);
@@ -193,11 +226,12 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
         var forecastItem = item.forecast[i];
         var date = new Date(forecastItem.time);
         var formatDate  = days[date.getDay()];
+        console.log('forecastItem.weather[0]', forecastItem.weather[0]);
         forecastHTML +=
                 '<li class="item-content">' +
                   '<div class="item-inner">' +
                     '<div class="item-title">' + formatDate + '</div>' +
-                    '<div class="item-after"><span class="state">' + forecastItem.weather[0].value.split(' ')[0] + '</span><span class="temps"><span class="high">' + forecastItem.snow_amount + '&quot;</span></span></div>' +
+                    '<div class="item-after"><span class="state"><i class="wi ' + icons[forecastItem.weather[0].value] + '"></i></span><span class="temps"><span class="high">' + forecastItem.snow_amount + '&quot;</span></span></div>' +
                   '</div>' +
                 '</li>';
     }
