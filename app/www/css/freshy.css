@@ -270,7 +270,22 @@ i.icon-plus {
 }
 .list-block.forecast-list span.freshyfactor {
   color: #fff;
-  font-size: 20px;
+  font-size: 30px;
+  position:relative;
+  top:-7px;
+}
+#snark-container {
+  text-align: center;
+}
+span.freshy-snark {
+  color: #fff;
+  font-size: 12px;
+  margin:auto;
+}
+.stat {
+  font-size: 15px;
+  position: relative;
+  left: -15px;
 }
 .list-block.forecast-list span.temps {
   width: 70px;
@@ -319,4 +334,8 @@ html.with-statusbar-overlay .statusbar-overlay.with-popup-opened {
 }
 .modal-button:active {
   background: #68095b;
+}
+
+.item-content {
+padding:0px 15px !important;
 }

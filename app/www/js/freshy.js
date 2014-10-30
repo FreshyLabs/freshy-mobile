@@ -101,7 +101,7 @@ App.buildWeatherHTML = function () {
     var html = '';
     for (var i = 0; i < weatherData.length; i++) {
         var item = weatherData[i];
-        console.log(item);
+        //console.log(item);
         var new_snow = ( item.snow || 0 ) +"&quot; / "+ (item.base || 0) + '&quot;';
         var date = new Date(item.condition.date);
         var time = date.getHours(date) + ':' + date.getMinutes(date);
@@ -179,6 +179,12 @@ App.updateWeatherData(function () {
     App.buildWeatherHTML();
 });
 
+App.buildSnark = function( ff ){
+  var snark = 'With a freshy factor of ' + ff + '% ';
+    snark += 'you may as well stay home think about your life.';
+  return snark;
+};
+
 // Build details page
 $$('.places-list').on('click', 'a.item-link', function (e) {
     var icons = {
@@ -231,12 +237,13 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
                 '<li class="item-content">' +
                   '<div class="item-inner">' +
                     '<div class="item-title">' + formatDate + '</div>' +
-                    '<div class="item-after"><span class="state"><i class="wi ' + icons[forecastItem.weather[0].value] + '"></i></span><span class="temps"><span class="high">' + forecastItem.snow_amount + '&quot;</span></span></div>' +
+                    '<div class="item-after"><span class="state"><i class="wi ' + icons[forecastItem.weather[0].value] + '"></i></span><span class="temps"><span class="high">' + Math.ceil(forecastItem.snow_amount) + '&quot;</span></span></div>' +
                   '</div>' +
                 '</li>';
     }
 
-    var webCamHTML = '';
+//    var webCamHTML = '';
+    var webCamHTML = '<li class="item-content"><div class="item-inner">Webcams</div></li>';
     for (i = 0; i < item.webcams.length; i++) {
         var camUrl = item.webcams[i];
         webCamHTML +=
@@ -247,16 +254,19 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
                 '</li>';
     }
 
+    var ffSnark = App.buildSnark( item.freshyfactor );
     var ffHTML = '<li class="item-content">' +
                   '<div class="item-inner">' +
                     '<div class="item-title">Freshy Factor</div>' +
                     '<div class="item-after"><span class="freshyfactor">' + item.freshyfactor + '%</span><span class="temps"></span></div>' +
                   '</div>' +
-                '</li>';
+                '</li>' + 
+                '<div class="item-content"><span class="freshy-snark">'+ffSnark+'</span></div>';
 
+    var new_snow = (item.snow || 0) +'&quot;<span class="stat">new</span> / '+ (item.base || 0) + '&quot;<span class="stat">base depth</span>';
     var pageContent = App.detailsTemplate
                     .replace(/{{name}}/g, item.name)
-                    .replace(/{{new_snow}}/g, (item.snow || 0) +'&quot; / '+ (item.base || 0) + '&quot;' )
+                    .replace(/{{new_snow}}/g, new_snow)
                     .replace(/{{condition}}/g, item.condition.text)
                     .replace(/{{forecast}}/g, forecastHTML)
                     .replace(/{{freshy-factor}}/g, ffHTML)
