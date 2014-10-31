@@ -207,7 +207,7 @@ App.buildSnark = function( ff ){
     case ff < 95:
       end = 'there are lines of pretty little powder puffs you should think about smashing. Right?';
       break;
-    case ff >= 95:
+    case ff < 97:
       end = 'you better bust out the snorkel, it\'s your pow, go get it now!';
       break; 
     case ff == 100:
