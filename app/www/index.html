@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html manifest="manifest.php" class="with-statusbar-overlay">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>FreshyMapMobile</title>
+    <link rel="stylesheet" href="css/framework7.min.css">
+    <link rel="stylesheet" href="css/weather-icons.min.css">
+    <link rel="stylesheet" href="css/freshy.css">
+    <!-- Favicon-->
+    <link href="img/icon-57.png" rel="shortcut icon"> 
+    <!-- iOS 7 iPad (retina) -->
+    <link href="img/icon-152.png" sizes="152x152" rel="apple-touch-icon">
+    <!-- iOS 6 iPad (retina) -->
+    <link href="img/icon-144.png" sizes="144x144" rel="apple-touch-icon">
+    <!-- iOS 7 iPhone (retina) -->
+    <link href="img/icon-120.png" sizes="120x120" rel="apple-touch-icon">
+    <!-- iOS 6 iPhone (retina) -->
+    <link href="img/icon-114.png" sizes="114x114" rel="apple-touch-icon">
+    <!-- iOS 7 iPad -->
+    <link href="img/icon-76.png" sizes="76x76" rel="apple-touch-icon">
+    <!-- iOS 6 iPad -->
+    <link href="img/icon-72.png" sizes="72x72" rel="apple-touch-icon">
+    <!-- iOS 6 iPhone -->
+    <link href="img/icon-57.png" sizes="57x57" rel="apple-touch-icon">
+  </head>
+  <body>
+    <!-- Statusbar overlay-->
+    <div class="statusbar-overlay"></div>
+    <!-- Main views-->
+    <div class="views">
+      <div class="view view-main navbar-through">
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="center sliding"><span class="navbar-logo"></span></div>
+            <div class="right"><a href="#" class="open-popup link icon-only"><i class="icon icon-plus">+</i></a></div>
+          </div>
+        </div>
+        <div class="pages">
+          <div data-page="index" class="page">
+            <div class="page-content">
+              <div class="list-block places-list">
+                <ul></ul>
+                <div class="list-block-label"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Search popup-->
+    <div class="popup">
+      <div class="view navbar-fixed">
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="left">
+              <input type="text" placeholder="Search FreshyMap...">
+              <div class="preloader preloader-white"></div>
+            </div>
+            <div class="right"><a href="#" class="link close-popup">Cancel</a></div>
+          </div>
+        </div>
+        <div class="pages">
+          <div class="page">
+            <div class="page-content">
+              <ul class="search-results"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Templates-->
+
+    <script id="search-item-template" type="template">  
+      <li data-woeid="{{woeid}}" data-name="{{name}}" data-province="{{province}}" class="close-popup">{{name}} <span>{{province}}</span></li>
+    </script>
+
+    <script id="weather-item-template" type="template">      
+      <li data-woeid="{{woeid}}" class="swipeout">
+        <div class="swipeout-content"><a href="#" data-woeid="{{woeid}}" class="item-content item-link">
+            <div class="item-inner">
+              <div class="item-title">
+                <div class="name">{{name}}</div>
+                <div class="country">{{province}}</div>
+              </div>
+              <div class="item-after">{{new_snow}}</div>
+            </div></a></div>
+        <div class="swipeout-actions">
+          <div class="swipeout-actions-inner"><a href="#" class="swipeout-delete">Delete</a></div>
+        </div>
+      </li>
+    </script>
+    <script id="details-template" type="template">
+      <div class="navbar">
+        <div class="navbar-inner">
+          <div class="left sliding"><a href="index.html" class="back link"><span class="navbar-logo"></span></a></div>
+        </div>
+      </div>
+      <div class="pages navbar-through">
+        <div data-page="detail" class="page">
+          <div class="page-content">
+            <div class="detail-name">{{name}}</div>
+              <div id="wrapper" class="clear detail-temp">
+                <div id="new-snow">
+                  <div class="">{{new_snow}}</div>
+                  <div class="stat">new snow</div>
+                </div>  
+                <div id="base-depth">
+                  <div class="">{{base_depth}}</div>
+                  <div class="stat">base depth</div>
+                </div>
+              </div>
+       
+            <div class="list-block forecast-list">
+              <ul>
+                {{freshy-factor}}
+              </ul>
+            </div>
+            <div class="list-block forecast-list">
+              <ul>{{forecast}}</ul>
+            </div>
+            <div class="list-block forecast-list">
+              <ul>{{webcams}}</ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </script>
+    <!-- Path to Framework7 Library JS-->
+    <script type="text/javascript" src="js/framework7.min.js"></script>
+    <!-- Path to your app js-->
+    <script type="text/javascript" src="js/d3.v3.min.js"></script>
+    <script type="text/javascript" src="js/freshy.js"></script>
+  </body>
+</html>
