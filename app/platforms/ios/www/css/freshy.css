@@ -270,10 +270,13 @@ i.icon-plus {
 }
 .list-block.forecast-list span.freshyfactor {
   color: #fff;
-  font-size: 61px;
-  font-weight:100;
-  position:relative;
-  top:0px;
+  font-size: 30px;
+  font-weight: 100;
+  position: relative;
+  top: 24px;
+  left: 0px;
+  text-align: center;
+  width: 100px;
 }
 #snark-container {
   text-align: center;
@@ -368,4 +371,9 @@ float:right;
   width: 100px;
   height: 100px;
   margin:auto;
+}
+
+#ffsvgcontainer {
+  position: absolute;
+  top:-40px;
 }

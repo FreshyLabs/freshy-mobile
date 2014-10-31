@@ -415,3 +415,15 @@ You could find it at the following address https://developer.apple.com/icloud/do
 
 2014-10-31 10:11:03.979 FreshyMap[63815:738539] Resetting plugins due to page load.
 2014-10-31 10:11:04.324 FreshyMap[63815:738539] Finished load of: file:///Users/bheberto/Library/Developer/CoreSimulator/Devices/DC50DBBE-45C3-47AE-B6C9-9DB151196534/data/Containers/Bundle/Application/AB6829CF-6DA1-4CD4-B73A-1671DEFB8ABE/FreshyMap.app/www/index.html
+2014-10-31 12:39:59.643 FreshyMap[67470:809698] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/bheberto/Library/Developer/CoreSimulator/Devices/DC50DBBE-45C3-47AE-B6C9-9DB151196534/data/Containers/Data/Application/F0A17B77-618B-4278-BAC3-396CC12AE723/Library/Cookies/Cookies.binarycookies
+2014-10-31 12:39:59.858 FreshyMap[67470:809698] Multi-tasking -> Device: YES, App: YES
+2014-10-31 12:39:59.877 FreshyMap[67470:809698] Unlimited access to network resources
+2014-10-31 12:39:59.881 FreshyMap[67470:809698] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-10-31 12:40:00.356 FreshyMap[67470:809698] Resetting plugins due to page load.
+2014-10-31 12:40:00.567 FreshyMap[67470:809698] Finished load of: file:///Users/bheberto/Library/Developer/CoreSimulator/Devices/DC50DBBE-45C3-47AE-B6C9-9DB151196534/data/Containers/Bundle/Application/5B3CF325-4766-467D-AE46-F9D82D255BFF/FreshyMap.app/www/index.html
