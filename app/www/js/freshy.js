@@ -227,7 +227,7 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
         if (weatherData[i].woeid === woeid) item = weatherData[i];
     }
     var days = ('Monday Tuesday Wednesday Thursday Friday Saturday Sunday').split(' ');
-    var forecastHTML = '';
+    var forecastHTML = '<li class="item-content"><span class="list-title">5 Day Forecast</span></li>';
     for (i = 0; i < item.forecast.length; i++) {
         var forecastItem = item.forecast[i];
         var date = new Date(forecastItem.time);
@@ -243,7 +243,7 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
     }
 
 //    var webCamHTML = '';
-    var webCamHTML = '<li class="item-content"><div class="item-inner">Webcams</div></li>';
+    var webCamHTML = '<li class="item-content"><span class="list-title">Webcams</span></li>';
     for (i = 0; i < item.webcams.length; i++) {
         var camUrl = item.webcams[i];
         webCamHTML +=
@@ -255,18 +255,16 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
     }
 
     var ffSnark = App.buildSnark( item.freshyfactor );
-    var ffHTML = '<li class="item-content">' +
-                  '<div class="item-inner">' +
-                    '<div class="item-title">Freshy Factor</div>' +
-                    '<div class="item-after"><span class="freshyfactor">' + item.freshyfactor + '%</span><span class="temps"></span></div>' +
-                  '</div>' +
-                '</li>' + 
+    var ffHTML = '<li class="item-content"><span class="list-title">Freshy Factor</span></li>'+
+                 '<li class="item-content"><span class="list-title"><span class="freshyfactor">' + item.freshyfactor + '%</span></span></li>'+
                 '<div class="item-content"><span class="freshy-snark">'+ffSnark+'</span></div>';
 
-    var new_snow = (item.snow || 0) +'&quot;<span class="stat">new</span> / '+ (item.base || 0) + '&quot;<span class="stat">base depth</span>';
+    var new_snow = (item.snow || 0) +'&quot;';
+    var base_depth = (item.base || 0) +'&quot;';
     var pageContent = App.detailsTemplate
                     .replace(/{{name}}/g, item.name)
                     .replace(/{{new_snow}}/g, new_snow)
+                    .replace(/{{base_depth}}/g, base_depth)
                     .replace(/{{condition}}/g, item.condition.text)
                     .replace(/{{forecast}}/g, forecastHTML)
                     .replace(/{{freshy-factor}}/g, ffHTML)

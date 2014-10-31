@@ -102,9 +102,17 @@
         <div data-page="detail" class="page">
           <div class="page-content">
             <div class="detail-name">{{name}}</div>
-            <div class="detail-temp">
-              {{new_snow}}
-            </div>
+              <div id="wrapper" class="clear detail-temp">
+                <div id="new-snow">
+                  <div class="">{{new_snow}}</div>
+                  <div class="stat">new snow</div>
+                </div>  
+                <div id="base-depth">
+                  <div class="">{{base_depth}}</div>
+                  <div class="stat">base depth</div>
+                </div>
+              </div>
+        
             <div class="list-block forecast-list">
               <ul>{{freshy-factor}}</ul>
             </div>
