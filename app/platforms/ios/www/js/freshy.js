@@ -101,7 +101,7 @@ App.buildWeatherHTML = function () {
     var html = '';
     for (var i = 0; i < weatherData.length; i++) {
         var item = weatherData[i];
-        console.log(item);
+        //console.log(item);
         var new_snow = ( item.snow || 0 ) +"&quot; / "+ (item.base || 0) + '&quot;';
         var date = new Date(item.condition.date);
         var time = date.getHours(date) + ':' + date.getMinutes(date);
@@ -179,8 +179,79 @@ App.updateWeatherData(function () {
     App.buildWeatherHTML();
 });
 
+App.buildSnark = function( ff ){
+  var snark = 'With a freshy factor of ' + ff + '% ';
+    snark += 'you may as well stay home think about your life.';
+  return snark;
+};
+
+App.buildArc = function( ff ){
+   var width = 125,
+        height = 125,
+        τ = 2 * Math.PI; // http://tauday.com/tau-manifesto
+
+    var arc = d3.svg.arc()
+        .innerRadius(41)
+        .outerRadius(45)
+        .startAngle(0);
+
+    // Create the SVG container, and apply a transform such that the origin is the
+    // center of the canvas. This way, we don't need to position arcs individually.
+    var svg = d3.select("#ffcontainer").append("svg")
+        .attr("width", width)
+        .attr("height", height)
+      .append("g")
+        .attr("transform", "translate(" + 50 + "," + 50 + ")")
+
+    // Add the background arc, from 0 to 100% (τ).
+    var background = svg.append("path")
+        .datum({endAngle: τ})
+        .style("fill", "#fff")
+        .attr("d", arc);
+
+    // Add the foreground arc in orange, currently showing 12.7%.
+    console.log(.127 * τ, τ);
+    var foreground = svg.append("path")
+        .datum({endAngle: ff/100 * τ})
+        .style("fill", "#34aF50")
+        .attr("d", arc);
+};
+
 // Build details page
 $$('.places-list').on('click', 'a.item-link', function (e) {
+    var icons = {
+      "Sunny": "wi-day-sunny",
+      "Clear": "wi-night-clear",
+      "Overcast" : "wi-cloudy",
+      "Cloudy": "wi-cloudy",
+      "Partly Cloudy": "wi-day-cloudy",
+      "Snow": "wi-snow",
+      "Heavy snow": "wi-snow",
+      "Blowing snow": "wi-snow",
+      "Moderate snow": "wi-snow",
+      "Patchy moderate snow": "wi-snow",
+      "Light drizzle": "wi-day-hail",
+      "Light sleet": "wi-day-hail",
+      "Moderate or heavy snow in area with thunder": "wi-snow",
+      "Patchy light snow in area with thunder": "wi-snow",
+      "Light snow": "wi-snow",
+      "Patchy light snow": "wi-day-snow",
+      "Patchy snow nearby": "wi-day-snow",
+      "Light snow showers": "wi-day-snow",
+      "Patchy heavy snow": "wi-snow",
+      "Blowing snow": "wi-snow",
+      "Blizzard": "wi-snow",
+      "Rain": "wi-rain",
+      "Light rain shower": "wi-day-showers",
+      "Light rain": "wi-day-showers",
+      "Light freezing rain": "wi-rain",
+      "Moderate rain": "wi-rain",
+      "Moderate rain at times": "wi-rain",
+      "Heavy freezing drizzle": "wi-rain",
+      "Fog": "wi-fog",
+      "Freezing fog": "wi-fog",
+      "Mist": "wi-fog"
+    }
     var woeid = $$(this).attr('data-woeid');
     var item;
     var weatherData = JSON.parse(localStorage.freshyData);
@@ -188,21 +259,23 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
         if (weatherData[i].woeid === woeid) item = weatherData[i];
     }
     var days = ('Monday Tuesday Wednesday Thursday Friday Saturday Sunday').split(' ');
-    var forecastHTML = '';
+    var forecastHTML = '<li class="item-content"><span class="list-title">5 Day Forecast</span></li>';
     for (i = 0; i < item.forecast.length; i++) {
         var forecastItem = item.forecast[i];
         var date = new Date(forecastItem.time);
         var formatDate  = days[date.getDay()];
+        console.log('forecastItem.weather[0]', forecastItem.weather[0]);
         forecastHTML +=
                 '<li class="item-content">' +
                   '<div class="item-inner">' +
                     '<div class="item-title">' + formatDate + '</div>' +
-                    '<div class="item-after"><span class="state">' + forecastItem.weather[0].value.split(' ')[0] + '</span><span class="temps"><span class="high">' + forecastItem.snow_amount + '&quot;</span></span></div>' +
+                    '<div class="item-after"><span class="state"><i class="wi ' + icons[forecastItem.weather[0].value] + '"></i></span><span class="temps"><span class="high">' + Math.ceil(forecastItem.snow_amount) + '&quot;</span></span></div>' +
                   '</div>' +
                 '</li>';
     }
 
-    var webCamHTML = '';
+//    var webCamHTML = '';
+    var webCamHTML = '<li class="item-content"><span class="list-title">Webcams</span></li>';
     for (i = 0; i < item.webcams.length; i++) {
         var camUrl = item.webcams[i];
         webCamHTML +=
@@ -213,21 +286,26 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
                 '</li>';
     }
 
-    var ffHTML = '<li class="item-content">' +
-                  '<div class="item-inner">' +
-                    '<div class="item-title">Freshy Factor</div>' +
-                    '<div class="item-after"><span class="freshyfactor">' + item.freshyfactor + '%</span><span class="temps"></span></div>' +
-                  '</div>' +
-                '</li>';
 
+    var ffSnark = App.buildSnark( item.freshyfactor );
+    var ffHTML = '<li class="item-content"><span class="list-title">Freshy Factor</span></li>'+
+                 '<li class="item-content"><div id="ffcontainer" class="list-block"></div><span class="list-title"><span class="freshyfactor">' + item.freshyfactor + '%</    span></span></li>'+
+                '<div class="item-content"><span class="freshy-snark">'+ffSnark+'</span></div>';
+
+    var new_snow = (item.snow || 0) +'&quot;';
+    var base_depth = (item.base || 0) +'&quot;';
     var pageContent = App.detailsTemplate
                     .replace(/{{name}}/g, item.name)
-                    .replace(/{{new_snow}}/g, (item.snow || 0) +'&quot; / '+ (item.base || 0) + '&quot;' )
+                    .replace(/{{new_snow}}/g, new_snow)
+                    .replace(/{{base_depth}}/g, base_depth)
                     .replace(/{{condition}}/g, item.condition.text)
                     .replace(/{{forecast}}/g, forecastHTML)
                     .replace(/{{freshy-factor}}/g, ffHTML)
                     .replace(/{{webcams}}/g, webCamHTML);
     mainView.loadContent(pageContent);
+
+    // FRESH FACTOR ARC
+    App.buildArc( 79 );
 });
 
 // Update app when manifest updated 

@@ -40,7 +40,7 @@ body {
 .page[data-page="index"],
 .page[data-page="detail"] {
   background: none;
-  background: #000000 url(../img/bg.jpg) no-repeat center;
+  background: #000000 url(../img/bg10.jpg) no-repeat center;
   -webkit-background-size: cover;
   background-size: cover;
 }
@@ -270,7 +270,30 @@ i.icon-plus {
 }
 .list-block.forecast-list span.freshyfactor {
   color: #fff;
+  font-size: 61px;
+  font-weight:100;
+  position:relative;
+  top:0px;
+}
+#snark-container {
+  text-align: center;
+}
+span.freshy-snark {
+  color: #fff;
+  font-size: 12px;
+  margin:auto;
+  text-align: center;
+}
+span.list-title {
+  color: #eee;
   font-size: 20px;
+  margin:auto;
+}
+.stat {
+  font-size: 15px;
+  position: relative;
+  top: -40px;
+  height:20px;
 }
 .list-block.forecast-list span.temps {
   width: 70px;
@@ -319,4 +342,30 @@ html.with-statusbar-overlay .statusbar-overlay.with-popup-opened {
 }
 .modal-button:active {
   background: #68095b;
+}
+
+.item-content {
+padding:0px 15px !important;
+}
+
+.report-stat {
+  float:left;
+  width:30%;
+}
+
+#wrapper {width:auto;height: 100px;}
+#new-snow{
+float:left;
+width:50%;
+}
+#base-depth{
+width:50%;
+float:right;
+}
+.clear {clear:both;}
+
+#ffcontainer {
+  width: 100px;
+  height: 100px;
+  margin:auto;
 }

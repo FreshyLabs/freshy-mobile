@@ -7,6 +7,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>FreshyMapMobile</title>
     <link rel="stylesheet" href="css/framework7.min.css">
+    <link rel="stylesheet" href="css/weather-icons.min.css">
     <link rel="stylesheet" href="css/freshy.css">
     <!-- Favicon-->
     <link href="img/icon-57.png" rel="shortcut icon"> 
@@ -101,9 +102,21 @@
         <div data-page="detail" class="page">
           <div class="page-content">
             <div class="detail-name">{{name}}</div>
-            <div class="detail-temp">{{new_snow}}</div>
+              <div id="wrapper" class="clear detail-temp">
+                <div id="new-snow">
+                  <div class="">{{new_snow}}</div>
+                  <div class="stat">new snow</div>
+                </div>  
+                <div id="base-depth">
+                  <div class="">{{base_depth}}</div>
+                  <div class="stat">base depth</div>
+                </div>
+              </div>
+       
             <div class="list-block forecast-list">
-              <ul>{{freshy-factor}}</ul>
+              <ul>
+                {{freshy-factor}}
+              </ul>
             </div>
             <div class="list-block forecast-list">
               <ul>{{forecast}}</ul>
@@ -118,6 +131,7 @@
     <!-- Path to Framework7 Library JS-->
     <script type="text/javascript" src="js/framework7.min.js"></script>
     <!-- Path to your app js-->
+    <script type="text/javascript" src="js/d3.v3.min.js"></script>
     <script type="text/javascript" src="js/freshy.js"></script>
   </body>
 </html>
