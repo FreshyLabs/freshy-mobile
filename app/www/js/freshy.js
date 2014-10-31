@@ -259,7 +259,8 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
         if (weatherData[i].woeid === woeid) item = weatherData[i];
     }
     var days = ('Monday Tuesday Wednesday Thursday Friday Saturday Sunday').split(' ');
-    var forecastHTML = '<li class="item-content"><span class="list-title">5 Day Forecast</span></li>';
+    //var forecastHTML = '<li class="item-content"><span class="list-title">5 Day Forecast</span></li>';
+    var forecastHTML = '';
     for (i = 0; i < item.forecast.length; i++) {
         var forecastItem = item.forecast[i];
         var date = new Date(forecastItem.time);
@@ -274,8 +275,8 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
                 '</li>';
     }
 
-//    var webCamHTML = '';
-    var webCamHTML = '<li class="item-content"><span class="list-title">Webcams</span></li>';
+    var webCamHTML = '';
+    //var webCamHTML = '<li class="item-content"><span class="list-title">Webcams</span></li>';
     for (i = 0; i < item.webcams.length; i++) {
         var camUrl = item.webcams[i];
         webCamHTML +=
@@ -286,6 +287,9 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
                 '</li>';
     }
 
+
+    // TODO REMOVE THIS IN PROD
+    item.freshyfactor = Math.floor(Math.random() * 100) + 10;
 
     var ffSnark = App.buildSnark( item.freshyfactor );
     var ffHTML = '<li class="item-content"><span class="list-title">Freshy Factor</span></li>'+
@@ -306,7 +310,7 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
     mainView.loadContent(pageContent);
 
     // FRESH FACTOR ARC
-    App.buildArc( 79 );
+    App.buildArc( item.freshyfactor );
 });
 
 // Update app when manifest updated 
