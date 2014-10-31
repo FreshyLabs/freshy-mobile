@@ -181,7 +181,41 @@ App.updateWeatherData(function () {
 
 App.buildSnark = function( ff ){
   var snark = 'With a freshy factor of ' + ff + '% ';
-    snark += 'you may as well stay home think about your life.';
+  var end;
+  switch (true){
+    case ff < 10: 
+      end = 'you should just go bowling instead, it\'s pretty boney out there...';
+      break;
+    case ff < 25: 
+      end = 'the bumps might be in order, if you\'re into that sort of thing...';
+      break;
+    case ff < 40: 
+      end = 'call it a groomer day, and have fun ripping up the corduroy';
+      break;
+    case ff < 60: 
+      end = 'it might a groomer day, unless of course you know the special spots...';
+      break;
+    case ff < 75: 
+      end = 'there are stashes to be found mate! If you go hunting you shall be rewarded.';
+      break;
+    case ff < 85: 
+      end = 'what are you doing reading this? Go get first chair dumbass.';
+      break;
+    case ff < 90:
+      end = 'we predict the pow will be in your face, go now.';
+      break;
+    case ff < 95:
+      end = 'there are lines of pretty little powder puffs you should think about smashing. Right?';
+      break;
+    case ff >= 95:
+      end = 'you better bust out the snorkel, it\'s your pow, go get it now!';
+      break; 
+    case ff == 100:
+      end = 'there are so many powder shots waiting for you it makes us want to cry, but it\'s a happy cry though. Good for you!';
+      break;
+  };
+  //snark += 'you may as well stay home think about your life.';
+  snark += end;
   return snark;
 };
 
