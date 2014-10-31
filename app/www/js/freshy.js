@@ -185,6 +185,38 @@ App.buildSnark = function( ff ){
   return snark;
 };
 
+App.buildArc = function( ff ){
+   var width = 125,
+        height = 125,
+        τ = 2 * Math.PI; // http://tauday.com/tau-manifesto
+
+    var arc = d3.svg.arc()
+        .innerRadius(41)
+        .outerRadius(45)
+        .startAngle(0);
+
+    // Create the SVG container, and apply a transform such that the origin is the
+    // center of the canvas. This way, we don't need to position arcs individually.
+    var svg = d3.select("#ffcontainer").append("svg")
+        .attr("width", width)
+        .attr("height", height)
+      .append("g")
+        .attr("transform", "translate(" + 50 + "," + 50 + ")")
+
+    // Add the background arc, from 0 to 100% (τ).
+    var background = svg.append("path")
+        .datum({endAngle: τ})
+        .style("fill", "#fff")
+        .attr("d", arc);
+
+    // Add the foreground arc in orange, currently showing 12.7%.
+    console.log(.127 * τ, τ);
+    var foreground = svg.append("path")
+        .datum({endAngle: ff/100 * τ})
+        .style("fill", "#34aF50")
+        .attr("d", arc);
+};
+
 // Build details page
 $$('.places-list').on('click', 'a.item-link', function (e) {
     var icons = {
@@ -254,9 +286,10 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
                 '</li>';
     }
 
+
     var ffSnark = App.buildSnark( item.freshyfactor );
     var ffHTML = '<li class="item-content"><span class="list-title">Freshy Factor</span></li>'+
-                 '<li class="item-content"><span class="list-title"><span class="freshyfactor">' + item.freshyfactor + '%</span></span></li>'+
+                 '<li class="item-content"><div id="ffcontainer" class="list-block"></div><span class="list-title"><span class="freshyfactor">' + item.freshyfactor + '%</    span></span></li>'+
                 '<div class="item-content"><span class="freshy-snark">'+ffSnark+'</span></div>';
 
     var new_snow = (item.snow || 0) +'&quot;';
@@ -270,6 +303,9 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
                     .replace(/{{freshy-factor}}/g, ffHTML)
                     .replace(/{{webcams}}/g, webCamHTML);
     mainView.loadContent(pageContent);
+
+    // FRESH FACTOR ARC
+    App.buildArc( 79 );
 });
 
 // Update app when manifest updated 

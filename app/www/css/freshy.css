@@ -362,5 +362,10 @@ width:50%;
 width:50%;
 float:right;
 }
-
 .clear {clear:both;}
+
+#ffcontainer {
+  width: 100px;
+  height: 100px;
+  margin:auto;
+}
