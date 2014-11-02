@@ -266,6 +266,19 @@ i.icon-email {
     margin-right: auto;
   }
 }
+.current-icon {
+  font-size: 30px;
+  width: 60px;
+  text-align: right;
+  color: #FFF;
+  margin-top: -5px;
+}
+.current-temp {
+  font-size: 35px;
+  height: 40px;
+  margin-top: -10px;
+  color: #FFF;
+}
 .list-block.forecast-list ul {
   border: none;
   background: rgba(0, 0, 0, 0.2);
