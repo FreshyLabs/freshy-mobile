@@ -211,7 +211,7 @@ App.buildSnark = function( ff ){
       end = 'there are stashes to be found mate! If you go hunting you shall be rewarded.';
       break;
     case ff < 85: 
-      end = 'what are you doing reading this? Go get first chair dumbass.';
+      end = 'what are you doing reading this? Go get first chair!';
       break;
     case ff < 90:
       end = 'we predict the pow will be in your face, go now.';
