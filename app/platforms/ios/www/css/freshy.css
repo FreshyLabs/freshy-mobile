@@ -72,6 +72,21 @@ span.navbar-logo {
 i.icon-plus {
   color: #fff;
 }
+i.icon-email {
+  color: #fff;
+  width: 25px;
+  height: 25px;
+  font-size: 22px;
+  line-height: 20px;
+  text-align: center;
+  font-weight: 100;
+  position: relative;
+  top:5px;
+}
+
+.login-screen-img {
+  background-image: url(../img/forest-small.png);
+}
 /*==============================
     Homepage places list
 ==============================*/
@@ -256,7 +271,7 @@ i.icon-plus {
   background: rgba(0, 0, 0, 0.2);
 }
 .list-block.forecast-list .item-inner {
-  border-bottom-color: rgba(0, 0, 0, 0.3);
+  border-bottom-color: rgba(255, 255, 255, 0.3);
 }
 .list-block.forecast-list li:last-child .item-inner {
   border-bottom: none;
@@ -356,7 +371,7 @@ padding:0px 15px !important;
   width:30%;
 }
 
-#wrapper {width:auto;height: 100px;}
+#wrapper {width:auto;height: 75px;}
 #new-snow{
 float:left;
 width:50%;

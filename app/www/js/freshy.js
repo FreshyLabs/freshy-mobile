@@ -226,7 +226,7 @@ App.buildArc = function( ff ){
 
     var arc = d3.svg.arc()
         .innerRadius(41)
-        .outerRadius(45)
+        .outerRadius(50)
         .startAngle(0);
 
     // Create the SVG container, and apply a transform such that the origin is the
@@ -240,7 +240,8 @@ App.buildArc = function( ff ){
     // Add the background arc, from 0 to 100% (τ).
     var background = svg.append("path")
         .datum({endAngle: τ})
-        .style("fill", "#fff")
+        .style("fill", "#aaa")
+        .style("opacity", 0.3)
         .attr("d", arc);
 
     // Add the foreground arc in orange, currently showing 12.7%.

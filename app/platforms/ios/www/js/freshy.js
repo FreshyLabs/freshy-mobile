@@ -181,7 +181,41 @@ App.updateWeatherData(function () {
 
 App.buildSnark = function( ff ){
   var snark = 'With a freshy factor of ' + ff + '% ';
-    snark += 'you may as well stay home think about your life.';
+  var end;
+  switch (true){
+    case ff < 10: 
+      end = 'you should just go bowling instead, it\'s pretty boney out there...';
+      break;
+    case ff < 25: 
+      end = 'the bumps might be in order, if you\'re into that sort of thing...';
+      break;
+    case ff < 40: 
+      end = 'call it a groomer day, and have fun ripping up the corduroy';
+      break;
+    case ff < 60: 
+      end = 'it might a groomer day, unless of course you know the special spots...';
+      break;
+    case ff < 75: 
+      end = 'there are stashes to be found mate! If you go hunting you shall be rewarded.';
+      break;
+    case ff < 85: 
+      end = 'what are you doing reading this? Go get first chair dumbass.';
+      break;
+    case ff < 90:
+      end = 'we predict the pow will be in your face, go now.';
+      break;
+    case ff < 95:
+      end = 'there are lines of pretty little powder puffs you should think about smashing. Right?';
+      break;
+    case ff < 97:
+      end = 'you better bust out the snorkel, it\'s your pow, go get it now!';
+      break; 
+    case ff == 100:
+      end = 'there are so many powder shots waiting for you it makes us want to cry, but it\'s a happy cry though. Good for you!';
+      break;
+  };
+  //snark += 'you may as well stay home think about your life.';
+  snark += end;
   return snark;
 };
 
@@ -192,7 +226,7 @@ App.buildArc = function( ff ){
 
     var arc = d3.svg.arc()
         .innerRadius(41)
-        .outerRadius(45)
+        .outerRadius(50)
         .startAngle(0);
 
     // Create the SVG container, and apply a transform such that the origin is the
@@ -206,7 +240,8 @@ App.buildArc = function( ff ){
     // Add the background arc, from 0 to 100% (τ).
     var background = svg.append("path")
         .datum({endAngle: τ})
-        .style("fill", "#fff")
+        .style("fill", "#aaa")
+        .style("opacity", 0.3)
         .attr("d", arc);
 
     // Add the foreground arc in orange, currently showing 12.7%.
@@ -259,7 +294,8 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
         if (weatherData[i].woeid === woeid) item = weatherData[i];
     }
     var days = ('Monday Tuesday Wednesday Thursday Friday Saturday Sunday').split(' ');
-    var forecastHTML = '<li class="item-content"><span class="list-title">5 Day Forecast</span></li>';
+    //var forecastHTML = '<li class="item-content"><span class="list-title">5 Day Forecast</span></li>';
+    var forecastHTML = '';
     for (i = 0; i < item.forecast.length; i++) {
         var forecastItem = item.forecast[i];
         var date = new Date(forecastItem.time);
@@ -274,8 +310,8 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
                 '</li>';
     }
 
-//    var webCamHTML = '';
-    var webCamHTML = '<li class="item-content"><span class="list-title">Webcams</span></li>';
+    var webCamHTML = '';
+    //var webCamHTML = '<li class="item-content"><span class="list-title">Webcams</span></li>';
     for (i = 0; i < item.webcams.length; i++) {
         var camUrl = item.webcams[i];
         webCamHTML +=
@@ -286,6 +322,9 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
                 '</li>';
     }
 
+
+    // TODO REMOVE THIS IN PROD
+    item.freshyfactor = Math.floor(Math.random() * 100) + 10;
 
     var ffSnark = App.buildSnark( item.freshyfactor );
     var ffHTML = '<li class="item-content"><span class="list-title">Freshy Factor</span></li>'+
@@ -306,7 +345,7 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
     mainView.loadContent(pageContent);
 
     // FRESH FACTOR ARC
-    App.buildArc( 79 );
+    App.buildArc( item.freshyfactor );
 });
 
 // Update app when manifest updated 

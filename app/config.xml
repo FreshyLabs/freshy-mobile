@@ -2,11 +2,12 @@
 <widget id="com.map.freshy" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>FreshyMap</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        A real time snow reporting application.
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="freshymap@gmail.com" href="http://freshymap.com">
+        Freshymap Team
     </author>
     <content src="index.html" />
     <access origin="*" />
+    <preference name="SplashScreen" value="splash"/>
 </widget>
