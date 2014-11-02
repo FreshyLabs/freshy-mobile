@@ -85,7 +85,8 @@ App.updateWeatherData = function (callback) {
                     freshyfactor: place.freshy_factor,
                     lat: place.Lat,
                     long: place.Long,
-                    woeid: place.Name 
+                    woeid: place.Name,
+                    reportTime: place.report_time
                 });
             }
         }
@@ -313,7 +314,7 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
             '<li class="item-content">' +
               '<div class="item-inner">' +
                 '<div id="item-current-left">' +
-                  '<div class="item-current-title">Currently</div>' +
+                  '<div class="item-current-title">Current Weather:</div>' +
                   '<div class="item-current-condition">'+item.currentwx.weather+'</div>' +
                 '</div>' +
                 '<div class="item-after">' +
@@ -322,6 +323,7 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
                 '</div>' +
               '</div>' +
             '</li>';
+
 
     var days = ('Monday Tuesday Wednesday Thursday Friday Saturday Sunday').split(' ');
     //var forecastHTML = '<li class="item-content"><span class="list-title">5 Day Forecast</span></li>';
@@ -365,6 +367,7 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
     var base_depth = (item.base || 0) +'&quot;';
     var pageContent = App.detailsTemplate
                     .replace(/{{name}}/g, item.name)
+                    .replace(/{{report_time}}/g, 'Updated today @ ' + new Date(item.reportTime).toLocaleTimeString())
                     .replace(/{{new_snow}}/g, new_snow)
                     .replace(/{{base_depth}}/g, base_depth)
                     .replace(/{{condition}}/g, item.condition.text)

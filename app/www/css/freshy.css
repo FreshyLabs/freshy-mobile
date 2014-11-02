@@ -247,6 +247,12 @@ i.icon-email {
   font-size: 36px;
   margin-left: 10px
 }
+.detail-time {
+  text-align: left;
+  font-size: 11px;
+  margin-left: 12px;
+  opacity: .5;
+}
 .detail-temp {
   font-size: 81px;
   line-height: 81px;
@@ -404,4 +410,12 @@ float:right;
 #ffsvgcontainer {
   position: absolute;
   top:-40px;
+}
+
+.item-current-title {
+  font-size: 12px;
+}
+
+.item-current-condition {
+  padding-left: 15px;
 }
