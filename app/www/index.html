@@ -35,7 +35,7 @@
         <div class="navbar">
           <div class="navbar-inner">
             <div class="left">
-              <a href="#" class="open-login-screen link icon-only"><i class="icon icon-email">@</i></a>
+              <a href="#" class="prompt-title-ok link icon-only"><i class="icon icon-email">@</i></a>
             </div>
             <div class="center sliding"><span class="navbar-logo"></span></div>
             <div class="right">
@@ -72,39 +72,6 @@
             <div class="page-content">
               <ul class="search-results"></ul>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="login-screen">
-      <div class="view">
-        <div class="page">
-          <div class="page-content login-screen-content">
-            <div class="login-screen-title">Sign up for the Freshy Newsletter</div>
-            <form>
-              <div class="list-block">
-                <ul>
-                  <li class="item-content">
-                    <div class="item-inner">
-                      <div class="item-title label">Email</div>
-                      <div class="item-input">
-                        <input type="text" name="email" placeholder="Your email address">
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="list-block">
-                <div class="list-block-label">
-                  <p>We will never, ever share your email. Pinky swear for reals.</p>
-                  <p><a href="#" class="close-login-screen">Sign Up</a></p>
-                  <ul>
-                    <li><a href="#" class="close-login-screen">Cancel</a></li>
-                  </ul>
-                </div>
-              </div>
-            </form>
           </div>
         </div>
       </div>
@@ -157,14 +124,16 @@
                 {{freshy-factor}}
               </ul>
             </div>
+           
+            <div class="list-block forecast-list">
+              <ul>We need to add Current Weather</ul>
+            </div> 
+            
             <div class="list-block forecast-list">
               <ul>{{forecast}}</ul>
             </div>
             <div class="list-block forecast-list">
               <ul>{{webcams}}</ul>
-            </div>
-            <div class="list-block forecast-list">
-              <span class="freshy-snark"> May your powder days be many... </span>
             </div>
           </div>
         </div>

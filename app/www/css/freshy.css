@@ -348,18 +348,18 @@ html.with-statusbar-overlay .statusbar-overlay.with-popup-opened {
     Modal
 ==============================*/
 .modal-inner {
-  border-bottom: 1px solid #390532;
+  border-bottom: 1px solid #555;
 }
 .modal-button {
-  border-right: 1px solid #390532;
+  border-right: 1px solid #555;
 }
 .modal-inner,
 .modal-button {
-  color: #fff;
-  background: rgba(77, 12, 68, 0.9);
+  color: #555;
+  background: #eee;
 }
 .modal-button:active {
-  background: #68095b;
+  background: #aaa;
 }
 
 .item-content {

@@ -173,6 +173,17 @@ $$('.popup .search-results').on('click', 'li', function () {
     });
 });
 
+$$('.prompt-title-ok').on('click', function () {
+    App.prompt('Enter your email address to Get updates from us about FreshyMap stuff', 'The FreshyMap Newsletter', function (value) {
+       if ( value ) { 
+        App.addNotification({
+          title: 'FreshyMap says...',
+          message: 'Thanks for signing up, we love and respect you.'
+        });
+      }
+    });
+});
+
 // Update html and weather data on app load
 App.buildWeatherHTML();
 App.updateWeatherData(function () {
