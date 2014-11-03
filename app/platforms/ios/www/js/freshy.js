@@ -80,11 +80,13 @@ App.updateWeatherData = function (callback) {
                     wind: place.current_weather.wind_speed,
                     condition: place.current_weather.weather,
                     forecast: place.snow_forecast,
+                    currentwx: place.current_weather,
                     webcams: place.webcams,
                     freshyfactor: place.freshy_factor,
                     lat: place.Lat,
                     long: place.Long,
-                    woeid: place.Name 
+                    woeid: place.Name,
+                    reportTime: place.report_time
                 });
             }
         }
@@ -173,6 +175,17 @@ $$('.popup .search-results').on('click', 'li', function () {
     });
 });
 
+$$('.prompt-title-ok').on('click', function () {
+    App.prompt('Enter your email address to Get updates from us about FreshyMap stuff', 'The FreshyMap Newsletter', function (value) {
+       if ( value ) { 
+        App.addNotification({
+          title: 'FreshyMap says...',
+          message: 'Thanks for signing up, we love and respect you.'
+        });
+      }
+    });
+});
+
 // Update html and weather data on app load
 App.buildWeatherHTML();
 App.updateWeatherData(function () {
@@ -199,7 +212,7 @@ App.buildSnark = function( ff ){
       end = 'there are stashes to be found mate! If you go hunting you shall be rewarded.';
       break;
     case ff < 85: 
-      end = 'what are you doing reading this? Go get first chair dumbass.';
+      end = 'what are you doing reading this? Go get first chair!';
       break;
     case ff < 90:
       end = 'we predict the pow will be in your face, go now.';
@@ -293,6 +306,25 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
     for (var i = 0; i < weatherData.length; i++) {
         if (weatherData[i].woeid === woeid) item = weatherData[i];
     }
+
+    console.log('weatherdata', weatherData);
+    console.log('item.currentwx', item.currentwx)
+    var currentHTML = '';
+    currentHTML +=
+            '<li class="item-content">' +
+              '<div class="item-inner">' +
+                '<div id="item-current-left">' +
+                  '<div class="item-current-title">Current Weather:</div>' +
+                  '<div class="item-current-condition">'+item.currentwx.weather+'</div>' +
+                '</div>' +
+                '<div class="item-after">' +
+                  '<span class="current-temp">'+item.currentwx.temp+'&deg;</span>'+
+                  '<span class="current-icon"><i class="wi ' + icons[item.currentwx.icon] + '"></i></span>' +
+                '</div>' +
+              '</div>' +
+            '</li>';
+
+
     var days = ('Monday Tuesday Wednesday Thursday Friday Saturday Sunday').split(' ');
     //var forecastHTML = '<li class="item-content"><span class="list-title">5 Day Forecast</span></li>';
     var forecastHTML = '';
@@ -300,7 +332,6 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
         var forecastItem = item.forecast[i];
         var date = new Date(forecastItem.time);
         var formatDate  = days[date.getDay()];
-        console.log('forecastItem.weather[0]', forecastItem.weather[0]);
         forecastHTML +=
                 '<li class="item-content">' +
                   '<div class="item-inner">' +
@@ -336,9 +367,11 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
     var base_depth = (item.base || 0) +'&quot;';
     var pageContent = App.detailsTemplate
                     .replace(/{{name}}/g, item.name)
+                    .replace(/{{report_time}}/g, 'Updated today @ ' + new Date(item.reportTime).toLocaleTimeString())
                     .replace(/{{new_snow}}/g, new_snow)
                     .replace(/{{base_depth}}/g, base_depth)
                     .replace(/{{condition}}/g, item.condition.text)
+                    .replace(/{{current}}/g, currentHTML)
                     .replace(/{{forecast}}/g, forecastHTML)
                     .replace(/{{freshy-factor}}/g, ffHTML)
                     .replace(/{{webcams}}/g, webCamHTML);

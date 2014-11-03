@@ -206,10 +206,10 @@ App.buildSnark = function( ff ){
       end = 'call it a groomer day, and have fun ripping up the corduroy';
       break;
     case ff < 60: 
-      end = 'it might a groomer day, unless of course you know the special spots...';
+      end = 'it might be another groomer day, unless of course you know the special spots...';
       break;
     case ff < 75: 
-      end = 'there are stashes to be found mate! If you go hunting you shall be rewarded.';
+      end = 'there are secret stashes to be found! If you go hunting, you\'ll be rewarded.';
       break;
     case ff < 85: 
       end = 'what are you doing reading this? Go get first chair!';
