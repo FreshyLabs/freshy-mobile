@@ -324,7 +324,6 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
               '</div>' +
             '</li>';
 
-
     var days = ('Monday Tuesday Wednesday Thursday Friday Saturday Sunday').split(' ');
     //var forecastHTML = '<li class="item-content"><span class="list-title">5 Day Forecast</span></li>';
     var forecastHTML = '';

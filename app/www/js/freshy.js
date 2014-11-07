@@ -357,7 +357,7 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
 
 
     // TODO REMOVE THIS IN PROD
-    item.freshyfactor = Math.floor(Math.random() * 100) + 10;
+    //item.freshyfactor = Math.floor(Math.random() * 100) + 10;
 
     var ffSnark = App.buildSnark( item.freshyfactor );
     var ffHTML = '<li class="item-content"><span class="list-title">Freshy Factor</span></li>'+
