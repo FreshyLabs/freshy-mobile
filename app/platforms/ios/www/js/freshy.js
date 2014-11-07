@@ -362,7 +362,7 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
                  '<span class="list-title"><span class="freshyfactor">' + item.freshyfactor + '%</    span></span></div></li>'+
                 '<div class="item-content"><span class="freshy-snark">'+ffSnark+'</span></div>';
 
-    var new_snow = (item.snow || 0) +'&quot;';
+    var new_snow = '5"' //(item.snow || 0) +'&quot;';
     var base_depth = (item.base || 0) +'&quot;';
     var pageContent = App.detailsTemplate
                     .replace(/{{name}}/g, item.name)
