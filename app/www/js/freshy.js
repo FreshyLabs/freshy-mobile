@@ -177,7 +177,9 @@ $$('.popup .search-results').on('click', 'li', function () {
 
 $$('.prompt-title-ok').on('click', function () {
     App.prompt('Enter your email address to Get updates from us about FreshyMap stuff', 'The FreshyMap Newsletter', function (value) {
-       if ( value ) { 
+       if ( value ) {
+        var data = {'EMAIL':value};
+        $$.post("http://freshymap.us3.list-manage.com/subscribe/post?u=87fea72dc2be47d3d80f4d1fc&amp;id=9a4cdcb851", data, function(err, body){});
         App.addNotification({
           title: 'FreshyMap says...',
           message: 'Thanks for signing up, we love and respect you.'
