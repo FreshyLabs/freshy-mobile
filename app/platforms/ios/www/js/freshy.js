@@ -177,7 +177,9 @@ $$('.popup .search-results').on('click', 'li', function () {
 
 $$('.prompt-title-ok').on('click', function () {
     App.prompt('Enter your email address to Get updates from us about FreshyMap stuff', 'The FreshyMap Newsletter', function (value) {
-       if ( value ) { 
+       if ( value ) {
+        var data = {'EMAIL':value};
+        $$.post("http://freshymap.us3.list-manage.com/subscribe/post?u=87fea72dc2be47d3d80f4d1fc&amp;id=9a4cdcb851", data, function(err, body){});
         App.addNotification({
           title: 'FreshyMap says...',
           message: 'Thanks for signing up, we love and respect you.'
@@ -206,10 +208,10 @@ App.buildSnark = function( ff ){
       end = 'call it a groomer day, and have fun ripping up the corduroy';
       break;
     case ff < 60: 
-      end = 'it might a groomer day, unless of course you know the special spots...';
+      end = 'it might be another groomer day, unless of course you know the special spots...';
       break;
     case ff < 75: 
-      end = 'there are stashes to be found mate! If you go hunting you shall be rewarded.';
+      end = 'there are secret stashes to be found! If you go hunting, you\'ll be rewarded.';
       break;
     case ff < 85: 
       end = 'what are you doing reading this? Go get first chair!';
@@ -355,7 +357,7 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
 
 
     // TODO REMOVE THIS IN PROD
-    item.freshyfactor = Math.floor(Math.random() * 100) + 10;
+    //item.freshyfactor = Math.floor(Math.random() * 100) + 10;
 
     var ffSnark = App.buildSnark( item.freshyfactor );
     var ffHTML = '<li class="item-content"><span class="list-title">Freshy Factor</span></li>'+
