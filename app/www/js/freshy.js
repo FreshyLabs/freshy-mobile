@@ -45,10 +45,14 @@ App.searchLocation = function (search) {
 // Get all new data
 App.updateData = function (callback) {
     var names = [];
-    if (!localStorage.freshyMtns) return;
+    if (!localStorage.freshyMtns) { 
+      if (callback) callback();
+      return;
+    }
     var places = JSON.parse(localStorage.freshyMtns);
     if (places.length === 0) {
         localStorage.freshyData = JSON.stringify([]);
+        if (callback) callback();
         return;
     }
     if (!navigator.onLine) {
@@ -84,7 +88,8 @@ App.updateData = function (callback) {
                     lat: place.Lat,
                     long: place.Long,
                     woeid: place.Name,
-                    reportTime: place.report_time
+                    reportTime: place.report_time,
+                    status: place.current_status
                 });
             }
         }
@@ -186,6 +191,14 @@ $$('.prompt-title-ok').on('click', function () {
         });
       }
     });
+});
+
+var ptrContent = $$('.pull-to-refresh-content');
+ptrContent.on('refresh', function (e) {
+  App.updateData(function () {
+    App.buildHTML();
+    App.pullToRefreshDone();
+  });
 });
 
 // Update html and weather data on app load
@@ -322,6 +335,20 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
                 '</div>' +
               '</div>' +
             '</li>';
+  
+    var statusHTML = '';
+    if (item.status != 'open'){
+      statusHTML += '<li class="item-content">' +
+              '<div class="item-inner">' +
+                '<div id="item-current-left">' +
+                  '<div class="item-current-title">Open?</div>' +
+                '</div>' +
+                '<div class="item-after">' +
+                  '<span class="current-temp">'+item.status+'</span>'+
+                '</div>' +
+              '</div>' +
+            '</li>'; 
+    }
 
 
     var days = ('Monday Tuesday Wednesday Thursday Friday Saturday Sunday').split(' ');
