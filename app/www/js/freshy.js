@@ -73,6 +73,7 @@ App.updateData = function (callback) {
         if ($$.isArray(data)) {
             for (var i = 0; i < data.length; i++) {
                 place = data[i].feature.properties;
+                console.log('place', place);
                 freshyData.push({
                     name: place.Name,
                     country: place.Country,
@@ -393,6 +394,7 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
     var base_depth = (item.base || 0) +'&quot;';
     var pageContent = App.detailsTemplate
                     .replace(/{{name}}/g, item.name)
+                    .replace(/{{status}}/g, (item.status === "closed") ? item.status : "")
                     .replace(/{{report_time}}/g, 'Updated today @ ' + new Date(item.reportTime).toLocaleTimeString())
                     .replace(/{{new_snow}}/g, new_snow)
                     .replace(/{{base_depth}}/g, base_depth)

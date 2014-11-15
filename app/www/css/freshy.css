@@ -247,6 +247,11 @@ i.icon-email {
   font-size: 36px;
   margin-left: 10px
 }
+.detail-status {
+  margin-top:-8px;
+  text-transform: capitalize;
+  margin-left:10px;
+}
 .detail-time {
   text-align: left;
   font-size: 11px;
