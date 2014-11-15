@@ -419,3 +419,20 @@ float:right;
 .item-current-condition {
   padding-left: 15px;
 }
+
+#home-coach {
+  text-align: right;
+  padding-right: 10px;
+  position: absolute;
+  top: 40px;
+  width: 302px;
+  font-size:24px;
+  right: 34px;
+  font-weight: 100;
+}
+
+#coach-arrow {
+  position:relative;
+  top:-40px;
+  left:21px;
+}

@@ -26,7 +26,6 @@ App.searchLocation = function (search) {
         $$.get(q, function (results) {
             var html = '';
             results = JSON.parse(results);
-            //console.log('RESULTS', results)
             $$('.popup .preloader').hide();
             if (results.length > 0) {
                 for (var i = 0; i < results.length; i++) {
@@ -43,8 +42,8 @@ App.searchLocation = function (search) {
         });
     }, 300);
 };
-// Get locations weather data
-App.updateWeatherData = function (callback) {
+// Get all new data
+App.updateData = function (callback) {
     var names = [];
     if (!localStorage.freshyMtns) return;
     var places = JSON.parse(localStorage.freshyMtns);
@@ -55,7 +54,7 @@ App.updateWeatherData = function (callback) {
     if (!navigator.onLine) {
         App.alert('You need internet connection to update the freshy data');
     }
-    console.log('PLACES', places);
+    //console.log('PLACES', places);
     for (var i = 0; i < places.length; i++) {
         names.push(places[i].name);
     }
@@ -66,7 +65,6 @@ App.updateWeatherData = function (callback) {
         var freshyData = [];
         App.hideIndicator();
         data = JSON.parse(data);
-        console.log('Data', data);
         var place;
         if ($$.isArray(data)) {
             for (var i = 0; i < data.length; i++) {
@@ -95,15 +93,14 @@ App.updateWeatherData = function (callback) {
     });
 };
 // Build list of places on home page
-App.buildWeatherHTML = function () {
-    var weatherData = localStorage.freshyData;
-    if (!weatherData) return;
+App.buildHTML = function () {
+    var freshyData = localStorage.freshyData;
+    if (!freshyData) return;
     $$('.places-list ul').html('');
-    weatherData = JSON.parse(weatherData);
+    freshyData = JSON.parse(freshyData);
     var html = '';
-    for (var i = 0; i < weatherData.length; i++) {
-        var item = weatherData[i];
-        //console.log(item);
+    for (var i = 0; i < freshyData.length; i++) {
+        var item = freshyData[i];
         var new_snow = ( item.snow || 0 ) +"&quot; / "+ (item.base || 0) + '&quot;';
         var date = new Date(item.condition.date);
         var time = date.getHours(date) + ':' + date.getMinutes(date);
@@ -114,6 +111,9 @@ App.buildWeatherHTML = function () {
                 .replace(/{{new_snow}}/g, new_snow);
     }
     $$('.places-list ul').html(html);
+    if (freshyData.length){
+      $$('.places-list #home-coach').html('');
+    }
 };
 
 // Delete place
@@ -170,13 +170,13 @@ $$('.popup .search-results').on('click', 'li', function () {
         province: li.attr('data-province')
     });
     localStorage.freshyMtns = JSON.stringify(places);
-    App.updateWeatherData(function () {
-        App.buildWeatherHTML();
+    App.updateData(function () {
+        App.buildHTML();
     });
 });
 
 $$('.prompt-title-ok').on('click', function () {
-    App.prompt('Enter your email address to Get updates from us about FreshyMap stuff', 'The FreshyMap Newsletter', function (value) {
+    App.prompt('Enter your email address to get updates from us about FreshyMap stuff', 'The FreshyMap Newsletter', function (value) {
        if ( value ) {
         var data = {'EMAIL':value};
         $$.post("http://freshymap.us3.list-manage.com/subscribe/post?u=87fea72dc2be47d3d80f4d1fc&amp;id=9a4cdcb851", data, function(err, body){});
@@ -189,9 +189,9 @@ $$('.prompt-title-ok').on('click', function () {
 });
 
 // Update html and weather data on app load
-App.buildWeatherHTML();
-App.updateWeatherData(function () {
-    App.buildWeatherHTML();
+App.buildHTML();
+App.updateData(function () {
+    App.buildHTML();
 });
 
 App.buildSnark = function( ff ){
@@ -260,7 +260,6 @@ App.buildArc = function( ff ){
         .attr("d", arc);
 
     // Add the foreground arc in orange, currently showing 12.7%.
-    console.log(.127 * τ, τ);
     var foreground = svg.append("path")
         .datum({endAngle: ff/100 * τ})
         .style("fill", "#34aF50")
@@ -309,8 +308,6 @@ $$('.places-list').on('click', 'a.item-link', function (e) {
         if (weatherData[i].woeid === woeid) item = weatherData[i];
     }
 
-    console.log('weatherdata', weatherData);
-    console.log('item.currentwx', item.currentwx)
     var currentHTML = '';
     currentHTML +=
             '<li class="item-content">' +
@@ -390,9 +387,9 @@ window.addEventListener('load', function (e) {
     window.applicationCache.addEventListener('updateready', function (e) {
         if (window.applicationCache.status === window.applicationCache.UPDATEREADY) {
             // Browser downloaded a new app cache.
-            App.confirm('A new version of weather7 is available. Do you want to load it right now?', function () {
-                window.location.reload();
-            });
+            //App.confirm('A new version of is available. Do you want to load it right now?', function () {
+            //    window.location.reload();
+            //});
         } else {
             // Manifest didn't changed. Nothing new to server.
         }
