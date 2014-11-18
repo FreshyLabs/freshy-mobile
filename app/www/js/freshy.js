@@ -44,6 +44,7 @@ App.searchLocation = function (search) {
 };
 // Get all new data
 App.updateData = function (callback) {
+    
     var names = [];
     if (!localStorage.freshyMtns) { 
       if (callback) callback();
@@ -58,7 +59,6 @@ App.updateData = function (callback) {
     if (!navigator.onLine) {
         App.alert('You need internet connection to update the freshy data');
     }
-    //console.log('PLACES', places);
     for (var i = 0; i < places.length; i++) {
         names.push(places[i].name);
     }
@@ -73,7 +73,6 @@ App.updateData = function (callback) {
         if ($$.isArray(data)) {
             for (var i = 0; i < data.length; i++) {
                 place = data[i].feature.properties;
-                console.log('place', place);
                 freshyData.push({
                     name: place.Name,
                     country: place.Country,
