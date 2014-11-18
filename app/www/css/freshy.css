@@ -41,6 +41,7 @@ body {
 .page[data-page="detail"] {
   background: none;
   background: #000000 url(../img/bg10.jpg) no-repeat center;
+  /*background: #000000 url(../img/fm-bg-1.jpg) no-repeat center;*/
   -webkit-background-size: cover;
   background-size: cover;
 }
